@@ -64,10 +64,30 @@ void lstm::lstm_layer()
 //   in Keras). This is the third layer in the stack.
 //
 //====================================================================
+/*
+self.residual = xt # residual is for skip connection
+
+HS = self.hidden_units # Hidden size
+hidden = self.hidden
+bias = b
+gates = np.dot(xt, W) + np.dot(hidden, U) + bias
+i_t, f_t, g_t, o_t = (
+    sigmoid(gates[:, : HS]), # input
+    sigmoid(gates[:, HS : HS * 2]), # forget
+    self.tanh(gates[:, HS * 2 : HS * 3]),
+    sigmoid(gates[:, HS * 3 : ]), # output
+    )
+    c_t = f_t * self.cell_state + i_t * g_t # Cell state
+    h_t = o_t * self.tanh(c_t) # Hidden state
+    self.hidden = h_t     # c_t and h_t assignments written out for clarity, can just update the self.hiddenand self.cell states without using c_tand h_t
+    self.cell_state = c_t
+*/
+
 {
-    gates = nc::dot(conv1d_1_out, W) + bias;
+    gates = nc::dot(xt, lstm_weights_ih) + nc::dot(h_t, lstm_weights_hh) + lstm_bias;
     for (int i = 0; i < HS; i++) {
-        h_t[i] = sigmoid(gates[3 * HS + i]) * tanh(sigmoid(gates[i]) * tanh(gates[2 * HS + i]));
+        c_t[i] = sigmoid(gates[HS + i]) * c_t[i] + sigmoid(gates[i]) * tanh(gates[2 * HS + i]);
+        h_t[i] = sigmoid(gates[3 * HS + i]) * tanh(c_t[i]);
     }
     lstm_out = h_t;
 }
@@ -81,7 +101,7 @@ void lstm::dense_layer()
 //
 //====================================================================
 {
-    dense_out = nc::dot(lstm_out, dense_kernel) + dense_bias;
+    dense_out = nc::dot(lstm_out, dense_weights) + dense_bias;
 }
 
 
@@ -97,13 +117,9 @@ void lstm::process(const float* inData, float* outData, int numSamples)
 {
     for (int i = 0; i < numSamples; i++)
     {
-        // Set the current sample input to LSTM
-        for (int j = 0; j < input_size; j++) {
-            input[j] = data[i][j];
-        }
-
+        xt = inData[i];
         lstm_layer();
         dense_layer();
-        outData[i] = dense_out[0];
+        outData[i] = dense_out[0] + inData[i]; // Set output and add residual skip
     }
 }

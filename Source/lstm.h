@@ -58,9 +58,11 @@ class lstm
         nc::NdArray<float> dense_weights;
 
 
-        // Layer outputs
+        // Layer in/out
+        nc::NdArray<float> xt;
         nc::NdArray<float> lstm_out;
         nc::NdArray<float> dense_out;
+        float residual = 0.0;  // TODO add residual for each sample, or for whole batch at end?
  
     private:
 
