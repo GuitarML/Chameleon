@@ -33,7 +33,7 @@ nc::NdArray<float> ModelLoader::matrix_to_nc(std::vector<std::vector<float>> in_
     return out_mat;
 }
 
-
+/*
 std::vector<nc::NdArray<float>> ModelLoader::matrix3d_to_nc(nlohmann::json in_mat)
 {
     std::vector<nc::NdArray<float>> out_mat;
@@ -52,7 +52,7 @@ std::vector<nc::NdArray<float>> ModelLoader::matrix3d_to_nc(nlohmann::json in_ma
    
     return out_mat;
 }
-
+*/
 
 
 void ModelLoader::load_json(const char *filename)
@@ -62,33 +62,35 @@ void ModelLoader::load_json(const char *filename)
     nlohmann::json weights_json;
     i2 >> weights_json;
     
-    input_size_loader = weights_json["/input_size"_json_pointer];
+    int hidden_size = 32;
 
-    std::vector<float> conv1d_bias = weights_json["/conv1d/bias:0"_json_pointer];
-    conv1d_bias_nc = vector_to_nc(conv1d_bias);
-    conv1d_kernel_nc = matrix3d_to_nc(weights_json["/conv1d/kernel:0"_json_pointer]);
-    conv1d_stride_loader = weights_json["/conv1d_stride"_json_pointer];
+    nc::NdArray<float> lstm_bias_ih_nc;
+    nc::NdArray<float> lstm_weights_ih_nc;
 
-    conv1d_kernel_size = conv1d_kernel_nc.size();
-    conv1d_num_channels = conv1d_bias_nc.size();
-    
-    std::vector<float> conv1d_1_bias = weights_json["/conv1d_1/bias:0"_json_pointer];
-    conv1d_1_bias_nc = vector_to_nc(conv1d_1_bias);
-    conv1d_1_kernel_nc = matrix3d_to_nc(weights_json["/conv1d_1/kernel:0"_json_pointer]);
-    conv1d_1_stride_loader = weights_json["/conv1d_1_stride"_json_pointer];
+    nc::NdArray<float> lstm_bias_hh_nc;
+    nc::NdArray<float> lstm_weights_hh_nc;
 
-    conv1d_1_kernel_size = conv1d_1_kernel_nc.size();
-    conv1d_1_num_channels = conv1d_1_bias_nc.size();
+    nc::NdArray<float> dense_bias_nc;
+    nc::NdArray<float> dense_weights_nc;
 
-    std::vector<float> lstm_bias = weights_json["/lstm/bias:0"_json_pointer];
-    std::vector<std::vector<float>> lstm_kernel = weights_json["/lstm/kernel:0"_json_pointer];
-    lstm_bias_nc = vector_to_nc(lstm_bias);
-    lstm_kernel_nc = matrix_to_nc(lstm_kernel);
+    hidden_size = weights_json["/model_data/hidden_size"_json_pointer];
 
-    hidden_size = lstm_bias.size() / 4;
+    std::vector<float> lstm_bias_ih = weights_json["/model_data/state_dict/rec.bias_ih_l0"_json_pointer];
+    std::vector<std::vector<float>> lstm_weights_ih = weights_json["/model_data/state_dict/rec.weight_ih_l0"_json_pointer];
+    lstm_bias_ih_nc = vector_to_nc(lstm_bias_ih);
+    lstm_weights_ih_nc = matrix_to_nc(lstm_weights_ih);
 
-    std::vector<float> dense_bias = weights_json["/dense/bias:0"_json_pointer];
-    std::vector<std::vector<float>> dense_kernel = weights_json["/dense/kernel:0"_json_pointer];
+    std::vector<float> lstm_bias_hh = weights_json["/model_data/state_dict/rec.bias_hh_l0"_json_pointer];
+    std::vector<std::vector<float>> lstm_weights_hh = weights_json["/model_data/state_dict/rec.weight_hh_l0"_json_pointer];
+    lstm_bias_ih_nc = vector_to_nc(lstm_bias_hh);
+    lstm_weights_ih_nc = matrix_to_nc(lstm_weights_hh);
+
+    std::vector<float> dense_bias = weights_json["/model_data/state_dict/lin.bias"_json_pointer];
+    std::vector<std::vector<float>> dense_weights = weights_json["/model_data/state_dict/lin.weight"_json_pointer];
     dense_bias_nc = vector_to_nc(dense_bias);
-    dense_kernel_nc = matrix_to_nc(dense_kernel);
+    dense_weights_nc = matrix_to_nc(dense_weights);
+
+    // Add lstm weights for later use
+    lstm_bias_nc = lstm_bias_ih_nc + lstm_bias_ih_nc;
+
 }

@@ -30,12 +30,10 @@ float lstm::sigmoid(float x)
     return 1.0f / (1.0f + expf(-x));
 }
 
-void lstm::setParams(int hidden_size, int conv1d_kernel_size, int conv1d_1_kernel_size, int conv1d_num_channels, int conv1d_1_num_channels,
-                    nc::NdArray<float> conv1d_bias_nc, nc::NdArray<float> conv1d_1_bias_nc, 
-                    std::vector<nc::NdArray<float>> conv1d_kernel_nc, std::vector<nc::NdArray<float>> conv1d_1_kernel_nc,
-                    nc::NdArray<float> lstm_bias_nc, nc::NdArray<float> lstm_kernel_nc, 
-                    nc::NdArray<float> dense_bias_nc, nc::NdArray<float> dense_kernel_nc, int input_size_loader, 
-                    int conv1d_stride_loader, int conv1d_1_stride_loader)
+void lstm::setParams(int hidden_size, nc::NdArray<float> lstm_bias_ih_nc,
+                     nc::NdArray<float> lstm_weights_ih_nc, nc::NdArray<float> lstm_bias_hh_nc,
+                     nc::NdArray<float> lstm_weights_hh_nc, nc::NdArray<float> lstm_bias_nc,
+                     nc::NdArray<float> dense_bias_nc, nc::NdArray<float> dense_weights_nc)
 //====================================================================
 // Description: Sets the parameters for the lstm class from the 
 //   model loader class. These are set once when the default model 
@@ -45,55 +43,14 @@ void lstm::setParams(int hidden_size, int conv1d_kernel_size, int conv1d_1_kerne
 //  TODO: Handle a better way than having a function with all these arguments
 //====================================================================
 {
-    input_size = input_size_loader;
     HS = hidden_size;
 
-    conv1d_Kernel_Size = conv1d_kernel_size;
-    conv1d_Num_Channels = conv1d_num_channels;
-    conv1d_1_Kernel_Size = conv1d_1_kernel_size;
-    conv1d_1_Num_Channels = conv1d_1_num_channels;
-    conv1d_stride = conv1d_stride_loader;
-    conv1d_1_stride = conv1d_1_stride_loader;
-
-    nc::NdArray<float> conv1d_bias_temp = conv1d_bias_nc;
-    conv1d_kernel = conv1d_kernel_nc;
-
-    nc::NdArray<float> conv1d_1_bias_temp = conv1d_1_bias_nc;
-    conv1d_1_kernel = conv1d_1_kernel_nc;
-
-    W = lstm_kernel_nc;
-    bias = lstm_bias_nc;
-
-    dense_kernel = dense_kernel_nc;
+    lstm_bias = lstm_bias_nc;
+    lstm_weights_ih = lstm_weights_ih_nc;
+    lstm_weights_hh = lstm_weights_hh_nc;
+    lstm_bias = lstm_bias_nc;
     dense_bias = dense_bias_nc;
-
-    h_t = nc::zeros<float>(1, HS);
-
-    gates = nc::zeros<float>(1, HS * 4);
-
-    nc::NdArray<float> dummy_input = nc::zeros<float>(nc::Shape(input_size, 1));
-
-    // Set up bias matrices for calculation 
-    pad_init(dummy_input);
-    nc::NdArray<float> padded_dummy = pad(dummy_input);  // TODO handle different strides
-    int bias_shape = padded_dummy.shape().rows / conv1d_stride; // TODO handle different strides
-    conv1d_bias = nc::zeros<float>(nc::Shape(bias_shape, conv1d_bias_temp.shape().cols));;
-    nc::NdArray<float> new_bias = conv1d_bias_temp;
-    for (int i = 0; i < bias_shape - 1; i++)
-    {
-        new_bias = nc::append(new_bias, conv1d_bias_temp, nc::Axis::ROW);
-    }
-    conv1d_bias = new_bias;
-
-    
-    bias_shape = 1; //TODO fix having to hardcode
-    conv1d_1_bias = nc::zeros<float>(nc::Shape(bias_shape, conv1d_1_bias_temp.shape().cols));;
-    nc::NdArray<float> new_bias2 = conv1d_1_bias_temp;
-    for (int i = 0; i < bias_shape - 1; i++)
-    {
-        new_bias2 = nc::append(new_bias2, conv1d_1_bias_temp, nc::Axis::ROW);
-    }
-    conv1d_1_bias = new_bias2;
+    dense_weights = dense_weights_nc);
 }
 
 

@@ -27,12 +27,9 @@ SmartAmpProAudioProcessor::SmartAmpProAudioProcessor()
 
 #endif
 {
-    setupDataDirectories();
-    installPythonScripts();
-    resetDirectory(userAppDataDirectory_tones);
-    if (jsonFiles.size() > 0) {
-        loadConfig(jsonFiles[current_model_index]);
-    }
+
+    loadConfig(default_tone);
+    
 }
 
 SmartAmpProAudioProcessor::~SmartAmpProAudioProcessor()
