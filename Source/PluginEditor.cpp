@@ -16,16 +16,17 @@
 
 
 //==============================================================================
-SmartAmpProAudioProcessorEditor::SmartAmpProAudioProcessorEditor (SmartAmpProAudioProcessor& p)
+ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProcessor& p)
     : AudioProcessorEditor (&p), processor (p)
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to
 
     // Set Widget Graphics
-    ampSilverKnobLAF.setLookAndFeel(ImageCache::getFromMemory(BinaryData::Vintage_Knob_png, BinaryData::Vintage_Knob_pngSize));
-    statusKnob.setLookAndFeel(ImageCache::getFromMemory(BinaryData::status_knob_png, BinaryData::status_knob_pngSize));
+    ampSilverKnobLAF.setLookAndFeel(ImageCache::getFromMemory(BinaryData::knob_70_black_png, BinaryData::knob_70_black_pngSize));
+    //statusKnob.setLookAndFeel(ImageCache::getFromMemory(BinaryData::status_knob_png, BinaryData::status_knob_pngSize));
 
+    /*
     ampOnButton.setImages(true, true, true,
         ImageCache::getFromMemory(BinaryData::Power_switch_on_png, BinaryData::Power_switch_on_pngSize), 1.0, Colours::transparentWhite,
         Image(), 1.0, Colours::transparentWhite,
@@ -33,13 +34,13 @@ SmartAmpProAudioProcessorEditor::SmartAmpProAudioProcessorEditor (SmartAmpProAud
         0.0);
     addAndMakeVisible(ampOnButton);
     ampOnButton.addListener(this);
-
+    */
 
     addAndMakeVisible(ampLED);
     ampLED.setImages(true, true, true,
-        ImageCache::getFromMemory(BinaryData::led_blue_on_png, BinaryData::led_blue_on_pngSize), 1.0, Colours::transparentWhite,
+        ImageCache::getFromMemory(BinaryData::led_red_on_png, BinaryData::led_red_on_pngSize), 1.0, Colours::transparentWhite,
         Image(), 1.0, Colours::transparentWhite,
-        ImageCache::getFromMemory(BinaryData::led_blue_on_png, BinaryData::led_blue_on_pngSize), 1.0, Colours::transparentWhite,
+        ImageCache::getFromMemory(BinaryData::led_red_on_png, BinaryData::led_red_on_pngSize), 1.0, Colours::transparentWhite,
         0.0);
     ampLED.addListener(this);
 
@@ -95,17 +96,19 @@ SmartAmpProAudioProcessorEditor::SmartAmpProAudioProcessorEditor (SmartAmpProAud
     ampMasterKnob.setDoubleClickReturnValue(true, -12.0);
 
     // Size of plugin GUI
-    setSize(694, 376);
+    setSize(774, 293);
 
 }
 
-SmartAmpProAudioProcessorEditor::~SmartAmpProAudioProcessorEditor()
+ChameleonAudioProcessorEditor::~ChameleonAudioProcessorEditor()
 {
 }
 
 //==============================================================================
-void SmartAmpProAudioProcessorEditor::paint (Graphics& g)
+void ChameleonAudioProcessorEditor::paint (Graphics& g)
 {
+    background = ImageCache::getFromMemory(BinaryData::chameleon_amp_jpg, BinaryData::chameleon_amp_jpgSize);
+    /*
     if (processor.skin == 0) {
         if (current_background == 1 && processor.amp_state == 1) {
             background = ImageCache::getFromMemory(BinaryData::smp_on_png, BinaryData::smp_on_pngSize);
@@ -127,12 +130,14 @@ void SmartAmpProAudioProcessorEditor::paint (Graphics& g)
             background = ImageCache::getFromMemory(BinaryData::original_off_png, BinaryData::original_off_pngSize);
         }
     }
+    */
     g.drawImageAt(background, 0, 0);
 
     g.setColour (Colours::white);
     g.setFont (15.0f);
 
     // Set On/Off amp graphic
+    /*
     if (processor.skin == 0) {
         if (processor.amp_state == 0) {
             ampOnButton.setImages(true, true, true,
@@ -183,26 +188,29 @@ void SmartAmpProAudioProcessorEditor::paint (Graphics& g)
                 ImageCache::getFromMemory(BinaryData::led_blue_on_png, BinaryData::led_blue_on_pngSize), 1.0, Colours::transparentWhite,
                 0.0);
         }
+        
     }
+    */
 }
 
-void SmartAmpProAudioProcessorEditor::resized()
+void ChameleonAudioProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 	
     // Amp Widgets
-    ampBassKnob.setBounds(203, 242, 55, 75);
-    ampMidKnob.setBounds(283, 242, 55, 75);
-    ampTrebleKnob.setBounds(368, 242, 55, 75);
-    ampGainKnob.setBounds(100, 225, 75, 95);
-    ampMasterKnob.setBounds(542, 225, 75, 95);
+    ampBassKnob.setBounds(201, 40, 50, 70);
+    ampMidKnob.setBounds(258, 40, 50, 70);
+    ampTrebleKnob.setBounds(308, 40, 50, 70);
+    ampGainKnob.setBounds(130, 40, 50, 70);
+    ampMasterKnob.setBounds(450, 40, 50, 70);
 
     ampOnButton.setBounds(54, 259, 15, 25);
-    ampLED.setBounds(636, 240, 15, 15);
+    ampLED.setBounds(694, 100, 20, 20);
 }
 
-void SmartAmpProAudioProcessorEditor::modelSelectChanged()
+/*
+void ChameleonAudioProcessorEditor::modelSelectChanged()
 {
     const int selectedFileIndex = modelSelect.getSelectedItemIndex();
     if (selectedFileIndex >= 0 && selectedFileIndex < processor.jsonFiles.size()) {
@@ -210,32 +218,32 @@ void SmartAmpProAudioProcessorEditor::modelSelectChanged()
         processor.current_model_index = modelSelect.getSelectedItemIndex();
     }
 }
+*/
 
 
-
-void SmartAmpProAudioProcessorEditor::buttonClicked(juce::Button* button)
+void ChameleonAudioProcessorEditor::buttonClicked(juce::Button* button)
 {
+    /*
     if (button == &ampOnButton) {
         ampOnButtonClicked();
-        helpLabel.setText("", juce::NotificationType::dontSendNotification);
     } 
+    */
 }
 
-
-void SmartAmpProAudioProcessorEditor::ampOnButtonClicked() {
+/*
+void ChameleonAudioProcessorEditor::ampOnButtonClicked() {
     if (processor.amp_state == 0) {
         processor.amp_state = 1;
-        // Reset the directory in case user is manually adding or removing models from the SmartAmpPro directory
-        processor.resetDirectory(processor.userAppDataDirectory_tones);
     }
     else {
         processor.amp_state = 0;
     }
     repaint();
 }
+*/
 
 
-void SmartAmpProAudioProcessorEditor::sliderValueChanged(Slider* slider)
+void ChameleonAudioProcessorEditor::sliderValueChanged(Slider* slider)
 {
     // Amp
     if (slider == &ampGainKnob)
@@ -243,13 +251,10 @@ void SmartAmpProAudioProcessorEditor::sliderValueChanged(Slider* slider)
     else if (slider == &ampMasterKnob)
         processor.set_ampMaster(slider->getValue());
     else if (slider == &ampBassKnob || slider == &ampMidKnob || slider == &ampTrebleKnob) {
-        processor.set_ampEQ(ampBassKnob.getValue(), ampMidKnob.getValue(), ampTrebleKnob.getValue(), ampPresenceKnob.getValue());
+        processor.set_ampEQ(ampBassKnob.getValue(), ampMidKnob.getValue(), ampTrebleKnob.getValue());
         // Set knob states for saving positions when closing/reopening GUI
         processor.ampBassKnobState = ampBassKnob.getValue();
         processor.ampMidKnobState = ampMidKnob.getValue();
         processor.ampTrebleKnobState = ampTrebleKnob.getValue();
-    }
-    else if (slider == &ampPresenceKnob) {
-            processor.set_ampEQ(ampBassKnob.getValue(), ampMidKnob.getValue(), ampTrebleKnob.getValue(), ampPresenceKnob.getValue());
     }
 }

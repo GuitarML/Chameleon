@@ -7,6 +7,14 @@
     <GROUP id="{0250E2E8-A733-0AA7-0A08-97085228CF87}" name="Resources">
       <FILE id="imjNSh" name="chameleon_amp.jpg" compile="0" resource="1"
             file="resources/chameleon_amp.jpg"/>
+      <FILE id="ysBzxa" name="knob_70_black.png" compile="0" resource="1"
+            file="resources/knob_70_black.png"/>
+      <FILE id="a8ajae" name="led_red_off.png" compile="0" resource="1" file="resources/led_red_off.png"/>
+      <FILE id="gcblfC" name="led_red_on.png" compile="0" resource="1" file="resources/led_red_on.png"/>
+      <FILE id="XzO0sS" name="power_switch_down.png" compile="0" resource="1"
+            file="resources/power_switch_down.png"/>
+      <FILE id="wClE6T" name="power_switch_up.png" compile="0" resource="1"
+            file="resources/power_switch_up.png"/>
       <FILE id="HvpQWI" name="ts9_model_best.json" compile="0" resource="1"
             file="test/ts9_model_best.json"/>
     </GROUP>

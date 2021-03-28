@@ -14,7 +14,7 @@
 #include <fstream>
 
 //==============================================================================
-SmartAmpProAudioProcessor::SmartAmpProAudioProcessor()
+ChameleonAudioProcessor::ChameleonAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
     : AudioProcessor(BusesProperties()
 #if ! JucePlugin_IsMidiEffect
@@ -28,21 +28,21 @@ SmartAmpProAudioProcessor::SmartAmpProAudioProcessor()
 #endif
 {
 
-    loadConfig(default_tone);
+    //loadConfig(default_tone);
     
 }
 
-SmartAmpProAudioProcessor::~SmartAmpProAudioProcessor()
+ChameleonAudioProcessor::~ChameleonAudioProcessor()
 {
 }
 
 //==============================================================================
-const String SmartAmpProAudioProcessor::getName() const
+const String ChameleonAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool SmartAmpProAudioProcessor::acceptsMidi() const
+bool ChameleonAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -51,7 +51,7 @@ bool SmartAmpProAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool SmartAmpProAudioProcessor::producesMidi() const
+bool ChameleonAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -60,7 +60,7 @@ bool SmartAmpProAudioProcessor::producesMidi() const
    #endif
 }
 
-bool SmartAmpProAudioProcessor::isMidiEffect() const
+bool ChameleonAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -69,50 +69,50 @@ bool SmartAmpProAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double SmartAmpProAudioProcessor::getTailLengthSeconds() const
+double ChameleonAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int SmartAmpProAudioProcessor::getNumPrograms()
+int ChameleonAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int SmartAmpProAudioProcessor::getCurrentProgram()
+int ChameleonAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void SmartAmpProAudioProcessor::setCurrentProgram (int index)
+void ChameleonAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const String SmartAmpProAudioProcessor::getProgramName (int index)
+const String ChameleonAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void SmartAmpProAudioProcessor::changeProgramName (int index, const String& newName)
+void ChameleonAudioProcessor::changeProgramName (int index, const String& newName)
 {
 }
 
 //==============================================================================
-void SmartAmpProAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void ChameleonAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
 }
 
-void SmartAmpProAudioProcessor::releaseResources()
+void ChameleonAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool SmartAmpProAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool ChameleonAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     ignoreUnused (layouts);
@@ -136,7 +136,7 @@ bool SmartAmpProAudioProcessor::isBusesLayoutSupported (const BusesLayout& layou
 #endif
 
 
-void SmartAmpProAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
+void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
     ScopedNoDenormals noDenormals;
 
@@ -152,9 +152,9 @@ void SmartAmpProAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBu
         buffer.applyGain(ampDrive);
 
 		// Apply LSTM model
-        if (model_loaded == 1) {
-            LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
-        }
+        //if (model_loaded == 1) {
+        //LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+        //}
 
         //    Master Volume 
         buffer.applyGain(ampMaster);
@@ -166,47 +166,47 @@ void SmartAmpProAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBu
 }
 
 //==============================================================================
-bool SmartAmpProAudioProcessor::hasEditor() const
+bool ChameleonAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-AudioProcessorEditor* SmartAmpProAudioProcessor::createEditor()
+AudioProcessorEditor* ChameleonAudioProcessor::createEditor()
 {
-    return new SmartAmpProAudioProcessorEditor (*this);
+    return new ChameleonAudioProcessorEditor (*this);  // Note: error on this line caused by unused inherited classes in Editor
 }
 
 //==============================================================================
-void SmartAmpProAudioProcessor::getStateInformation (MemoryBlock& destData)
+void ChameleonAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
 }
 
-void SmartAmpProAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void ChameleonAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
 }
 
-void SmartAmpProAudioProcessor::loadConfig(File configFile)
+void ChameleonAudioProcessor::loadConfig(File configFile)
 {
     this->suspendProcessing(true);
     model_loaded = 1;
     String path = configFile.getFullPathName();
     char_filename = path.toUTF8();
     loader.load_json(char_filename);
-    LSTM.setParams(loader.hidden_size, loader.conv1d_kernel_size, loader.conv1d_1_kernel_size,
-        loader.conv1d_num_channels, loader.conv1d_1_num_channels, loader.conv1d_bias_nc,
-        loader.conv1d_1_bias_nc, loader.conv1d_kernel_nc, loader.conv1d_1_kernel_nc,
-        loader.lstm_bias_nc, loader.lstm_kernel_nc,
-        loader.dense_bias_nc, loader.dense_kernel_nc, loader.input_size_loader, loader.conv1d_stride_loader, loader.conv1d_1_stride_loader);
+
+    LSTM.setParams(loader.hidden_size, loader.lstm_bias_ih_nc, loader.lstm_weights_ih_nc,
+        loader.lstm_bias_hh_nc, loader.lstm_weights_hh_nc, loader.lstm_bias_nc,
+        loader.dense_bias_nc, loader.dense_weights_nc);
 
     this->suspendProcessing(false);
 }
 
-void SmartAmpProAudioProcessor::resetDirectory(const File& file)
+/*
+void ChameleonAudioProcessor::resetDirectory(const File& file)
 {
     jsonFiles.clear();
     if (file.isDirectory())
@@ -217,9 +217,9 @@ void SmartAmpProAudioProcessor::resetDirectory(const File& file)
             jsonFiles.push_back(File(results.getReference(i).getFullPathName()));
     }
 }
+*/
 
-
-float SmartAmpProAudioProcessor::convertLogScale(float in_value, float x_min, float x_max, float y_min, float y_max)
+float ChameleonAudioProcessor::convertLogScale(float in_value, float x_min, float x_max, float y_min, float y_max)
 {
     float b = log(y_max / y_min) / (x_max - x_min);
     float a = y_max / exp(b * x_max);
@@ -227,13 +227,13 @@ float SmartAmpProAudioProcessor::convertLogScale(float in_value, float x_min, fl
     return converted_value;
 }
 
-void SmartAmpProAudioProcessor::set_ampDrive(float db_ampDrive)
+void ChameleonAudioProcessor::set_ampDrive(float db_ampDrive)
 {
     ampDrive = decibelToLinear(db_ampDrive);
     ampGainKnobState = db_ampDrive;
 }
 
-void SmartAmpProAudioProcessor::set_ampMaster(float db_ampMaster)
+void ChameleonAudioProcessor::set_ampMaster(float db_ampMaster)
 {
     ampMasterKnobState = db_ampMaster;
     if (db_ampMaster == -36.0) {
@@ -243,12 +243,12 @@ void SmartAmpProAudioProcessor::set_ampMaster(float db_ampMaster)
     }
 }
 
-void SmartAmpProAudioProcessor::set_ampEQ(float bass_slider, float mid_slider, float treble_slider)
+void ChameleonAudioProcessor::set_ampEQ(float bass_slider, float mid_slider, float treble_slider)
 {
-    eq4band.setParameters(bass_slider, mid_slider, treble_slider);
+    eq4band.setParameters(bass_slider, mid_slider, treble_slider, 0.0);
 }
 
-float SmartAmpProAudioProcessor::decibelToLinear(float dbValue)
+float ChameleonAudioProcessor::decibelToLinear(float dbValue)
 {
     return powf(10.0, dbValue/20.0);
 }
@@ -257,5 +257,5 @@ float SmartAmpProAudioProcessor::decibelToLinear(float dbValue)
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new SmartAmpProAudioProcessor();
+    return new ChameleonAudioProcessor();
 }

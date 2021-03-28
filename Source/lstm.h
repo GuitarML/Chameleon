@@ -46,8 +46,8 @@ class lstm
 
         // LSTM calc
         nc::NdArray<float> gates = nc::zeros<float>(1, HS * 4);
-        nc::NdArray<float> h_t;
-        nc::NdArray<float> c_t;
+        nc::NdArray<float> h_t;  // TODO: Initialize this
+        nc::NdArray<float> c_t;  // TODO: Initialize this
 
         // Loaded Model Weights
         nc::NdArray<float> lstm_weights_ih;

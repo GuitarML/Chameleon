@@ -20,12 +20,12 @@
 //==============================================================================
 /**
 */
-class SmartAmpProAudioProcessor  : public AudioProcessor
+class ChameleonAudioProcessor  : public AudioProcessor
 {
 public:
     //==============================================================================
-    SmartAmpProAudioProcessor();
-    ~SmartAmpProAudioProcessor();
+    ChameleonAudioProcessor();
+    ~ChameleonAudioProcessor();
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -60,7 +60,7 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    void SmartAmpProAudioProcessor::loadConfig(File configFile);
+    void ChameleonAudioProcessor::loadConfig(File configFile);
     
     // Overdrive Pedal
     float convertLogScale(float in_value, float x_min, float x_max, float y_min, float y_max);
@@ -78,7 +78,9 @@ public:
     int custom_tone = 0; // 0 = custom tone loaded, 1 = default channel tone
     File loaded_tone;
     juce::String loaded_tone_name;
-    const char* default_tone = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\ts9_model_best.json";
+    //const char* default_tone = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\ts9_model_best.json";
+    const char* char_filename = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\ts9_model_best.json";
+    File default_tone = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\ts9_model_best.json";
     int model_loaded = 0;
 
 
@@ -103,5 +105,5 @@ private:
     var dummyVar;
 
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SmartAmpProAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChameleonAudioProcessor)
 };

@@ -50,7 +50,7 @@ void lstm::setParams(int hidden_size, nc::NdArray<float> lstm_bias_ih_nc,
     lstm_weights_hh = lstm_weights_hh_nc;
     lstm_bias = lstm_bias_nc;
     dense_bias = dense_bias_nc;
-    dense_weights = dense_weights_nc);
+    dense_weights = dense_weights_nc;
 }
 
 
