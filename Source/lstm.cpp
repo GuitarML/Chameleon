@@ -46,10 +46,10 @@ void lstm::setParams(int hidden_size,
     HS = hidden_size;
 
     lstm_bias = lstm_bias_nc;
-    lstm_weights_ih2 = lstm_weights_ih_nc; //TODO here down are empty arrays
-    lstm_weights_hh2 = lstm_weights_hh_nc;
-    dense_bias2 = dense_bias_nc;
-    dense_weights2 = dense_weights_nc;
+    lstm_weights_ih = lstm_weights_ih_nc; //TODO here down are empty arrays
+    lstm_weights_hh = lstm_weights_hh_nc;
+    dense_bias = dense_bias_nc;
+    dense_weights = dense_weights_nc;
 }
 
 
@@ -83,7 +83,13 @@ i_t, f_t, g_t, o_t = (
 */
 
 {
-    gates = nc::dot(xt, lstm_weights_ih2) + nc::dot(h_t, lstm_weights_hh2) + lstm_bias; //todo weights not being read?
+    // DEBUG
+    //nc::NdArray<float>xt_test = nc::zeros<float>(128,1);
+    //nc::NdArray<float> test = nc::dot(xt, lstm_weights_ih);  /// This throws exception, dot product of 1 not working?
+    //nc::NdArray<float> test1 = nc::dot(h_t, lstm_weights_hh);
+    //nc::NdArray<float> test2 = nc::dot(h_t, lstm_weights_hh) + lstm_bias;
+
+    gates = nc::dot(xt, lstm_weights_ih) + nc::dot(h_t, lstm_weights_hh) + lstm_bias;  // TODO: Exception here, Try transposing matrices (when read in) like in pytorch code
     for (int i = 0; i < HS; i++) {
         c_t[i] = sigmoid(gates[HS + i]) * c_t[i] + sigmoid(gates[i]) * tanh(gates[2 * HS + i]);
         h_t[i] = sigmoid(gates[3 * HS + i]) * tanh(c_t[i]);
@@ -100,7 +106,7 @@ void lstm::dense_layer()
 //
 //====================================================================
 {
-    dense_out = nc::dot(lstm_out, dense_weights2) + dense_bias2;
+    dense_out = nc::dot(lstm_out, dense_weights) + dense_bias;
 }
 
 

@@ -44,20 +44,23 @@ class lstm
 
         // LSTM calc
         nc::NdArray<float> gates = nc::zeros<float>(1, HS * 4);
-        nc::NdArray<float> h_t;  // TODO: Initialize this
-        nc::NdArray<float> c_t;  // TODO: Initialize this
+
+        //self.hidden = np.zeros((self.input_size, self.hidden_units), dtype = np.float32)
+        //self.cell_state = np.zeros((self.input_size, self.hidden_units), dtype = np.float32)
+        nc::NdArray<float> h_t = nc::zeros<float>(1, HS);  // TODO: Initialize this
+        nc::NdArray<float> c_t = nc::zeros<float>(1, HS);  // TODO: Initialize this
 
         // Loaded Model Weights
-        nc::NdArray<float> lstm_weights_ih2;
-        nc::NdArray<float> lstm_weights_hh2;
+        nc::NdArray<float> lstm_weights_ih;
+        nc::NdArray<float> lstm_weights_hh;
         nc::NdArray<float> lstm_bias;
 
-        nc::NdArray<float> dense_bias2;
-        nc::NdArray<float> dense_weights2;
+        nc::NdArray<float> dense_bias;
+        nc::NdArray<float> dense_weights;
 
 
         // Layer in/out
-        nc::NdArray<float> xt;
+        nc::NdArray<float> xt = nc::zeros<float>(1,1);
         nc::NdArray<float> lstm_out;
         nc::NdArray<float> dense_out;
         float residual = 0.0;  // TODO add residual for each sample, or for whole batch at end?

@@ -110,7 +110,7 @@ with open('ts9_model_best.json') as json_file:
     data = json.load(json_file)
 
 # Transpose to match current custom implementation made for Keras
-weight_ih_l0 = np.array(data['state_dict']['rec.weight_ih_l0']).T
+weight_ih_l0 = np.array(data['state_dict']['rec.weight_ih_l0']).T  ## TRANSPOSING FROM STATE DICT
 weight_hh_l0 = np.array(data['state_dict']['rec.weight_hh_l0']).T
 bias_ih_l0 = np.array(data['state_dict']['rec.bias_ih_l0']).T
 bias_hh_l0 = np.array(data['state_dict']['rec.bias_hh_l0']).T

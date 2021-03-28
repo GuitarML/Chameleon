@@ -17,6 +17,7 @@ public:
 
     nc::NdArray<float> lstm_bias_ih_nc;
     nc::NdArray<float> lstm_weights_ih_nc;
+    nc::NdArray<float> lstm_weights_ih_nc3; ////
 
     nc::NdArray<float> lstm_bias_hh_nc;
     nc::NdArray<float> lstm_weights_hh_nc;
