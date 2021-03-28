@@ -27,9 +27,7 @@ class lstm
         void process(const float* inData, float* outData, int numSamples);
 
         void setParams( int hidden_size, 
-                        nc::NdArray<float> lstm_bias_ih_nc,
                         nc::NdArray<float> lstm_weights_ih_nc,
-                        nc::NdArray<float> lstm_bias_hh_nc,
                         nc::NdArray<float> lstm_weights_hh_nc,
                         nc::NdArray<float> lstm_bias_nc,
                         nc::NdArray<float> dense_bias_nc,
@@ -50,12 +48,12 @@ class lstm
         nc::NdArray<float> c_t;  // TODO: Initialize this
 
         // Loaded Model Weights
-        nc::NdArray<float> lstm_weights_ih;
-        nc::NdArray<float> lstm_weights_hh;
+        nc::NdArray<float> lstm_weights_ih2;
+        nc::NdArray<float> lstm_weights_hh2;
         nc::NdArray<float> lstm_bias;
 
-        nc::NdArray<float> dense_bias;
-        nc::NdArray<float> dense_weights;
+        nc::NdArray<float> dense_bias2;
+        nc::NdArray<float> dense_weights2;
 
 
         // Layer in/out

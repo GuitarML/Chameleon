@@ -28,7 +28,7 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
 #endif
 {
 
-    //loadConfig(default_tone);
+    loadConfig(default_tone);
     
 }
 
@@ -153,7 +153,7 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
 
 		// Apply LSTM model
         //if (model_loaded == 1) {
-        //LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+        LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
         //}
 
         //    Master Volume 
@@ -195,11 +195,11 @@ void ChameleonAudioProcessor::loadConfig(File configFile)
     this->suspendProcessing(true);
     model_loaded = 1;
     String path = configFile.getFullPathName();
-    char_filename = path.toUTF8();
+    //char_filename = path.toUTF8();
+    //loader.load_json(char_filename);
     loader.load_json(char_filename);
-
-    LSTM.setParams(loader.hidden_size, loader.lstm_bias_ih_nc, loader.lstm_weights_ih_nc,
-        loader.lstm_bias_hh_nc, loader.lstm_weights_hh_nc, loader.lstm_bias_nc,
+    LSTM.setParams(loader.hidden_size,  loader.lstm_weights_ih_nc,
+        loader.lstm_weights_hh_nc, loader.lstm_bias_nc,
         loader.dense_bias_nc, loader.dense_weights_nc);
 
     this->suspendProcessing(false);

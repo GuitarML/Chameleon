@@ -75,18 +75,18 @@ void ModelLoader::load_json(const char *filename)
 
     hidden_size = weights_json["/model_data/hidden_size"_json_pointer];
 
-    std::vector<float> lstm_bias_ih = weights_json["/model_data/state_dict/rec.bias_ih_l0"_json_pointer];
-    std::vector<std::vector<float>> lstm_weights_ih = weights_json["/model_data/state_dict/rec.weight_ih_l0"_json_pointer];
+    std::vector<float> lstm_bias_ih = weights_json["/state_dict/rec.bias_ih_l0"_json_pointer]; 
+    std::vector<std::vector<float>> lstm_weights_ih = weights_json["/state_dict/rec.weight_ih_l0"_json_pointer];
     lstm_bias_ih_nc = vector_to_nc(lstm_bias_ih);
     lstm_weights_ih_nc = matrix_to_nc(lstm_weights_ih);
 
-    std::vector<float> lstm_bias_hh = weights_json["/model_data/state_dict/rec.bias_hh_l0"_json_pointer];
-    std::vector<std::vector<float>> lstm_weights_hh = weights_json["/model_data/state_dict/rec.weight_hh_l0"_json_pointer];
+    std::vector<float> lstm_bias_hh = weights_json["/state_dict/rec.bias_hh_l0"_json_pointer];
+    std::vector<std::vector<float>> lstm_weights_hh = weights_json["/state_dict/rec.weight_hh_l0"_json_pointer];
     lstm_bias_ih_nc = vector_to_nc(lstm_bias_hh);
     lstm_weights_ih_nc = matrix_to_nc(lstm_weights_hh);
 
-    std::vector<float> dense_bias = weights_json["/model_data/state_dict/lin.bias"_json_pointer];
-    std::vector<std::vector<float>> dense_weights = weights_json["/model_data/state_dict/lin.weight"_json_pointer];
+    std::vector<float> dense_bias = weights_json["/state_dict/lin.bias"_json_pointer];
+    std::vector<std::vector<float>> dense_weights = weights_json["/state_dict/lin.weight"_json_pointer];
     dense_bias_nc = vector_to_nc(dense_bias);
     dense_weights_nc = matrix_to_nc(dense_weights);
 

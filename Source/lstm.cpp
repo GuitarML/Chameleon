@@ -30,8 +30,8 @@ float lstm::sigmoid(float x)
     return 1.0f / (1.0f + expf(-x));
 }
 
-void lstm::setParams(int hidden_size, nc::NdArray<float> lstm_bias_ih_nc,
-                     nc::NdArray<float> lstm_weights_ih_nc, nc::NdArray<float> lstm_bias_hh_nc,
+void lstm::setParams(int hidden_size, 
+                     nc::NdArray<float> lstm_weights_ih_nc, 
                      nc::NdArray<float> lstm_weights_hh_nc, nc::NdArray<float> lstm_bias_nc,
                      nc::NdArray<float> dense_bias_nc, nc::NdArray<float> dense_weights_nc)
 //====================================================================
@@ -46,11 +46,10 @@ void lstm::setParams(int hidden_size, nc::NdArray<float> lstm_bias_ih_nc,
     HS = hidden_size;
 
     lstm_bias = lstm_bias_nc;
-    lstm_weights_ih = lstm_weights_ih_nc;
-    lstm_weights_hh = lstm_weights_hh_nc;
-    lstm_bias = lstm_bias_nc;
-    dense_bias = dense_bias_nc;
-    dense_weights = dense_weights_nc;
+    lstm_weights_ih2 = lstm_weights_ih_nc; //TODO here down are empty arrays
+    lstm_weights_hh2 = lstm_weights_hh_nc;
+    dense_bias2 = dense_bias_nc;
+    dense_weights2 = dense_weights_nc;
 }
 
 
@@ -84,7 +83,7 @@ i_t, f_t, g_t, o_t = (
 */
 
 {
-    gates = nc::dot(xt, lstm_weights_ih) + nc::dot(h_t, lstm_weights_hh) + lstm_bias;
+    gates = nc::dot(xt, lstm_weights_ih2) + nc::dot(h_t, lstm_weights_hh2) + lstm_bias; //todo weights not being read?
     for (int i = 0; i < HS; i++) {
         c_t[i] = sigmoid(gates[HS + i]) * c_t[i] + sigmoid(gates[i]) * tanh(gates[2 * HS + i]);
         h_t[i] = sigmoid(gates[3 * HS + i]) * tanh(c_t[i]);
@@ -101,7 +100,7 @@ void lstm::dense_layer()
 //
 //====================================================================
 {
-    dense_out = nc::dot(lstm_out, dense_weights) + dense_bias;
+    dense_out = nc::dot(lstm_out, dense_weights2) + dense_bias2;
 }
 
 
