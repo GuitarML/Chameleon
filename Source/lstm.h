@@ -60,7 +60,7 @@ class lstm
 
 
         // Layer in/out
-        nc::NdArray<float> xt = nc::zeros<float>(1,1);
+        nc::NdArray<float> xt = nc::zeros<float>(1,1);  // TODO or just (1)?
         nc::NdArray<float> lstm_out;
         nc::NdArray<float> dense_out;
         float residual = 0.0;  // TODO add residual for each sample, or for whole batch at end?

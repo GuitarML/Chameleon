@@ -79,8 +79,8 @@ public:
     File loaded_tone;
     juce::String loaded_tone_name;
     //const char* default_tone = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\ts9_model_best.json";
-    const char* char_filename = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\ts9_model_best.json";
-    File default_tone = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\ts9_model_best.json";
+    const char* char_filename = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\go_model_best.json";
+    File default_tone = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\go_model_best.json";
     int model_loaded = 0;
 
 

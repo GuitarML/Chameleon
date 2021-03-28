@@ -85,9 +85,9 @@ i_t, f_t, g_t, o_t = (
 {
     // DEBUG
     //nc::NdArray<float>xt_test = nc::zeros<float>(128,1);
-    //nc::NdArray<float> test = nc::dot(xt, lstm_weights_ih);  /// This throws exception, dot product of 1 not working?
+    //nc::NdArray<float> test = nc::dot(xt, lstm_weights_ih);  
     //nc::NdArray<float> test1 = nc::dot(h_t, lstm_weights_hh);
-    //nc::NdArray<float> test2 = nc::dot(h_t, lstm_weights_hh) + lstm_bias;
+    //nc::NdArray<float> test2 = nc::dot(h_t, lstm_weights_hh) + lstm_bias; // Exeption here
 
     gates = nc::dot(xt, lstm_weights_ih) + nc::dot(h_t, lstm_weights_hh) + lstm_bias;  // TODO: Exception here, Try transposing matrices (when read in) like in pytorch code
     for (int i = 0; i < HS; i++) {
