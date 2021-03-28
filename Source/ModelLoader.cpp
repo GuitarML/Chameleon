@@ -84,6 +84,6 @@ void ModelLoader::load_json(const char *filename)
     dense_weights_nc = matrix_to_nc(dense_weights);
 
     // Add lstm weights for later use
-    lstm_bias_nc = lstm_bias_ih_nc + lstm_bias_ih_nc;
+    lstm_bias_nc = lstm_bias_hh_nc + lstm_bias_ih_nc;
 
 }
