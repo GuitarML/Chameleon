@@ -15,6 +15,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Eq4Band.h"
+#include "blend.h"
 
 
 //==============================================================================
@@ -68,6 +69,7 @@ public:
     // Amp
     void set_ampDrive(float db_ampCleanDrive);
     void set_ampMaster(float db_ampMaster);
+	void set_ampBlend(float blend_slider);
     void set_ampEQ(float bass_slider, float mid_slider, float treble_slider);
 
     float decibelToLinear(float dbValue);
@@ -90,13 +92,16 @@ public:
     float ampTrebleKnobState = 0.0;
     float ampGainKnobState = 0.0;
     float ampMasterKnobState = -12.0;
-	float ampBlendKnobState = 0.0;
+	float ampBlendKnobState = 1.0;
 
     ModelLoader loader;
     lstm LSTM;
 
+	AudioBuffer<float> dryData;  //TODO Im sure this will need to be fixed
+	//AudioBuffer<float>& dryData;  //TODO Im sure this will need to be fixed
 private:
     Eq4Band eq4band; // Amp EQ
+	blend blend_effect; // Wet/dry ratio
 
     // Amp
     float ampDrive = 1.0;

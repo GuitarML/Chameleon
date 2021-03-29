@@ -84,6 +84,16 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampGainKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20);
     ampGainKnob.setNumDecimalPlacesToDisplay(1);
     ampGainKnob.setDoubleClickReturnValue(true, 0.0);
+	
+	addAndMakeVisible(ampBlendKnob);
+    ampBlendKnob.setLookAndFeel(&ampSilverKnobLAF);
+    ampBlendKnob.addListener(this);
+    ampBlendKnob.setRange(0.0, 1.0);
+    ampBlendKnob.setValue(processor.ampBlendKnobState);
+    ampBlendKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
+    ampBlendKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20 );
+    ampBlendKnob.setNumDecimalPlacesToDisplay(1);
+    ampBlendKnob.setDoubleClickReturnValue(true, 1.0);
 
     addAndMakeVisible(ampMasterKnob);
     ampMasterKnob.setLookAndFeel(&ampSilverKnobLAF);
@@ -204,6 +214,7 @@ void ChameleonAudioProcessorEditor::resized()
     ampTrebleKnob.setBounds(308, 40, 50, 70);
     ampGainKnob.setBounds(130, 40, 50, 70);
     ampMasterKnob.setBounds(450, 40, 50, 70);
+	ampBlendKnob.setBounds(385, 40, 50, 70);
 
     ampOnButton.setBounds(54, 259, 15, 25);
     ampLED.setBounds(694, 100, 20, 20);
@@ -250,6 +261,8 @@ void ChameleonAudioProcessorEditor::sliderValueChanged(Slider* slider)
         processor.set_ampDrive(slider->getValue());
     else if (slider == &ampMasterKnob)
         processor.set_ampMaster(slider->getValue());
+	else if (slider == &ampBlendKnob)
+        processor.set_ampBlend(slider->getValue());
     else if (slider == &ampBassKnob || slider == &ampMidKnob || slider == &ampTrebleKnob) {
         processor.set_ampEQ(ampBassKnob.getValue(), ampMidKnob.getValue(), ampTrebleKnob.getValue());
         // Set knob states for saving positions when closing/reopening GUI

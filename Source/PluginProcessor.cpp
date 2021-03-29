@@ -143,6 +143,7 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
     // Setup Audio Data
     const int numSamples = buffer.getNumSamples();
     const int numInputChannels = getTotalNumInputChannels();
+	dryData.makeCopyOf(buffer); //TODO Test this
 
     // Amp =============================================================================
     if (amp_state == 1) {
@@ -152,15 +153,17 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         buffer.applyGain(ampDrive);
 
 		// Apply LSTM model
-        //if (model_loaded == 1) {
         LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
-        //}
 
-        //    Master Volume 
+		// Apply blend (wet/dry ratio)
+		blend.process(dryData.getReadPointer(0), buffer.getReadPointer(0), buffer.getWritePointer(0), midiMessages, numSamples, numInputChannels);
+
+        // Master Volume 
         buffer.applyGain(ampMaster);
 
     }
     
+	// Handle stereo input by copying channel 1 to channel 2
     for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
         buffer.copyFrom(ch, 0, buffer, 0, 0, buffer.getNumSamples());
 }
@@ -205,19 +208,6 @@ void ChameleonAudioProcessor::loadConfig(File configFile)
     this->suspendProcessing(false);
 }
 
-/*
-void ChameleonAudioProcessor::resetDirectory(const File& file)
-{
-    jsonFiles.clear();
-    if (file.isDirectory())
-    {
-        juce::Array<juce::File> results;
-        file.findChildFiles(results, juce::File::findFiles, false, "*.json");
-        for (int i = results.size(); --i >= 0;)
-            jsonFiles.push_back(File(results.getReference(i).getFullPathName()));
-    }
-}
-*/
 
 float ChameleonAudioProcessor::convertLogScale(float in_value, float x_min, float x_max, float y_min, float y_max)
 {
@@ -243,6 +233,12 @@ void ChameleonAudioProcessor::set_ampMaster(float db_ampMaster)
     }
 }
 
+void ChameleonAudioProcessor::set_ampBlend(float blend_slider)
+{
+    ampBlendKnobState = blend_slider;
+}
+
+{
 void ChameleonAudioProcessor::set_ampEQ(float bass_slider, float mid_slider, float treble_slider)
 {
     eq4band.setParameters(bass_slider, mid_slider, treble_slider, 0.0);

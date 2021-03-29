@@ -9,6 +9,9 @@ ModelLoader::ModelLoader()
 }
 
 nc::NdArray<float> ModelLoader::vector_to_nc(std::vector<float> in_vec)
+//====================================================================
+// Description: Converts a std::vector to a numcpp array.
+//====================================================================
 {
     nc::NdArray<float> out_vec = nc::random::rand<float>(nc::Shape(1, in_vec.size()));;
 
@@ -20,6 +23,10 @@ nc::NdArray<float> ModelLoader::vector_to_nc(std::vector<float> in_vec)
 }
 
 nc::NdArray<float> ModelLoader::matrix_to_nc(std::vector<std::vector<float>> in_mat)
+//====================================================================
+// Description: Converts a std::vector<std::vector> (a 2d matrix) 
+//              to a numcpp array.
+//====================================================================
 {
     nc::NdArray<float> out_mat = nc::random::rand<float>(nc::Shape(in_mat.size(), in_mat[0].size()));
 
@@ -33,27 +40,6 @@ nc::NdArray<float> ModelLoader::matrix_to_nc(std::vector<std::vector<float>> in_
     return out_mat;
 }
 
-/*
-std::vector<nc::NdArray<float>> ModelLoader::matrix3d_to_nc(nlohmann::json in_mat)
-{
-    std::vector<nc::NdArray<float>> out_mat;
-    nc::NdArray<float> nc_2D_matrix = nc::random::rand<float>(nc::Shape(in_mat[0].size(), in_mat[0][0].size()));
-    for (int i = 0; i < in_mat.size(); i++)
-    {
-        for (int j = 0; j < in_mat[0].size(); j++)
-        {
-            for (int k = 0; k < in_mat[0][0].size(); k++)
-            {
-                nc_2D_matrix(j, k) = in_mat[i][j][k];
-            }
-        }
-        out_mat.push_back(nc_2D_matrix);
-    }
-   
-    return out_mat;
-}
-*/
-
 
 void ModelLoader::load_json(const char *filename)
 {
@@ -61,9 +47,6 @@ void ModelLoader::load_json(const char *filename)
     std::ifstream i2(filename);
     nlohmann::json weights_json;
     i2 >> weights_json;
-    
-    int hidden_size = 32;
-
 
     hidden_size = weights_json["/model_data/hidden_size"_json_pointer];
 
