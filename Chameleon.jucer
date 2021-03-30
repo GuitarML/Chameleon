@@ -13,6 +13,8 @@
       <FILE id="gcblfC" name="led_red_on.png" compile="0" resource="1" file="resources/led_red_on.png"/>
       <FILE id="XzO0sS" name="power_switch_down.png" compile="0" resource="1"
             file="resources/power_switch_down.png"/>
+      <FILE id="oi0psK" name="power_switch_mid.png" compile="0" resource="1"
+            file="resources/power_switch_mid.png"/>
       <FILE id="wClE6T" name="power_switch_up.png" compile="0" resource="1"
             file="resources/power_switch_up.png"/>
       <FILE id="HvpQWI" name="ts9_model_best.json" compile="0" resource="1"

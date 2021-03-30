@@ -44,7 +44,7 @@ private:
     Slider ampTrebleKnob;
     Slider ampGainKnob;
     Slider ampMasterKnob;
-	Slider ampBlendKnob;
+	Slider ampPresenceKnob;
 
     ImageButton ampOnButton;
     ImageButton ampLED;

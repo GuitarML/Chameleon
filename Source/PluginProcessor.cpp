@@ -143,7 +143,7 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
     // Setup Audio Data
     const int numSamples = buffer.getNumSamples();
     const int numInputChannels = getTotalNumInputChannels();
-	dryData.makeCopyOf(buffer); //TODO Test this
+	dryData.makeCopyOf(buffer, true); //TODO Test this
 
     // Amp =============================================================================
     if (amp_state == 1) {
@@ -154,9 +154,6 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
 
 		// Apply LSTM model
         LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
-
-		// Apply blend (wet/dry ratio)
-		blend.process(dryData.getReadPointer(0), buffer.getReadPointer(0), buffer.getWritePointer(0), midiMessages, numSamples, numInputChannels);
 
         // Master Volume 
         buffer.applyGain(ampMaster);
@@ -233,15 +230,10 @@ void ChameleonAudioProcessor::set_ampMaster(float db_ampMaster)
     }
 }
 
-void ChameleonAudioProcessor::set_ampBlend(float blend_slider)
-{
-    ampBlendKnobState = blend_slider;
-}
 
+void ChameleonAudioProcessor::set_ampEQ(float bass_slider, float mid_slider, float treble_slider, float presence_slider)
 {
-void ChameleonAudioProcessor::set_ampEQ(float bass_slider, float mid_slider, float treble_slider)
-{
-    eq4band.setParameters(bass_slider, mid_slider, treble_slider, 0.0);
+    eq4band.setParameters(bass_slider, mid_slider, treble_slider, presence_slider);
 }
 
 float ChameleonAudioProcessor::decibelToLinear(float dbValue)
