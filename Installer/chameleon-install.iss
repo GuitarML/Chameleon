@@ -7,6 +7,9 @@ DefaultDirName={cf}
 DefaultGroupName=Chameleon
 OutputBaseFilename=Chameleon-windows
 ;SetupIconFile=guitarml.ico
+ArchitecturesInstallIn64BitMode=x64
  
 [Files]
-Source: "Chameleon.vst3"; DestDir: "{app}\Steinberg\VST3"
+;Source: "Chameleon.vst3"; DestDir: "{app}\Steinberg\VST3"
+Source: "Chameleon.vst3"; DestDir: "{app}\VST3"
+
