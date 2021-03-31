@@ -76,7 +76,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     addAndMakeVisible(ampGainKnob);
     ampGainKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampGainKnob.addListener(this);
-    ampGainKnob.setRange(-12.0, 12.0);
+    ampGainKnob.setRange(-10.0, 10.0);
     ampGainKnob.setValue(processor.ampGainKnobState);
     ampGainKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     ampGainKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20);
@@ -115,8 +115,8 @@ ChameleonAudioProcessorEditor::~ChameleonAudioProcessorEditor()
 //==============================================================================
 void ChameleonAudioProcessorEditor::paint (Graphics& g)
 {
+    background = ImageCache::getFromMemory(BinaryData::chameleon_amp_jpg, BinaryData::chameleon_amp_jpgSize);
     g.drawImageAt(background, 0, 0);
-
     g.setColour (Colours::white);
     g.setFont (15.0f);
 
@@ -164,37 +164,41 @@ void ChameleonAudioProcessorEditor::resized()
     // subcomponents in your editor..
 	
     // Amp Widgets
-    ampBassKnob.setBounds(201, 40, 50, 70);
-    ampMidKnob.setBounds(258, 40, 50, 70);
+    ampBassKnob.setBounds(188, 40, 50, 70);
+    ampMidKnob.setBounds(249, 40, 50, 70);
     ampTrebleKnob.setBounds(308, 40, 50, 70);
-    ampGainKnob.setBounds(130, 40, 50, 70);
-    ampMasterKnob.setBounds(450, 40, 50, 70);
-	ampPresenceKnob.setBounds(385, 40, 50, 70);
+    ampGainKnob.setBounds(120, 40, 50, 70);
+    ampMasterKnob.setBounds(455, 40, 50, 70);
+	ampPresenceKnob.setBounds(380, 40, 50, 70);
 
-    colorSelectButton.setBounds(54, 40, 15, 25);
-    ampLED.setBounds(694, 100, 20, 20);
+    colorSelectButton.setBounds(58, 41, 15, 25);
+    ampLED.setBounds(694, 89, 20, 20);
 }
 
 
 void ChameleonAudioProcessorEditor::buttonClicked(juce::Button* button)
 {
-    
     if (button == &colorSelectButton) {
         colorSelectClicked();
-    } 
-    
+    }
 }
 
 
 void ChameleonAudioProcessorEditor::colorSelectClicked() {
     if (processor.current_model_index == 0) {
         processor.current_model_index = 1;
+        processor.fromUpDown = 0;
     }
     else if (processor.current_model_index == 1) {
-        processor.current_model_index = 2;
+        if (processor.fromUpDown == 0) {
+            processor.current_model_index = 2;
+        } else {
+            processor.current_model_index = 0;
+        }
     }
     else if (processor.current_model_index == 2) {
         processor.current_model_index = 1;
+        processor.fromUpDown = 1;
     }
     processor.loadConfig(processor.jsonFiles[processor.current_model_index]);
 

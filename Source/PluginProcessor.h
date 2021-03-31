@@ -89,6 +89,7 @@ public:
     const char* char_filename = "";
     int model_loaded = 0;
     int current_model_index = 0; // 0 = red, 1 = gold, 2 = green
+    int fromUpDown = 0;
 
     // Amp knob states
     float ampBassKnobState = 0.0;
