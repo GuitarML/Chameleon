@@ -7,8 +7,13 @@
     <GROUP id="{0250E2E8-A733-0AA7-0A08-97085228CF87}" name="Resources">
       <FILE id="imjNSh" name="chameleon_amp.jpg" compile="0" resource="1"
             file="resources/chameleon_amp.jpg"/>
+      <FILE id="tAhso5" name="gold.json" compile="0" resource="1" file="models/gold.json"/>
+      <FILE id="RJSG9t" name="green.json" compile="0" resource="1" file="models/green.json"/>
       <FILE id="ysBzxa" name="knob_70_black.png" compile="0" resource="1"
             file="resources/knob_70_black.png"/>
+      <FILE id="aqA1Hc" name="led_gold_on.png" compile="0" resource="1" file="resources/led_gold_on.png"/>
+      <FILE id="osbjD6" name="led_green_on.png" compile="0" resource="1"
+            file="resources/led_green_on.png"/>
       <FILE id="a8ajae" name="led_red_off.png" compile="0" resource="1" file="resources/led_red_off.png"/>
       <FILE id="gcblfC" name="led_red_on.png" compile="0" resource="1" file="resources/led_red_on.png"/>
       <FILE id="XzO0sS" name="power_switch_down.png" compile="0" resource="1"
@@ -17,8 +22,7 @@
             file="resources/power_switch_mid.png"/>
       <FILE id="wClE6T" name="power_switch_up.png" compile="0" resource="1"
             file="resources/power_switch_up.png"/>
-      <FILE id="HvpQWI" name="ts9_model_best.json" compile="0" resource="1"
-            file="test/ts9_model_best.json"/>
+      <FILE id="epKES8" name="red.json" compile="0" resource="1" file="models/red.json"/>
     </GROUP>
     <GROUP id="{0C30E6D7-5E80-A33B-74CB-A4BA09196080}" name="Source">
       <FILE id="cc0yTU" name="Eq4Band.cpp" compile="1" resource="0" file="Source/Eq4Band.cpp"/>

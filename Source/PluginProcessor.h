@@ -61,9 +61,11 @@ public:
     void setStateInformation (const void* data, int sizeInBytes) override;
 
     void ChameleonAudioProcessor::loadConfig(File configFile);
-    
+    void setupDataDirectories();
+    void installTones();
+
     // Overdrive Pedal
-    float convertLogScale(float in_value, float x_min, float x_max, float y_min, float y_max);
+    //float convertLogScale(float in_value, float x_min, float x_max, float y_min, float y_max);
 
     // Amp
     void set_ampDrive(float db_ampCleanDrive);
@@ -72,17 +74,21 @@ public:
 
     float decibelToLinear(float dbValue);
 
+    void addDirectory(const File& file);
+    void resetDirectory(const File& file);
+    std::vector<File> jsonFiles;
+    File currentDirectory = File::getCurrentWorkingDirectory().getFullPathName();
+    File userAppDataDirectory = File::getSpecialLocation(File::userApplicationDataDirectory).getChildFile(JucePlugin_Manufacturer).getChildFile(JucePlugin_Name);
+    File userAppDataDirectory_tones = userAppDataDirectory.getFullPathName() + "/tones";
 
     // Pedal/amp states
     int amp_state = 1; // 0 = off, 1 = on
     int custom_tone = 0; // 0 = custom tone loaded, 1 = default channel tone
     File loaded_tone;
     juce::String loaded_tone_name;
-    //const char* default_tone = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\ts9_model_best.json";
-    const char* char_filename = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\go_model_best.json";
-    File default_tone = "C:\\Users\\rache\\Desktop\\dev\\Chameleon\\test\\go_model_best.json";
+    const char* char_filename = "";
     int model_loaded = 0;
-
+    int current_model_index = 0; // 0 = red, 1 = gold, 2 = green
 
     // Amp knob states
     float ampBassKnobState = 0.0;
@@ -95,8 +101,6 @@ public:
     ModelLoader loader;
     lstm LSTM;
 
-	AudioBuffer<float> dryData;  //TODO Im sure this will need to be fixed
-	//AudioBuffer<float>& dryData;  //TODO Im sure this will need to be fixed
 private:
     Eq4Band eq4band; // Amp EQ
 

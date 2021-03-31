@@ -46,7 +46,7 @@ private:
     Slider ampMasterKnob;
 	Slider ampPresenceKnob;
 
-    ImageButton ampOnButton;
+    ImageButton colorSelectButton;
     ImageButton ampLED;
 
     
@@ -58,7 +58,7 @@ private:
     juce::String fname;
     virtual void buttonClicked(Button* button) override;
     virtual void sliderValueChanged(Slider* slider) override;
-    //void ampOnButtonClicked();
+    void colorSelectClicked();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChameleonAudioProcessorEditor)
 };
