@@ -60,7 +60,7 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    void ChameleonAudioProcessor::loadConfig(File configFile);
+    void loadConfig(File configFile);
     void setupDataDirectories();
     void installTones();
 
