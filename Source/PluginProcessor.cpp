@@ -161,12 +161,12 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         buffer.applyGain(ampMaster);
 
         // Custom Level for quieter models
-        if (current_model_index == 1) {
-            buffer.applyGain(2.0);
-        }
-        else if (current_model_index == 2) {
-            buffer.applyGain(4.0);
-        }
+        //if (current_model_index == 1) {
+        //    buffer.applyGain(2.0);
+        //}
+        //else if (current_model_index == 2) {
+        //    buffer.applyGain(4.0);
+        //}
     }
     
 	// Handle stereo input by copying channel 1 to channel 2
