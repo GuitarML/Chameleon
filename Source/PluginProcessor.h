@@ -74,12 +74,16 @@ public:
 
     float decibelToLinear(float dbValue);
 
-    void addDirectory(const File& file);
-    void resetDirectory(const File& file);
+    //void addDirectory(const File& file);
+    //void resetDirectory(const File& file);
     std::vector<File> jsonFiles;
     File currentDirectory = File::getCurrentWorkingDirectory().getFullPathName();
     File userAppDataDirectory = File::getSpecialLocation(File::userApplicationDataDirectory).getChildFile(JucePlugin_Manufacturer).getChildFile(JucePlugin_Name);
     File userAppDataDirectory_tones = userAppDataDirectory.getFullPathName() + "/tones";
+
+    File red_tone = userAppDataDirectory_tones.getFullPathName() + "/red.json";
+    File gold_tone = userAppDataDirectory_tones.getFullPathName() + "/gold.json";
+    File green_tone = userAppDataDirectory_tones.getFullPathName() + "/green.json";
 
     // Pedal/amp states
     int amp_state = 1; // 0 = off, 1 = on

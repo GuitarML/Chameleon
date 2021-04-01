@@ -188,19 +188,23 @@ void ChameleonAudioProcessorEditor::colorSelectClicked() {
     if (processor.current_model_index == 0) {
         processor.current_model_index = 1;
         processor.fromUpDown = 0;
+        processor.loadConfig(processor.gold_tone);
     }
     else if (processor.current_model_index == 1) {
         if (processor.fromUpDown == 0) {
             processor.current_model_index = 2;
+            processor.loadConfig(processor.green_tone);
         } else {
             processor.current_model_index = 0;
+            processor.loadConfig(processor.red_tone);
         }
     }
     else if (processor.current_model_index == 2) {
         processor.current_model_index = 1;
         processor.fromUpDown = 1;
+        processor.loadConfig(processor.gold_tone);
     }
-    processor.loadConfig(processor.jsonFiles[processor.current_model_index]);
+    //processor.loadConfig(processor.jsonFiles[processor.current_model_index]);
 
     repaint();
 }

@@ -29,10 +29,10 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
 {
     setupDataDirectories();
     installTones();
-    resetDirectory(userAppDataDirectory_tones);
-    if (jsonFiles.size() > 0) {
-        loadConfig(jsonFiles[current_model_index]);
-    }
+    //resetDirectory(userAppDataDirectory_tones);
+    //if (jsonFiles.size() > 0) {
+    loadConfig(red_tone);
+    //}
 }
 
 ChameleonAudioProcessor::~ChameleonAudioProcessor()
@@ -162,10 +162,10 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
 
         // Custom Level for quieter models
         if (current_model_index == 1) {
-            buffer.applyGain(3.0);
+            buffer.applyGain(2.0);
         }
         else if (current_model_index == 2) {
-            buffer.applyGain(5.0);
+            buffer.applyGain(4.0);
         }
     }
     
@@ -213,6 +213,7 @@ void ChameleonAudioProcessor::loadConfig(File configFile)
     this->suspendProcessing(false);
 }
 
+/*
 void ChameleonAudioProcessor::resetDirectory(const File& file)
 {
     jsonFiles.clear();
@@ -224,7 +225,9 @@ void ChameleonAudioProcessor::resetDirectory(const File& file)
             jsonFiles.push_back(File(results.getReference(i).getFullPathName()));
     }
 }
+*/
 
+/*
 void ChameleonAudioProcessor::addDirectory(const File& file)
 {
     if (file.isDirectory())
@@ -235,6 +238,7 @@ void ChameleonAudioProcessor::addDirectory(const File& file)
             jsonFiles.push_back(File(results.getReference(i).getFullPathName()));
     }
 }
+*/
 
 void ChameleonAudioProcessor::setupDataDirectories()
 {
@@ -261,7 +265,7 @@ void ChameleonAudioProcessor::setupDataDirectories()
     }
 
     // Add the tones directory and update tone list
-    addDirectory(userAppDataDirectory_tones);
+    //addDirectory(userAppDataDirectory_tones);
 }
 
 void ChameleonAudioProcessor::installTones()
@@ -273,9 +277,9 @@ void ChameleonAudioProcessor::installTones()
 //====================================================================
 {
     // Default tones
-    File red_tone = userAppDataDirectory_tones.getFullPathName() + "/red.json";
-    File gold_tone = userAppDataDirectory_tones.getFullPathName() + "/gold.json";
-    File green_tone = userAppDataDirectory_tones.getFullPathName() + "/green.json";
+    //File red_tone = userAppDataDirectory_tones.getFullPathName() + "/red.json";
+    //File gold_tone = userAppDataDirectory_tones.getFullPathName() + "/gold.json";
+    //File green_tone = userAppDataDirectory_tones.getFullPathName() + "/green.json";
 
     if (red_tone.existsAsFile() == false) {
         std::string string_command = red_tone.getFullPathName().toStdString();
