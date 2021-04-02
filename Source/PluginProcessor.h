@@ -64,9 +64,6 @@ public:
     void setupDataDirectories();
     void installTones();
 
-    // Overdrive Pedal
-    //float convertLogScale(float in_value, float x_min, float x_max, float y_min, float y_max);
-
     // Amp
     void set_ampDrive(float db_ampCleanDrive);
     void set_ampMaster(float db_ampMaster);
@@ -74,8 +71,6 @@ public:
 
     float decibelToLinear(float dbValue);
 
-    //void addDirectory(const File& file);
-    //void resetDirectory(const File& file);
     std::vector<File> jsonFiles;
     File currentDirectory = File::getCurrentWorkingDirectory().getFullPathName();
     File userAppDataDirectory = File::getSpecialLocation(File::userApplicationDataDirectory).getChildFile(JucePlugin_Manufacturer).getChildFile(JucePlugin_Name);

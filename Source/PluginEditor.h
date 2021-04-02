@@ -50,15 +50,16 @@ private:
     ImageButton ampLED;
 
     
-    // LookandFeels 
+    // LookandFeels and Graphics
+    Image background = ImageCache::getFromMemory(BinaryData::chameleon_amp_jpg, BinaryData::chameleon_amp_jpgSize);
     myLookAndFeel ampSilverKnobLAF;
-
-    Image background;
+    juce::Rectangle<int> ClipRect;
 
     juce::String fname;
     virtual void buttonClicked(Button* button) override;
     virtual void sliderValueChanged(Slider* slider) override;
     void colorSelectClicked();
+    void ChameleonAudioProcessorEditor::resetImages();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChameleonAudioProcessorEditor)
 };

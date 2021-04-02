@@ -164,9 +164,9 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         //if (current_model_index == 1) {
         //    buffer.applyGain(2.0);
         //}
-        //else if (current_model_index == 2) {
-        //    buffer.applyGain(4.0);
-        //}
+        if (current_model_index == 2) {
+            buffer.applyGain(2.0);
+        }
     }
     
 	// Handle stereo input by copying channel 1 to channel 2
@@ -213,32 +213,6 @@ void ChameleonAudioProcessor::loadConfig(File configFile)
     this->suspendProcessing(false);
 }
 
-/*
-void ChameleonAudioProcessor::resetDirectory(const File& file)
-{
-    jsonFiles.clear();
-    if (file.isDirectory())
-    {
-        juce::Array<juce::File> results;
-        file.findChildFiles(results, juce::File::findFiles, false, "*.json");
-        for (int i = results.size(); --i >= 0;)
-            jsonFiles.push_back(File(results.getReference(i).getFullPathName()));
-    }
-}
-*/
-
-/*
-void ChameleonAudioProcessor::addDirectory(const File& file)
-{
-    if (file.isDirectory())
-    {
-        juce::Array<juce::File> results;
-        file.findChildFiles(results, juce::File::findFiles, false, "*.json");
-        for (int i = results.size(); --i >= 0;)
-            jsonFiles.push_back(File(results.getReference(i).getFullPathName()));
-    }
-}
-*/
 
 void ChameleonAudioProcessor::setupDataDirectories()
 {
@@ -246,7 +220,6 @@ void ChameleonAudioProcessor::setupDataDirectories()
     File userAppDataTempFile = userAppDataDirectory.getChildFile("tmp.pdl");
 
     File userAppDataTempFile_tones = userAppDataDirectory_tones.getChildFile("tmp.pdl");
-
 
     // Create (and delete) temp file if necessary, so that user doesn't have
     // to manually create directories
@@ -263,9 +236,6 @@ void ChameleonAudioProcessor::setupDataDirectories()
     if (userAppDataTempFile_tones.existsAsFile()) {
         userAppDataTempFile_tones.deleteFile();
     }
-
-    // Add the tones directory and update tone list
-    //addDirectory(userAppDataDirectory_tones);
 }
 
 void ChameleonAudioProcessor::installTones()
@@ -276,11 +246,6 @@ void ChameleonAudioProcessor::installTones()
 //
 //====================================================================
 {
-    // Default tones
-    //File red_tone = userAppDataDirectory_tones.getFullPathName() + "/red.json";
-    //File gold_tone = userAppDataDirectory_tones.getFullPathName() + "/gold.json";
-    //File green_tone = userAppDataDirectory_tones.getFullPathName() + "/green.json";
-
     if (red_tone.existsAsFile() == false) {
         std::string string_command = red_tone.getFullPathName().toStdString();
         const char* char_red = &string_command[0];

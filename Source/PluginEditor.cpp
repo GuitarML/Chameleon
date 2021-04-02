@@ -106,6 +106,8 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     // Size of plugin GUI
     setSize(774, 293);
 
+    resetImages(); // Resets the Toggle Switch and LED image based on current settings
+
 }
 
 ChameleonAudioProcessorEditor::~ChameleonAudioProcessorEditor()
@@ -115,47 +117,9 @@ ChameleonAudioProcessorEditor::~ChameleonAudioProcessorEditor()
 //==============================================================================
 void ChameleonAudioProcessorEditor::paint (Graphics& g)
 {
-    background = ImageCache::getFromMemory(BinaryData::chameleon_amp_jpg, BinaryData::chameleon_amp_jpgSize);
-    g.drawImageAt(background, 0, 0);
-    g.setColour (Colours::white);
-    g.setFont (15.0f);
-
-    // Set color select switch graphic
-    
-    if (processor.current_model_index == 0) {
-        colorSelectButton.setImages(true, true, true,
-            ImageCache::getFromMemory(BinaryData::power_switch_up_png, BinaryData::power_switch_up_pngSize), 1.0, Colours::transparentWhite,
-            Image(), 1.0, Colours::transparentWhite,
-            ImageCache::getFromMemory(BinaryData::power_switch_up_png, BinaryData::power_switch_up_pngSize), 1.0, Colours::transparentWhite,
-            0.0);
-        ampLED.setImages(true, true, true,
-            ImageCache::getFromMemory(BinaryData::led_red_on_png, BinaryData::led_red_on_pngSize), 1.0, Colours::transparentWhite,
-            Image(), 1.0, Colours::transparentWhite,
-            ImageCache::getFromMemory(BinaryData::led_red_on_png, BinaryData::led_red_on_pngSize), 1.0, Colours::transparentWhite,
-            0.0);
-    } else if (processor.current_model_index == 1) {
-        colorSelectButton.setImages(true, true, true,
-            ImageCache::getFromMemory(BinaryData::power_switch_mid_png, BinaryData::power_switch_mid_pngSize), 1.0, Colours::transparentWhite,
-            Image(), 1.0, Colours::transparentWhite,
-            ImageCache::getFromMemory(BinaryData::power_switch_mid_png, BinaryData::power_switch_mid_pngSize), 1.0, Colours::transparentWhite,
-            0.0);
-        ampLED.setImages(true, true, true,
-            ImageCache::getFromMemory(BinaryData::led_gold_on_png, BinaryData::led_gold_on_pngSize), 1.0, Colours::transparentWhite,
-            Image(), 1.0, Colours::transparentWhite,
-            ImageCache::getFromMemory(BinaryData::led_gold_on_png, BinaryData::led_gold_on_pngSize), 1.0, Colours::transparentWhite,
-            0.0);
-    } else {
-        colorSelectButton.setImages(true, true, true,
-            ImageCache::getFromMemory(BinaryData::power_switch_down_png, BinaryData::power_switch_down_pngSize), 1.0, Colours::transparentWhite,
-            Image(), 1.0, Colours::transparentWhite,
-            ImageCache::getFromMemory(BinaryData::power_switch_down_png, BinaryData::power_switch_down_pngSize), 1.0, Colours::transparentWhite,
-            0.0);
-        ampLED.setImages(true, true, true,
-            ImageCache::getFromMemory(BinaryData::led_green_on_png, BinaryData::led_green_on_pngSize), 1.0, Colours::transparentWhite,
-            Image(), 1.0, Colours::transparentWhite,
-            ImageCache::getFromMemory(BinaryData::led_green_on_png, BinaryData::led_green_on_pngSize), 1.0, Colours::transparentWhite,
-            0.0);
-    }
+    // Redraw only the clipped part of the background image
+    juce::Rectangle<int> ClipRect = g.getClipBounds(); 
+    g.drawImage(background, ClipRect.getX(), ClipRect.getY(), ClipRect.getWidth(), ClipRect.getHeight(), ClipRect.getX(), ClipRect.getY(), ClipRect.getWidth(), ClipRect.getHeight());
 }
 
 void ChameleonAudioProcessorEditor::resized()
@@ -204,8 +168,7 @@ void ChameleonAudioProcessorEditor::colorSelectClicked() {
         processor.fromUpDown = 1;
         processor.loadConfig(processor.gold_tone);
     }
-    //processor.loadConfig(processor.jsonFiles[processor.current_model_index]);
-
+    resetImages(); // Resets the Toggle Switch and LED image based on current settings
     repaint();
 }
 
@@ -226,5 +189,45 @@ void ChameleonAudioProcessorEditor::sliderValueChanged(Slider* slider)
     }
     else if (slider == &ampPresenceKnob) {
         processor.set_ampEQ(ampBassKnob.getValue(), ampMidKnob.getValue(), ampTrebleKnob.getValue(), ampPresenceKnob.getValue());
+    }
+}
+
+void ChameleonAudioProcessorEditor::resetImages()
+{
+    if (processor.current_model_index == 0) {
+        colorSelectButton.setImages(true, true, true,
+            ImageCache::getFromMemory(BinaryData::power_switch_up_png, BinaryData::power_switch_up_pngSize), 1.0, Colours::transparentWhite,
+            Image(), 1.0, Colours::transparentWhite,
+            ImageCache::getFromMemory(BinaryData::power_switch_up_png, BinaryData::power_switch_up_pngSize), 1.0, Colours::transparentWhite,
+            0.0);
+        ampLED.setImages(true, true, true,
+            ImageCache::getFromMemory(BinaryData::led_red_on_png, BinaryData::led_red_on_pngSize), 1.0, Colours::transparentWhite,
+            Image(), 1.0, Colours::transparentWhite,
+            ImageCache::getFromMemory(BinaryData::led_red_on_png, BinaryData::led_red_on_pngSize), 1.0, Colours::transparentWhite,
+            0.0);
+    }
+    else if (processor.current_model_index == 1) {
+        colorSelectButton.setImages(true, true, true,
+            ImageCache::getFromMemory(BinaryData::power_switch_mid_png, BinaryData::power_switch_mid_pngSize), 1.0, Colours::transparentWhite,
+            Image(), 1.0, Colours::transparentWhite,
+            ImageCache::getFromMemory(BinaryData::power_switch_mid_png, BinaryData::power_switch_mid_pngSize), 1.0, Colours::transparentWhite,
+            0.0);
+        ampLED.setImages(true, true, true,
+            ImageCache::getFromMemory(BinaryData::led_gold_on_png, BinaryData::led_gold_on_pngSize), 1.0, Colours::transparentWhite,
+            Image(), 1.0, Colours::transparentWhite,
+            ImageCache::getFromMemory(BinaryData::led_gold_on_png, BinaryData::led_gold_on_pngSize), 1.0, Colours::transparentWhite,
+            0.0);
+    }
+    else {
+        colorSelectButton.setImages(true, true, true,
+            ImageCache::getFromMemory(BinaryData::power_switch_down_png, BinaryData::power_switch_down_pngSize), 1.0, Colours::transparentWhite,
+            Image(), 1.0, Colours::transparentWhite,
+            ImageCache::getFromMemory(BinaryData::power_switch_down_png, BinaryData::power_switch_down_pngSize), 1.0, Colours::transparentWhite,
+            0.0);
+        ampLED.setImages(true, true, true,
+            ImageCache::getFromMemory(BinaryData::led_green_on_png, BinaryData::led_green_on_pngSize), 1.0, Colours::transparentWhite,
+            Image(), 1.0, Colours::transparentWhite,
+            ImageCache::getFromMemory(BinaryData::led_green_on_png, BinaryData::led_green_on_pngSize), 1.0, Colours::transparentWhite,
+            0.0);
     }
 }
