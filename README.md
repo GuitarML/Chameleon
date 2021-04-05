@@ -20,6 +20,8 @@ also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarM
 Re-creation of the LSTM inference model from [Real-Time Guitar Amplifier Emulation with Deep
 Learning](https://www.mdpi.com/2076-3417/10/3/766/htm)
 
+The [AI-GuitarAmpModelling](https://github.com/Alec-Wright/AI-GuitarAmpModelling) project was used to train the .json models. 
+
 ## Build Instructions
 
 1. Clone or download this repository.
