@@ -2,10 +2,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.io import wavfile
 import json
-
-#from torch.nn import Sigmoid
 from tensorflow.keras.activations import sigmoid
 
+# Developer Note:
+#  This script was used in verifying the step by step LSTM calculations
+#  before converting to c++. It compares a pre-rendered baseline wav file
+#  with the output from the custom LSTM.
 
 # Reference:
 # https://dtransposed.github.io/blog/Under-the-hood-LSTM.html
@@ -80,7 +82,7 @@ class custom_LSTM(object):
         )
         c_t = f_t * self.cell_state + i_t * g_t # Cell state
         h_t = o_t * self.tanh(c_t) # Hidden state
-        self.hidden = h_t     # c_t and h_t assignments written out for clarity, can just update the self.hidden and self.cell states without using c_t and h_t
+        self.hidden = h_t 
         self.cell_state = c_t
 
         return self.hidden
@@ -91,8 +93,8 @@ class custom_LSTM(object):
         
     def dense(self, x, weights, bias):
         result = np.dot(x, weights)+bias
-        self.result=result[0] + self.residual ## This is where I'm adding the residual skip connection
-        return result[0] + self.residual  ## This is where I'm adding the residual skip connection
+        self.result=result[0] + self.residual
+        return result[0] + self.residual
 
     def output_array_append(self):
         self.output_array.append(self.result[0]) 

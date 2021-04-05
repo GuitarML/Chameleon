@@ -16,6 +16,10 @@ also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarM
 1. Download the appropriate plugin installer (Windows 10, Mac, Ubuntu Linux)
 2. Run the installer and follow the instructions. May need to reboot to allow your DAW to recognize the new plugin.
 
+## Info
+Re-creation of the LSTM inference model from [Real-Time Guitar Amplifier Emulation with Deep
+Learning](https://www.mdpi.com/2076-3417/10/3/766/htm)
+
 ## Build Instructions
 
 1. Clone or download this repository.
