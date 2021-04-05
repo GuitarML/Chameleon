@@ -1,15 +1,15 @@
 # Chameleon
 
+![app](https://github.com/GuitarML/Chameleon/blob/main/resources/Chameleon.jpg)
+
 Chameleon is a guitar plugin using neural networks to create three distinct sounds from a vintage style amp head. EQ and gain were added to 
 allow further modificiation of the three core sounds, named Red (high gain), Gold (crunchy), and Green (crisp and clean). In the same
 way a real amp head is used with a cabinet and other effects, this plugin is intended to be used in the signal chain along with IR's (cab sim),
 reverb, and any number of guitar effects. 
 
-Chameleon's core sound comes from a neural net inference engine. This is what allows the plugin to emulate all the nuances of a high end
+Chameleon's core sound comes from a neural net inference engine which allows the plugin to emulate all the nuances of a high end
 tube amplifier. The engine uses a stateful LSTM model, which improves the sound quality of the previous stateless LSTM used in the SmartAmpPro. It
 also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarML/SmartAmpPro) and [SmartGuitarAmp](https://github.com/GuitarML/SmartGuitarAmp).
-
-![app](https://github.com/GuitarML/Chameleon/blob/main/resources/Chameleon.jpg)
 
 ## Installing the plugin
 
