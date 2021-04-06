@@ -40,7 +40,7 @@ class lstm
         std::vector<std::vector<float>> data;
 
         // Network Parameters
-        int HS = 32;
+        int HS = 20;
 
         // LSTM calc
         nc::NdArray<float> gates = nc::zeros<float>(1, HS * 4);
