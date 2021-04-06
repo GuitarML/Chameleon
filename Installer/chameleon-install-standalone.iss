@@ -19,5 +19,5 @@ Source: "Chameleon.exe"; DestDir: "{app}\GuitarML"
 Source: "guitarml.ico"; DestDir: "{app}\GuitarML"
 
 [Icons]
-Name: "{userdesktop}\Chameleon"; Filename: "{app}\Chameleon.exe"; \
-    IconFilename: "{app}\guitarml.ico"; Tasks: desktopicon
+Name: "{userdesktop}\Chameleon"; Filename: "{app}\GuitarML\Chameleon.exe"; \
+    IconFilename: "{app}\GuitarML\guitarml.ico"; Tasks: desktopicon
