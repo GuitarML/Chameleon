@@ -6,7 +6,7 @@ AppPublisherURL=https://guitarml.com/
 DefaultDirName={cf}
 DefaultGroupName=Chameleon
 OutputBaseFilename=Chameleon-Install-Win10-Standalone
-;SetupIconFile=guitarml.ico
+SetupIconFile=guitarml.ico
 ArchitecturesInstallIn64BitMode=x64
  
 [Tasks]
