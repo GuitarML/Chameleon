@@ -29,10 +29,10 @@ if [[ $binary -ne 0 ]]; then
 		-e 's/uuencode=./uuencode=0/' \
 		-e 's/binary=./binary=1/' \
 			 $in_file >$installer_name
-	echo "" >> $installer_name
+	#echo "" >> $installer_name
 	echo "PAYLOAD:" >> $installer_name
 
-	cat $1 >>../$installer_name
+	cat $1 >>$installer_name
 fi
 if [[ $uuencode -ne 0 ]]; then
 	# Append uuencoded data.
