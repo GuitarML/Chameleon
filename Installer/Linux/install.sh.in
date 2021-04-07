@@ -1,0 +1,48 @@
+#!/bin/bash
+
+uuencode=1
+binary=0
+
+function untar_payload() {
+  match=$(grep --text --line-number '^PAYLOAD:$' "$0" | cut -d ':' -f 1)
+  payload_start=$((match + 1))
+  if [[ $binary -ne 0 ]]; then
+    tail -n +$payload_start "$0" | tar -xzvf -
+  fi
+  if [[ $uuencode -ne 0 ]]; then
+    tail -n +$payload_start "$0" | uudecode | tar -xzvf -
+  fi
+}
+
+echo "#-----------------------------------------------------------"
+echo "# Chameleon Install"
+echo "#------------------------------------------------------------"
+
+
+read -r -p "This will install the Chameleon VST3 plugin by GuitarML, continue? (y/n): " ans
+if [[ $ans == "y" ]] || [[ $ans == "Y" ]] || [[ $ans == "Yes" ]] || [[ $ans == "yes" ]]; then
+  current_dir=`pwd`
+  #Create ~/.vst3 folder if it doesn't already exist
+  mkdir -p ~/.vst3
+  
+  # Untar the .tar.gz payload 
+  untar_payload
+  
+  # Move VST3 to default install location
+  chmod -R 775 Chameleon.vst3 
+  cp -r Chameleon.vst3 ~/.vst3/
+
+  # Check that vst3 installed properly
+  cd ~/.vst3/
+  vst3_installed=$(ls Chameleon.vst3 2>/dev/null | wc -l)
+  if [ "$vst3_installed" == "0" ]; then
+	  echo "[Error] Chameleon.vst3 did not install to ~/.vst3/ correctly. Try manually copying the untarred Chameleon.vst3 to the proper location."
+	else
+	  echo "[Success] Chameleon.vst3 was installed to ~/.vst3/"
+  fi
+  cd $current_dir
+fi
+
+read -r -p "Press any key to exit" ans
+
+exit 0
