@@ -146,11 +146,12 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
     // Setup Audio Data
     const int numSamples = buffer.getNumSamples();
     const int numInputChannels = getTotalNumInputChannels();
+    const int sampleRate = getSampleRate();
 
     // Amp =============================================================================
     if (amp_state == 1) {
         //    EQ (Presence, Bass, Mid, Treble)
-        eq4band.process(buffer.getReadPointer(0), buffer.getWritePointer(0), midiMessages, numSamples, numInputChannels);
+        eq4band.process(buffer.getReadPointer(0), buffer.getWritePointer(0), midiMessages, numSamples, numInputChannels, sampleRate);
 
         buffer.applyGain(ampDrive);
 
