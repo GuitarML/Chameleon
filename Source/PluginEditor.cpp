@@ -117,6 +117,8 @@ ChameleonAudioProcessorEditor::~ChameleonAudioProcessorEditor()
 //==============================================================================
 void ChameleonAudioProcessorEditor::paint (Graphics& g)
 {
+    // g.drawImageAt(background, 0, 0);  // Debug Line: Redraw entire background image
+
     // Redraw only the clipped part of the background image
     juce::Rectangle<int> ClipRect = g.getClipBounds(); 
     g.drawImage(background, ClipRect.getX(), ClipRect.getY(), ClipRect.getWidth(), ClipRect.getHeight(), ClipRect.getX(), ClipRect.getY(), ClipRect.getWidth(), ClipRect.getHeight());
