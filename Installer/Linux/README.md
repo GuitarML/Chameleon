@@ -5,9 +5,11 @@ https://www.linuxjournal.com/content/add-binary-payload-your-shell-scripts
 
 1. Copy the Linux Chameleon.vst3 to this folder. 
 
-2. Run the build script using "./build_linux_installer.sh" in the terminal or double click.
+2. Run the build script using "./build_linux_installer.sh" in the terminal.
 
 3. The output .exe installer will be generated in "Builds/".
+
+4. Run installer using "./Chameleon-Install-VST3-Linux.sh" in the terminal.
 
 Note: You may need to apply proper permissions to the installer, for example: 
        "chmod 775 Chameleon-Install-VST3-Linux.sh"
