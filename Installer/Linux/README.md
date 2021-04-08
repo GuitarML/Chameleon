@@ -1,4 +1,4 @@
-# Build Windows Installer Instructions
+# Build Linux Installer Instructions
 
 This uses InnoSetup to build Windows installers. The .iss scripts are used by InnoSetup.
 
