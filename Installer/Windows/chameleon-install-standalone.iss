@@ -16,8 +16,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; \
 [Files]
 ;Source: "Chameleon.vst3"; DestDir: "{app}\Steinberg\VST3"
 Source: "Chameleon.exe"; DestDir: "{pf64}\GuitarML"
-Source: "guitarml.ico"; DestDir: "{pf64}\GuitarML"
+;Source: "guitarml.ico"; DestDir: "{pf64}\GuitarML"
 
 [Icons]
-Name: "{userdesktop}\Chameleon"; Filename: "{pf64}\GuitarML\Chameleon.exe"; \
-    IconFilename: "{pf64}\GuitarML\guitarml.ico"; Tasks: desktopicon
+Name: "{userdesktop}\Chameleon"; Filename: "{pf64}\GuitarML\Chameleon.exe"; Tasks: desktopicon
