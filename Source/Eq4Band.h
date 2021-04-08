@@ -19,7 +19,7 @@ public:
     Eq4Band();
     void process (const float* inData, float* outData, MidiBuffer& midiMessages, const int numSamples, const int numInputChannels, const int sampleRate);
     void setParameters(float bass_slider, float mid_slider, float treble_slider, float presence_slider);
-    void Eq4Band::resetSampleRate();
+    void resetSampleRate();
 
 private:
     // Tone Knob related variables

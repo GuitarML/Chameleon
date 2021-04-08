@@ -59,7 +59,7 @@ private:
     virtual void buttonClicked(Button* button) override;
     virtual void sliderValueChanged(Slider* slider) override;
     void colorSelectClicked();
-    void ChameleonAudioProcessorEditor::resetImages();
+    void resetImages();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChameleonAudioProcessorEditor)
 };
