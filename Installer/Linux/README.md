@@ -1,14 +1,19 @@
-# Build Windows Installer Instructions
+# Build Linux Installer Instructions (.vst3 only)
 
-This uses InnoSetup to build Windows installers. The .iss scripts are used by InnoSetup.
+The Linux installer uses a Binary Payload script as described here: 
+https://www.linuxjournal.com/content/add-binary-payload-your-shell-scripts
 
-1. Download InnoSetup: https://jrsoftware.org/isdl.php
+1. Copy the Linux Chameleon.vst3 to this folder. 
 
-2. Copy the Windows Chameleon.vst3 or Chameleon.exe to this folder. 
+2. Run the build script using "./build_linux_installer.sh" in the terminal or double click.
 
-3. Open the .iss script (either VST3 or Standalone) with InnoSetup.
+3. The output .exe installer will be generated in "Builds/".
 
-4. Run the script from InnoSetup. The output .exe installer will be generated in "Output/".
+Note: You may need to apply proper permissions to the installer, for example: 
+       "chmod 775 Chameleon-Install-VST3-Linux.sh"
 
-Note: These are for 64 bit Windows installers. The .vst3 will be installed to "C:\Program Files\Common Files\VST3"
-      The standalone will be installed to "C:\Program Files\GuitarML" with the option of creating a Desktop shortcut.
+Note: The .vst3 will be installed to the user's home folder "~/.vst3/"
+      The script will untar the payload to the current directory first, so if the install fails you can
+	  manually copy the "Chameleon.vst" folder to the desired location.
+	  
+	 
