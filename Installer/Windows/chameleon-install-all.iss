@@ -8,6 +8,7 @@ DefaultGroupName=Chameleon
 OutputBaseFilename=Chameleon-Install-Win10
 SetupIconFile=guitarml.ico
 ArchitecturesInstallIn64BitMode=x64
+Uninstallable=yes
  
 [Types]
 Name: "VST3"; Description: "VST3 Plugin install"
