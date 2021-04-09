@@ -3,7 +3,7 @@
 ![app](https://github.com/GuitarML/Chameleon/blob/main/resources/Chameleon.jpg)
 
 Chameleon is a guitar plugin using neural networks to create three distinct sounds from a vintage style amp head. EQ and gain were added to 
-allow further modificiation of the three core sounds, named Red (high gain), Gold (crunchy), and Green (crisp and clean). In the same
+allow further modification of the three core sounds, named Red (high gain), Gold (crunchy), and Green (crisp and clean). In the same
 way a real amp head is used with a cabinet and other effects, this plugin is intended to be used in the signal chain along with IR's (cab sim),
 reverb, and any number of guitar effects. 
 
