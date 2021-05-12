@@ -33,6 +33,11 @@ public:
     void resized() override;
 
     ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> gainSliderAttach;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> bassSliderAttach;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> midSliderAttach;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> trebleSliderAttach;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> presenceSliderAttach;
+    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> masterSliderAttach;
 
 private:
     // This reference is provided as a quick way for your editor to
@@ -45,7 +50,7 @@ private:
     Slider ampTrebleKnob;
     Slider ampGainKnob;
     Slider ampMasterKnob;
-	Slider ampPresenceKnob;
+    Slider ampPresenceKnob;
 
     ImageButton colorSelectButton;
     ImageButton ampLED;
