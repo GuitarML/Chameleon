@@ -18,6 +18,16 @@
 
 #define GAIN_ID "gain"
 #define GAIN_NAME "Gain"
+#define BASS_ID "bass"
+#define BASS_NAME "Bass"
+#define MID_ID "mid"
+#define MID_NAME "Mid"
+#define TREBLE_ID "treble"
+#define TREBLE_NAME "Treble"
+#define PRESENCE_ID "presence"
+#define PRESENCE_NAME "Presence"
+#define MASTER_ID "master"
+#define MASTER_NAME "Master"
 
 //==============================================================================
 /**
