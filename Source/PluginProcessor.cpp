@@ -23,10 +23,17 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
 #endif
         .withOutput("Output", AudioChannelSet::stereo(), true)
 #endif
-    )
+    ),
+    treeState(*this, nullptr)
+
+
 
 #endif
 {
+    // Automation Parameters
+    NormalisableRange<float> gainRange(-10.0f, 10.0f);
+    treeState.createAndAddParameter(GAIN_ID, GAIN_NAME, GAIN_NAME, gainRange, 0.0f, nullptr, nullptr);
+
     setupDataDirectories();
     installTones();
     //resetDirectory(userAppDataDirectory_tones);

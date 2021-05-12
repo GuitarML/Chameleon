@@ -16,6 +16,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Eq4Band.h"
 
+#define GAIN_ID "gain"
+#define GAIN_NAME "Gain"
 
 //==============================================================================
 /**
@@ -100,6 +102,8 @@ public:
 
     ModelLoader loader;
     lstm LSTM;
+
+    AudioProcessorValueTreeState treeState;
 
 private:
     Eq4Band eq4band; // Amp EQ

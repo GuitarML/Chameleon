@@ -73,6 +73,8 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampTrebleKnob.setNumDecimalPlacesToDisplay(1);
     ampTrebleKnob.setDoubleClickReturnValue(true, 0.0);
 
+    gainSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, GAIN_ID, ampGainKnob);
+
     addAndMakeVisible(ampGainKnob);
     ampGainKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampGainKnob.addListener(this);
