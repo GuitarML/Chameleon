@@ -42,7 +42,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
         0.0);
     ampLED.addListener(this);
 
-
+    bassSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, BASS_ID, ampBassKnob);
     addAndMakeVisible(ampBassKnob);
     ampBassKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampBassKnob.addListener(this);
@@ -53,6 +53,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampBassKnob.setNumDecimalPlacesToDisplay(1);
     ampBassKnob.setDoubleClickReturnValue(true, 0.0);
 
+    midSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, MID_ID, ampMidKnob);
     addAndMakeVisible(ampMidKnob);
     ampMidKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampMidKnob.addListener(this);
@@ -63,6 +64,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampMidKnob.setNumDecimalPlacesToDisplay(1);
     ampMidKnob.setDoubleClickReturnValue(true, 0.0);
 
+    trebleSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, TREBLE_ID, ampTrebleKnob);
     addAndMakeVisible(ampTrebleKnob);
     ampTrebleKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampTrebleKnob.addListener(this);
@@ -74,7 +76,6 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampTrebleKnob.setDoubleClickReturnValue(true, 0.0);
 
     gainSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, GAIN_ID, ampGainKnob);
-
     addAndMakeVisible(ampGainKnob);
     ampGainKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampGainKnob.addListener(this);
@@ -85,7 +86,8 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampGainKnob.setNumDecimalPlacesToDisplay(1);
     ampGainKnob.setDoubleClickReturnValue(true, 0.0);
 	
-	addAndMakeVisible(ampPresenceKnob);
+    presenceSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, PRESENCE_ID, ampPresenceKnob);
+    addAndMakeVisible(ampPresenceKnob);
     ampPresenceKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampPresenceKnob.addListener(this);
     ampPresenceKnob.setRange(-8.0, 8.0);
@@ -95,6 +97,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampPresenceKnob.setNumDecimalPlacesToDisplay(1);
     ampPresenceKnob.setDoubleClickReturnValue(true, 0.0);
 
+    masterSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, MASTER_ID, ampMasterKnob);
     addAndMakeVisible(ampMasterKnob);
     ampMasterKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampMasterKnob.addListener(this);
