@@ -42,7 +42,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
         0.0);
     ampLED.addListener(this);
 
-    bassSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, BASS_ID, ampBassKnob);
+    bassSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, BASS_ID, ampBassKnob);    	    
     addAndMakeVisible(ampBassKnob);
     ampBassKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampBassKnob.addListener(this);
@@ -53,7 +53,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampBassKnob.setNumDecimalPlacesToDisplay(1);
     ampBassKnob.setDoubleClickReturnValue(true, 0.0);
 
-    midSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, MID_ID, ampMidKnob);
+    midSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, MID_ID, ampMidKnob);    
     addAndMakeVisible(ampMidKnob);
     ampMidKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampMidKnob.addListener(this);
@@ -64,7 +64,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampMidKnob.setNumDecimalPlacesToDisplay(1);
     ampMidKnob.setDoubleClickReturnValue(true, 0.0);
 
-    trebleSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, TREBLE_ID, ampTrebleKnob);
+    trebleSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, TREBLE_ID, ampTrebleKnob);
     addAndMakeVisible(ampTrebleKnob);
     ampTrebleKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampTrebleKnob.addListener(this);
@@ -75,7 +75,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampTrebleKnob.setNumDecimalPlacesToDisplay(1);
     ampTrebleKnob.setDoubleClickReturnValue(true, 0.0);
 
-    gainSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, GAIN_ID, ampGainKnob);
+    gainSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, GAIN_ID, ampGainKnob);
     addAndMakeVisible(ampGainKnob);
     ampGainKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampGainKnob.addListener(this);
@@ -86,7 +86,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampGainKnob.setNumDecimalPlacesToDisplay(1);
     ampGainKnob.setDoubleClickReturnValue(true, 0.0);
 	
-    presenceSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, PRESENCE_ID, ampPresenceKnob);
+    presenceSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, PRESENCE_ID, ampPresenceKnob);
     addAndMakeVisible(ampPresenceKnob);
     ampPresenceKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampPresenceKnob.addListener(this);
@@ -97,7 +97,7 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampPresenceKnob.setNumDecimalPlacesToDisplay(1);
     ampPresenceKnob.setDoubleClickReturnValue(true, 0.0);
 
-    masterSliderAttach = new AudioProcessorValueTreeState::SliderAttachment(processor.treeState, MASTER_ID, ampMasterKnob);
+    masterSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, MASTER_ID, ampMasterKnob);
     addAndMakeVisible(ampMasterKnob);
     ampMasterKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampMasterKnob.addListener(this);
@@ -140,7 +140,7 @@ void ChameleonAudioProcessorEditor::resized()
     ampTrebleKnob.setBounds(308, 40, 50, 70);
     ampGainKnob.setBounds(120, 40, 50, 70);
     ampMasterKnob.setBounds(455, 40, 50, 70);
-	ampPresenceKnob.setBounds(380, 40, 50, 70);
+    ampPresenceKnob.setBounds(380, 40, 50, 70);
 
     colorSelectButton.setBounds(58, 41, 15, 25);
     ampLED.setBounds(694, 89, 20, 20);
