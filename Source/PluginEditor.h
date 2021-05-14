@@ -32,13 +32,6 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> gainSliderAttach;
-    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> bassSliderAttach;
-    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> midSliderAttach;
-    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> trebleSliderAttach;
-    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> presenceSliderAttach;
-    ScopedPointer <AudioProcessorValueTreeState::SliderAttachment> masterSliderAttach;
-
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -66,6 +59,14 @@ private:
     virtual void sliderValueChanged(Slider* slider) override;
     void colorSelectClicked();
     void resetImages();
+    
+public:
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> gainSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> bassSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> midSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> trebleSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> presenceSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> masterSliderAttach;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChameleonAudioProcessorEditor)
 };
