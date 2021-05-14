@@ -31,9 +31,9 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
 #endif
 {
     // Automation Parameters
-    NormalisableRange<float> gainRange(-10.0f, 10.0f);
-    NormalisableRange<float> eqRange(-8.0f, 8.0f);
-    NormalisableRange<float> masterRange(-36.0f, 12.0f);    
+    NormalisableRange<float> gainRange(-10.0f, 10.0f, 0.01f);
+    NormalisableRange<float> eqRange(-8.0f, 8.0f, 0.01f);
+    NormalisableRange<float> masterRange(-36.0f, 12.0f, 0.01f);    
     treeState.createAndAddParameter(GAIN_ID, GAIN_NAME, GAIN_NAME, gainRange, 0.0f, nullptr, nullptr);
     treeState.createAndAddParameter(BASS_ID, BASS_NAME, BASS_NAME, eqRange, 0.0f, nullptr, nullptr);
     treeState.createAndAddParameter(MID_ID, MID_NAME, MID_NAME, eqRange, 0.0f, nullptr, nullptr);
