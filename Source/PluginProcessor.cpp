@@ -24,29 +24,19 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
         .withOutput("Output", AudioChannelSet::stereo(), true)
 #endif
     ),
-    treeState(*this, nullptr)
-
-
+    //treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(-10.0f, 10.0f, 0.01f), 0.0f),
+    treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, -10.0f, 10.0f, 0.0f),
+                        std::make_unique<AudioParameterFloat>(BASS_ID, BASS_NAME, -8.0f, 8.0f, 0.0f),
+                        std::make_unique<AudioParameterFloat>(MID_ID, MID_NAME, -8.0f, 8.0f, 0.0f),
+                        std::make_unique<AudioParameterFloat>(TREBLE_ID, TREBLE_NAME, -8.0f, 8.0f, 0.0f),
+                        std::make_unique<AudioParameterFloat>(PRESENCE_ID, PRESENCE_NAME, -8.0f, 8.0f, 0.0f),
+                        std::make_unique<AudioParameterFloat>(MASTER_ID, MASTER_NAME, -36.0f, 12.0f, 0.0f) })
 
 #endif
 {
-    // Automation Parameters
-    NormalisableRange<float> gainRange(-10.0f, 10.0f, 0.01f);
-    NormalisableRange<float> eqRange(-8.0f, 8.0f, 0.01f);
-    NormalisableRange<float> masterRange(-36.0f, 12.0f, 0.01f);    
-    treeState.createAndAddParameter(GAIN_ID, GAIN_NAME, GAIN_NAME, gainRange, 0.0f, nullptr, nullptr);
-    treeState.createAndAddParameter(BASS_ID, BASS_NAME, BASS_NAME, eqRange, 0.0f, nullptr, nullptr);
-    treeState.createAndAddParameter(MID_ID, MID_NAME, MID_NAME, eqRange, 0.0f, nullptr, nullptr);
-    treeState.createAndAddParameter(TREBLE_ID, TREBLE_NAME, TREBLE_NAME, eqRange, 0.0f, nullptr, nullptr);
-    treeState.createAndAddParameter(PRESENCE_ID, PRESENCE_NAME, PRESENCE_NAME, eqRange, 0.0f, nullptr, nullptr);
-    treeState.createAndAddParameter(MASTER_ID, MASTER_NAME, MASTER_NAME, masterRange, -12.0f, nullptr, nullptr);	    
-	    
     setupDataDirectories();
     installTones();
-    //resetDirectory(userAppDataDirectory_tones);
-    //if (jsonFiles.size() > 0) {
     loadConfig(red_tone);
-    //}
 }
 
 ChameleonAudioProcessor::~ChameleonAudioProcessor()
