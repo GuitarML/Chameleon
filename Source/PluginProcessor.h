@@ -107,7 +107,7 @@ public:
     float ampMidKnobState = 0.0;
     float ampTrebleKnobState = 0.0;
     float ampGainKnobState = 0.0;
-    float ampMasterKnobState = -12.0;
+    float ampMasterKnobState = -18.0;
 	float ampPresenceKnobState = 0.0;
 
     ModelLoader loader;

@@ -101,12 +101,12 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     addAndMakeVisible(ampMasterKnob);
     ampMasterKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampMasterKnob.addListener(this);
-    ampMasterKnob.setRange(-36.0, 12.0);
+    ampMasterKnob.setRange(-36.0, 0.0);
     ampMasterKnob.setValue(processor.ampMasterKnobState);
     ampMasterKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     ampMasterKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20 );
     ampMasterKnob.setNumDecimalPlacesToDisplay(1);
-    ampMasterKnob.setDoubleClickReturnValue(true, -12.0);
+    ampMasterKnob.setDoubleClickReturnValue(true, -18.0);
 
     // Size of plugin GUI
     setSize(774, 293);

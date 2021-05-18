@@ -25,12 +25,12 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
 #endif
     ),
     //treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(-10.0f, 10.0f, 0.01f), 0.0f),
-    treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, -10.0f, 10.0f, 0.0f),
-                        std::make_unique<AudioParameterFloat>(BASS_ID, BASS_NAME, -8.0f, 8.0f, 0.0f),
-                        std::make_unique<AudioParameterFloat>(MID_ID, MID_NAME, -8.0f, 8.0f, 0.0f),
-                        std::make_unique<AudioParameterFloat>(TREBLE_ID, TREBLE_NAME, -8.0f, 8.0f, 0.0f),
-                        std::make_unique<AudioParameterFloat>(PRESENCE_ID, PRESENCE_NAME, -8.0f, 8.0f, 0.0f),
-                        std::make_unique<AudioParameterFloat>(MASTER_ID, MASTER_NAME, -36.0f, 12.0f, 0.0f) })
+    treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(-10.0f, 10.0f, 0.01f), 0.0f),
+                        std::make_unique<AudioParameterFloat>(BASS_ID, BASS_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
+                        std::make_unique<AudioParameterFloat>(MID_ID, MID_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
+                        std::make_unique<AudioParameterFloat>(TREBLE_ID, TREBLE_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
+                        std::make_unique<AudioParameterFloat>(PRESENCE_ID, PRESENCE_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
+                        std::make_unique<AudioParameterFloat>(MASTER_ID, MASTER_NAME, NormalisableRange<float>(-36.0f, 0.0f, 0.01f), 0.0f) })
 
 #endif
 {
