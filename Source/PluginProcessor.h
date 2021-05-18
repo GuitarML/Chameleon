@@ -16,6 +16,18 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Eq4Band.h"
 
+#define GAIN_ID "gain"
+#define GAIN_NAME "Gain"
+#define BASS_ID "bass"
+#define BASS_NAME "Bass"
+#define MID_ID "mid"
+#define MID_NAME "Mid"
+#define TREBLE_ID "treble"
+#define TREBLE_NAME "Treble"
+#define PRESENCE_ID "presence"
+#define PRESENCE_NAME "Presence"
+#define MASTER_ID "master"
+#define MASTER_NAME "Master"
 
 //==============================================================================
 /**
@@ -95,11 +107,13 @@ public:
     float ampMidKnobState = 0.0;
     float ampTrebleKnobState = 0.0;
     float ampGainKnobState = 0.0;
-    float ampMasterKnobState = -12.0;
+    float ampMasterKnobState = -18.0;
 	float ampPresenceKnobState = 0.0;
 
     ModelLoader loader;
     lstm LSTM;
+
+    AudioProcessorValueTreeState treeState;
 
 private:
     Eq4Band eq4band; // Amp EQ

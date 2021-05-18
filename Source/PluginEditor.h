@@ -32,7 +32,6 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -44,7 +43,7 @@ private:
     Slider ampTrebleKnob;
     Slider ampGainKnob;
     Slider ampMasterKnob;
-	Slider ampPresenceKnob;
+    Slider ampPresenceKnob;
 
     ImageButton colorSelectButton;
     ImageButton ampLED;
@@ -60,6 +59,14 @@ private:
     virtual void sliderValueChanged(Slider* slider) override;
     void colorSelectClicked();
     void resetImages();
+    
+public:
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> gainSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> bassSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> midSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> trebleSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> presenceSliderAttach;
+    std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> masterSliderAttach;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChameleonAudioProcessorEditor)
 };
