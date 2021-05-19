@@ -16,6 +16,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "Eq4Band.h"
 
+#include "RTNeuralLSTM.h"
+
 #define GAIN_ID "gain"
 #define GAIN_NAME "Gain"
 #define BASS_ID "bass"
@@ -28,6 +30,8 @@
 #define PRESENCE_NAME "Presence"
 #define MASTER_ID "master"
 #define MASTER_NAME "Master"
+
+#define USE_RTNEURAL 1
 
 //==============================================================================
 /**
@@ -110,8 +114,12 @@ public:
     float ampMasterKnobState = -18.0;
 	float ampPresenceKnobState = 0.0;
 
+#if USE_RTNEURAL
+    RT_LSTM LSTM;
+#else
     ModelLoader loader;
     lstm LSTM;
+#endif
 
     AudioProcessorValueTreeState treeState;
 

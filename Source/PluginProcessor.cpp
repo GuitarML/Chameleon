@@ -110,6 +110,9 @@ void ChameleonAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
 {
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
+#if USE_RTNEURAL
+    LSTM.reset();
+#endif
 }
 
 void ChameleonAudioProcessor::releaseResources()
@@ -160,7 +163,11 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         buffer.applyGain(ampDrive);
 
 		// Apply LSTM model
+#if USE_RTNEURAL
         LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+#else
+        LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+#endif
 
         // Master Volume 
         buffer.applyGain(ampMaster);
@@ -210,10 +217,15 @@ void ChameleonAudioProcessor::loadConfig(File configFile)
     model_loaded = 1;
     String path = configFile.getFullPathName();
     char_filename = path.toUTF8();
+
+#if USE_RTNEURAL
+    LSTM.load_json(char_filename);
+#else
     loader.load_json(char_filename);
     LSTM.setParams(loader.hidden_size,  loader.lstm_weights_ih_nc,
         loader.lstm_weights_hh_nc, loader.lstm_bias_nc,
         loader.dense_bias_nc, loader.dense_weights_nc);
+#endif
 
     this->suspendProcessing(false);
 }
