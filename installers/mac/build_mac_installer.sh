@@ -8,7 +8,7 @@ sed -i '' "s/##APPVERSION##/${app_version}/g" $script_file
 sed -i '' "s/##APPVERSION##/${app_version}/g" Intro.txt
 
 echo "Copying License..."
-cp ../../LICENSE LICENSE.txt
+cp ../../LICENSE.txt LICENSE.txt
 
 # build installer
 echo Building...
