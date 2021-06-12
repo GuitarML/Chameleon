@@ -1,0 +1,1 @@
+This application will install the Chameleon audio plugin version ##APPVERSION## to your computer.
