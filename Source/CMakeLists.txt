@@ -3,10 +3,6 @@
 target_sources(Chameleon PRIVATE
 	Eq4Band.cpp
 	Eq4Band.h
-	lstm.cpp
-	lstm.h
-	ModelLoader.cpp
-	ModelLoader.h
 	myLookAndFeel.cpp
 	myLookAndFeel.h
 	PluginEditor.cpp

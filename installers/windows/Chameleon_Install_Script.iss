@@ -7,7 +7,7 @@ DefaultDirName={commoncf64}
 DefaultGroupName=Chameleon
 OutputBaseFilename="Chameleon-Win-##APPVERSION##"
 OutputDir=.
-LicenseFile=../../LICENSE
+LicenseFile=../../LICENSE.txt
 
 [Types]
 Name: "full"; Description: "Full installation"

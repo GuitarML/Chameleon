@@ -3,6 +3,10 @@ set(CMAKE_OSX_DEPLOYMENT_TARGET "10.12" CACHE STRING "Minimum OS X deployment ta
 project(Chameleon VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
+
+set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with this backend" FORCE)
+add_subdirectory(modules/RTNeural)
+
 add_subdirectory(modules)
 include_directories(modules)
 
@@ -21,9 +25,9 @@ juce_add_plugin(Chameleon
 juce_generate_juce_header(Chameleon)
 
 # add sources
-add_subdirectory(src)
-include_directories(src)
-add_subdirectory(res)
+add_subdirectory(Source)
+include_directories(Source)
+add_subdirectory(resources)
 
 target_compile_definitions(Chameleon
     PUBLIC

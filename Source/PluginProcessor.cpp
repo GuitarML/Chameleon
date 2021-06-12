@@ -166,7 +166,7 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
 #if USE_RTNEURAL
         LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
 #else
-        LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
+        //LSTM.process(buffer.getReadPointer(0), buffer.getWritePointer(0), numSamples);
 #endif
 
         // Master Volume 
@@ -221,10 +221,10 @@ void ChameleonAudioProcessor::loadConfig(File configFile)
 #if USE_RTNEURAL
     LSTM.load_json(char_filename);
 #else
-    loader.load_json(char_filename);
-    LSTM.setParams(loader.hidden_size,  loader.lstm_weights_ih_nc,
-        loader.lstm_weights_hh_nc, loader.lstm_bias_nc,
-        loader.dense_bias_nc, loader.dense_weights_nc);
+    //loader.load_json(char_filename);
+    //LSTM.setParams(loader.hidden_size,  loader.lstm_weights_ih_nc,
+    //    loader.lstm_weights_hh_nc, loader.lstm_bias_nc,
+    //    loader.dense_bias_nc, loader.dense_weights_nc);
 #endif
 
     this->suspendProcessing(false);

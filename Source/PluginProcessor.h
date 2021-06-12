@@ -9,8 +9,7 @@
 */
 
 #include <nlohmann/json.hpp>
-#include "NumCpp.hpp"
-#include "lstm.h"
+//#include "lstm.h"
 #pragma once
 
 #include "../JuceLibraryCode/JuceHeader.h"
@@ -117,8 +116,8 @@ public:
 #if USE_RTNEURAL
     RT_LSTM LSTM;
 #else
-    ModelLoader loader;
-    lstm LSTM;
+    //ModelLoader loader;
+    //lstm LSTM;
 #endif
 
     AudioProcessorValueTreeState treeState;
