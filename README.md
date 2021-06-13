@@ -24,19 +24,37 @@ The [Automated-GuitarAmpModelling](https://github.com/Alec-Wright/Automated-Guit
 
 ## Build Instructions
 
+### Build with Cmake
+
+```bash
+# Clone the repository
+$ git clone https://github.com/GuitarML/Chameleon.git
+$ cd Chameleon
+
+# initialize and set up submodules
+$ git submodule update --init --recursive
+
+# build with CMake
+$ cmake -Bbuild
+$ cmake --build build --config Release
+```
+The binaries will be located in `Chameleon/build/Chameleon_artefacts/`
+
+### Build with Projucer 
+
 1. Clone or download this repository.
 2. Download and install [JUCE](https://juce.com/) This project uses the "Projucer" application from the JUCE website. 
-3. Download and extract [NumCpp](https://github.com/dpilger26/NumCpp) This is a c++ implementation of the Python Numpy library.
-4. Download and extract [Boost](https://www.boost.org/)  (NumCpp requires Boost)
-5. Download and extract: [json](https://github.com/nlohmann/json) Json for c++.
-6. Open the Chameleon.jucer file and in the appropriate Exporter Header Search Path field, enter the appropriate include paths.
+3. Initialize and set up submodules
+$ git submodule update --init --recursive
+4. Open the Chameleon.jucer file and in the appropriate Exporter Header Search Path field, enter the appropriate include paths from the modules folder.
    For example:
 
 ```
-  	<full-path-to>/json-develop/include
-	<full-path-to>/NumCpp-master/include
-	<full-path-to>/boost_1_75_0/boost_1_75_0
+  	<full-path-to>/Chameleon/modules/json/include
+	<full-path-to>/Chameleon/modules/RTNeural
+	<full-path-to>/Chameleon/modules/RTNeural/modules/xsimd/include
+
 ```
-7. Build Chameleon from the Juce Projucer application. 
+5. Build Chameleon from the Juce Projucer application. 
 
 Note: Make sure to build in Release mode unless actually debugging. Debug mode will not keep up with real time playing.
