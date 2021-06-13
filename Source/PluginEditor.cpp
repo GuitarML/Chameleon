@@ -122,11 +122,14 @@ ChameleonAudioProcessorEditor::~ChameleonAudioProcessorEditor()
 //==============================================================================
 void ChameleonAudioProcessorEditor::paint (Graphics& g)
 {
-    // g.drawImageAt(background, 0, 0);  // Debug Line: Redraw entire background image
-
+    // Workaround for graphics on Windows builds (clipping code doesn't work correctly on Windows)
+    #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
+    g.drawImageAt(background, 0, 0);  // Debug Line: Redraw entire background image
+    #else
     // Redraw only the clipped part of the background image
     juce::Rectangle<int> ClipRect = g.getClipBounds(); 
     g.drawImage(background, ClipRect.getX(), ClipRect.getY(), ClipRect.getWidth(), ClipRect.getHeight(), ClipRect.getX(), ClipRect.getY(), ClipRect.getWidth(), ClipRect.getHeight());
+    #endif
 }
 
 void ChameleonAudioProcessorEditor::resized()
