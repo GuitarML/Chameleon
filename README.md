@@ -22,6 +22,8 @@ Learning](https://www.mdpi.com/2076-3417/10/3/766/htm)
 
 The [Automated-GuitarAmpModelling](https://github.com/Alec-Wright/Automated-GuitarAmpModelling) project was used to train the .json models. 
 
+The plugin uses [RTNeural](https://github.com/jatinchowdhury18/RTNeural), which is a highly optimized neural net inference engine intended for audio applications. 
+
 ## Build Instructions
 
 ### Build with Cmake
