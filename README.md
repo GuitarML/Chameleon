@@ -47,7 +47,7 @@ The binaries will be located in `Chameleon/build/Chameleon_artefacts/`
 1. Clone or download this repository.
 2. Download and install [JUCE](https://juce.com/) This project uses the "Projucer" application from the JUCE website. 
 3. Initialize and set up submodules
-$ git submodule update --init --recursive
+```git submodule update --init --recursive```
 4. Open the Chameleon.jucer file and in the appropriate Exporter Header Search Path field, enter the appropriate include paths from the modules folder.
    For example:
 
@@ -55,7 +55,6 @@ $ git submodule update --init --recursive
   	<full-path-to>/Chameleon/modules/json/include
 	<full-path-to>/Chameleon/modules/RTNeural
 	<full-path-to>/Chameleon/modules/RTNeural/modules/xsimd/include
-
 ```
 5. Build Chameleon from the Juce Projucer application. 
 
