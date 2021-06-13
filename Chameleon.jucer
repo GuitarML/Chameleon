@@ -27,10 +27,6 @@
     <GROUP id="{0C30E6D7-5E80-A33B-74CB-A4BA09196080}" name="Source">
       <FILE id="cc0yTU" name="Eq4Band.cpp" compile="1" resource="0" file="Source/Eq4Band.cpp"/>
       <FILE id="V8n6fV" name="Eq4Band.h" compile="0" resource="0" file="Source/Eq4Band.h"/>
-      <FILE id="YU6QF3" name="lstm.cpp" compile="1" resource="0" file="Source/lstm.cpp"/>
-      <FILE id="yQUucK" name="lstm.h" compile="0" resource="0" file="Source/lstm.h"/>
-      <FILE id="VVhZR5" name="ModelLoader.cpp" compile="1" resource="0" file="Source/ModelLoader.cpp"/>
-      <FILE id="VKu9DC" name="ModelLoader.h" compile="0" resource="0" file="Source/ModelLoader.h"/>
       <FILE id="v2KZQA" name="myLookAndFeel.cpp" compile="1" resource="0"
             file="Source/myLookAndFeel.cpp"/>
       <FILE id="IK3E75" name="myLookAndFeel.h" compile="0" resource="0" file="Source/myLookAndFeel.h"/>
@@ -41,6 +37,9 @@
             file="Source/PluginProcessor.cpp"/>
       <FILE id="fdQhKJ" name="PluginProcessor.h" compile="0" resource="0"
             file="Source/PluginProcessor.h"/>
+      <FILE id="Kydjj9" name="RTNeuralLSTM.cpp" compile="1" resource="0"
+            file="Source/RTNeuralLSTM.cpp"/>
+      <FILE id="KKAtXG" name="RTNeuralLSTM.h" compile="0" resource="0" file="Source/RTNeuralLSTM.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
@@ -70,8 +69,10 @@
     </XCODE_MAC>
     <VS2019 targetFolder="Builds/VisualStudio2019">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="Chameleon" headerPath="C:\Users\rache\Desktop\dev\json-develop\include&#10;C:\Users\rache\Desktop\dev\boost_1_75_0&#10;C:\Users\rache\Desktop\dev\NumCpp-master\include"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="Chameleon" headerPath="C:\Users\rache\Desktop\dev\json-develop\include&#10;C:\Users\rache\Desktop\dev\boost_1_75_0&#10;C:\Users\rache\Desktop\dev\NumCpp-master\include&#10;C:\Users\KBloemer\Desktop\Archive\NumCpp-master\NumCpp-master\include&#10;C:\Users\KBloemer\Desktop\Archive\json-develop\json-develop\include&#10;C:\Users\KBloemer\Desktop\Archive\boost_1_75_0\boost_1_75_0"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Chameleon" headerPath="C:\Users\rache\Desktop\dev\json-develop\include&#10;C:\Users\rache\Desktop\dev\boost_1_75_0&#10;C:\Users\rache\Desktop\dev\NumCpp-master\include&#10;modules\RTNeural&#10;modules\RTNeural\modules\xsimd\include"
+                       defines="USE_XSIMD=1"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Chameleon" headerPath="C:\Users\rache\Desktop\dev\json-develop\include&#10;C:\Users\rache\Desktop\dev\Chameleon\modules\RTNeural&#10;C:\Users\rache\Desktop\dev\Chameleon\modules\RTNeural\modules\xsimd\include"
+                       defines="USE_XSIMD=1"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_video"/>
@@ -95,7 +96,7 @@
     <VS2015 targetFolder="Builds/VisualStudio2015">
       <CONFIGURATIONS>
         <CONFIGURATION isDebug="1" name="Debug" headerPath="C:\Users\rache\Desktop\dev\json-develop\include&#10;C:\Users\rache\Desktop\dev\boost_1_75_0&#10;C:\Users\rache\Desktop\dev\NumCpp-master\include&#10;C:\Users\KBloemer\Desktop\Archive\NumCpp-master\NumCpp-master\include&#10;C:\Users\KBloemer\Desktop\Archive\json-develop\json-develop\include&#10;C:\Users\KBloemer\Desktop\Archive\boost_1_75_0\boost_1_75_0"/>
-        <CONFIGURATION isDebug="0" name="Release" headerPath="C:\Users\rache\Desktop\dev\json-develop\include&#10;C:\Users\rache\Desktop\dev\boost_1_75_0&#10;C:\Users\rache\Desktop\dev\NumCpp-master\include&#10;C:\Users\KBloemer\Desktop\Archive\NumCpp-master\NumCpp-master\include&#10;C:\Users\KBloemer\Desktop\Archive\json-develop\json-develop\include&#10;C:\Users\KBloemer\Desktop\Archive\boost_1_75_0\boost_1_75_0"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="C:\Users\rache\Desktop\dev\json-develop\include&#10;C:\Users\rache\Desktop\dev\boost_1_75_0&#10;C:\Users\rache\Desktop\dev\NumCpp-master\include"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_video"/>
@@ -116,6 +117,31 @@
         <MODULEPATH id="juce_audio_basics"/>
       </MODULEPATHS>
     </VS2015>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release" headerPath="C:\Users\rache\Desktop\dev\json-develop\include&#10;C:\Users\rache\Desktop\dev\Chameleon\modules\RTNeural&#10;C:\Users\rache\Desktop\dev\Chameleon\modules\RTNeural\modules\xsimd\include"
+                       defines="USE_XSIMD=1"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_video"/>
+        <MODULEPATH id="juce_opengl"/>
+        <MODULEPATH id="juce_gui_extra"/>
+        <MODULEPATH id="juce_gui_basics"/>
+        <MODULEPATH id="juce_graphics"/>
+        <MODULEPATH id="juce_events"/>
+        <MODULEPATH id="juce_dsp"/>
+        <MODULEPATH id="juce_data_structures"/>
+        <MODULEPATH id="juce_cryptography"/>
+        <MODULEPATH id="juce_core"/>
+        <MODULEPATH id="juce_audio_utils"/>
+        <MODULEPATH id="juce_audio_processors"/>
+        <MODULEPATH id="juce_audio_plugin_client"/>
+        <MODULEPATH id="juce_audio_formats"/>
+        <MODULEPATH id="juce_audio_devices"/>
+        <MODULEPATH id="juce_audio_basics"/>
+      </MODULEPATHS>
+    </VS2017>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
