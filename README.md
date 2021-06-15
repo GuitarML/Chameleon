@@ -13,7 +13,7 @@ also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarM
 
 ## Installing the plugin
 
-1. Download the appropriate plugin installer (Windows 10, Mac, Ubuntu Linux)
+1. Download the appropriate plugin installer (Windows, Mac)
 2. Run the installer and follow the instructions. May need to reboot to allow your DAW to recognize the new plugin.
 
 ## Info
