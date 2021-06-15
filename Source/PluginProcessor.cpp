@@ -113,6 +113,11 @@ void ChameleonAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
 #if USE_RTNEURAL
     LSTM.reset();
 #endif
+
+    // set up DC blocker
+    dcBlocker.coefficients = dsp::IIR::Coefficients<float>::makeHighPass (sampleRate, 35.0f);
+    dsp::ProcessSpec spec { sampleRate, static_cast<uint32> (samplesPerBlock), 2 };
+    dcBlocker.prepare (spec);
 }
 
 void ChameleonAudioProcessor::releaseResources()
@@ -181,6 +186,10 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         }
     }
     
+    // process DC blocker
+    auto monoBlock = dsp::AudioBlock<float> (buffer).getSingleChannelBlock (0);
+    dcBlocker.process (dsp::ProcessContextReplacing<float> (monoBlock));
+
 	// Handle stereo input by copying channel 1 to channel 2
     for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
         buffer.copyFrom(ch, 0, buffer, 0, 0, buffer.getNumSamples());

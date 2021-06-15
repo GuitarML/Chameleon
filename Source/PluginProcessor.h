@@ -131,6 +131,8 @@ private:
 
     var dummyVar;
 
+    dsp::IIR::Filter<float> dcBlocker;
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChameleonAudioProcessor)
 };

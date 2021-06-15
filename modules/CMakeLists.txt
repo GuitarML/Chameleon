@@ -20,6 +20,7 @@ target_link_libraries(juce_plugin_modules
         BinaryData
         juce::juce_audio_utils
         juce::juce_audio_plugin_client
+        juce::juce_dsp
 		nlohmann_json::nlohmann_json
 		RTNeural
     PUBLIC
