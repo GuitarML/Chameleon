@@ -117,6 +117,12 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
 
 ChameleonAudioProcessorEditor::~ChameleonAudioProcessorEditor()
 {
+    ampBassKnob.setLookAndFeel(nullptr);
+    ampMidKnob.setLookAndFeel(nullptr);
+    ampTrebleKnob.setLookAndFeel(nullptr);
+    ampGainKnob.setLookAndFeel(nullptr);
+    ampPresenceKnob.setLookAndFeel(nullptr);
+    ampMasterKnob.setLookAndFeel(nullptr);
 }
 
 //==============================================================================

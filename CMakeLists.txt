@@ -13,8 +13,8 @@ include_directories(modules)
 
 juce_add_plugin(Chameleon
     COMPANY_NAME GuitarML
-    PLUGIN_MANUFACTURER_CODE GML
-    PLUGIN_CODE spg3 
+    PLUGIN_MANUFACTURER_CODE GtML
+    PLUGIN_CODE Chm3 
     FORMATS AU VST3 Standalone LV2
     ProductName "Chameleon"
     LV2_URI https://github.com/GuitarML/Chameleon

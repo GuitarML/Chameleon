@@ -5,6 +5,7 @@ if((CMAKE_CXX_COMPILER_ID STREQUAL "MSVC") OR (CMAKE_CXX_SIMULATE_ID STREQUAL "M
         /W4     # base warning level
         #/wd4458 # declaration hides class member (from Foley's GUI Magic)
         /wd4505 # since VS2019 doesn't handle [[ maybe_unused ]] for static functions (RTNeural::debug_print)
+        /wd4244 # for XSIMD
     )
 elseif((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang"))
     target_compile_options(warning_flags INTERFACE
@@ -20,6 +21,9 @@ elseif((CMAKE_CXX_COMPILER_ID STREQUAL "Clang") OR (CMAKE_CXX_COMPILER_ID STREQU
         # These lines suppress some custom warnings.
         # Comment them out to be more strict.
         -Wno-shadow-field-in-constructor
+        # Supress warnings from xsimd
+        -Wno-cast-align -Wno-shadow -Wno-implicit-int-conversion
+        -Wno-zero-as-null-pointer-constant -Wno-sign-conversion
         # Needed for ARM processor, OSX versions below 10.14
         -fno-aligned-allocation
     )
@@ -32,6 +36,8 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         -Wno-ignored-qualifiers -Wno-unused-function -Wno-pessimizing-move
         # From LV2 Wrapper
         -Wno-parentheses -Wno-deprecated-declarations -Wno-redundant-decls
+        # For XSIMD
+        -Wno-zero-as-null-pointer-constant
         # These lines suppress some custom warnings.
         # Comment them out to be more strict.
         -Wno-redundant-move
