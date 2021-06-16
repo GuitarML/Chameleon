@@ -32,6 +32,8 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
+    void resetImages();
+
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
@@ -58,7 +60,6 @@ private:
     virtual void buttonClicked(Button* button) override;
     virtual void sliderValueChanged(Slider* slider) override;
     void colorSelectClicked();
-    void resetImages();
     
 public:
     std::unique_ptr <AudioProcessorValueTreeState::SliderAttachment> gainSliderAttach;

@@ -11,6 +11,9 @@ Chameleon's core sound comes from a neural net inference engine which allows the
 tube amplifier. The engine uses a stateful LSTM model, which improves the sound quality of the previous stateless LSTM used in the SmartAmpPro. It
 also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarML/SmartAmpPro) and [SmartGuitarAmp](https://github.com/GuitarML/SmartGuitarAmp).
 
+Check out sound demos on YouTube: [Heavy Demo](https://youtu.be/1oYiklGes6A)  [Funky Demo](https://youtu.be/kXecJX9kWpQ)
+Check out the tech article on [Towards Data Science](https://towardsdatascience.com/neural-networks-for-real-time-audio-stateful-lstm-b534babeae5d)
+
 ## Installing the plugin
 
 1. Download the appropriate plugin installer (Windows, Mac)
@@ -23,6 +26,17 @@ Learning](https://www.mdpi.com/2076-3417/10/3/766/htm)
 The [Automated-GuitarAmpModelling](https://github.com/Alec-Wright/Automated-GuitarAmpModelling) project was used to train the .json models. 
 
 The plugin uses [RTNeural](https://github.com/jatinchowdhury18/RTNeural), which is a highly optimized neural net inference engine intended for audio applications. 
+
+## Swapping Models
+
+Even though Chameleon is intended to have three set models, it is easy to swap these for user created json models. Simply overwrite the "red.json", "gold.json", or "green.json" file with the user created model of the same name before running Chameleon. To reset to the originals, delete the custom model. The next time you run Chameleon, the original tones will be written to the tone directory.
+
+The locations of the json tone files are:
+```
+Windows 10: C:/Users/<username>/AppData/Roaming/GuitarML/Chameleon/tones
+Mac:  /Users/<username>/Documents/GuitarML/Chameleon/tones
+```
+Note: [NeuralPi](https://github.com/GuitarML/NeuralPi) json files are compatible with Chameleon.
 
 ## Build Instructions
 

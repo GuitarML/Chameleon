@@ -88,7 +88,7 @@ public:
 
     std::vector<File> jsonFiles;
     File currentDirectory = File::getCurrentWorkingDirectory().getFullPathName();
-    File userAppDataDirectory = File::getSpecialLocation(File::userApplicationDataDirectory).getChildFile(JucePlugin_Manufacturer).getChildFile(JucePlugin_Name);
+    File userAppDataDirectory = File::getSpecialLocation(File::userDocumentsDirectory).getChildFile(JucePlugin_Manufacturer).getChildFile(JucePlugin_Name);
     File userAppDataDirectory_tones = userAppDataDirectory.getFullPathName() + "/tones";
 
     File red_tone = userAppDataDirectory_tones.getFullPathName() + "/red.json";
@@ -130,6 +130,8 @@ private:
     float ampMaster = 1.0;
 
     var dummyVar;
+
+    dsp::IIR::Filter<float> dcBlocker;
 
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChameleonAudioProcessor)
