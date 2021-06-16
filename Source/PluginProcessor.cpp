@@ -212,12 +212,44 @@ void ChameleonAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+
+    auto state = treeState.copyState();
+    std::unique_ptr<XmlElement> xml (state.createXml());
+    xml->setAttribute ("current_tone", current_model_index);
+    copyXmlToBinary (*xml, destData);
 }
 
 void ChameleonAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+
+    std::unique_ptr<juce::XmlElement> xmlState (getXmlFromBinary (data, sizeInBytes));
+
+    if (xmlState.get() != nullptr)
+    {
+        if (xmlState->hasTagName (treeState.state.getType()))
+        {
+            treeState.replaceState (juce::ValueTree::fromXml (*xmlState));
+            current_model_index = xmlState->getIntAttribute ("current_tone");
+
+            switch (current_model_index)
+            {
+            case 0:
+                loadConfig (red_tone);
+                break;
+            case 1:
+                loadConfig (gold_tone);
+                break;
+            case 2:
+                loadConfig (green_tone);
+                break;
+            }
+
+            if (auto* editor = dynamic_cast<ChameleonAudioProcessorEditor*> (getActiveEditor()))
+                editor->resetImages();
+        }
+    }
 }
 
 void ChameleonAudioProcessor::loadConfig(File configFile)
