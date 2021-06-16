@@ -33,7 +33,7 @@ Even though Chameleon is intended to have three set models, it is easy to swap t
 
 The locations of the json tone files are:
 ```
-Windows 10: C:/Users/<username>/AppData/Roaming/GuitarML/Chameleon/tones
+Windows 10: C:/Users/<username>/Documents/GuitarML/Chameleon/tones
 Mac:  /Users/<username>/Documents/GuitarML/Chameleon/tones
 ```
 Note: [NeuralPi](https://github.com/GuitarML/NeuralPi) json files are compatible with Chameleon.
