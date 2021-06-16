@@ -24,6 +24,17 @@ The [Automated-GuitarAmpModelling](https://github.com/Alec-Wright/Automated-Guit
 
 The plugin uses [RTNeural](https://github.com/jatinchowdhury18/RTNeural), which is a highly optimized neural net inference engine intended for audio applications. 
 
+## Swapping Models
+
+Even though Chameleon is intended to have three set models, it is easy to swap these for user created json models. Simply overwrite the "red.json", "gold.json", or "green.json" file with the user created model of the same name before running Chameleon. To reset to the originals, delete the custom model. The next time you run Chameleon, the original tones will be written to the tone directory.
+
+The locations of the json tone files are:
+```
+Windows 10: C:/Users/<username>/AppData/Roaming/GuitarML/Chameleon/tones
+Mac:  /Users/<username>/Documents/GuitarML/Chameleon/tones
+```
+Note: [NeuralPi](https://github.com/GuitarML/NeuralPi) json files are compatible with Chameleon.
+
 ## Build Instructions
 
 ### Build with Cmake
