@@ -19,6 +19,7 @@ juce_add_plugin(Chameleon
     ProductName "Chameleon"
     LV2_URI https://github.com/GuitarML/Chameleon
     ICON_BIG resources/logo.png
+    MICROPHONE_PERMISSION_ENABLED TRUE
 )
 
 # create JUCE header
