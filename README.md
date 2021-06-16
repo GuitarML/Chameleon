@@ -11,6 +11,9 @@ Chameleon's core sound comes from a neural net inference engine which allows the
 tube amplifier. The engine uses a stateful LSTM model, which improves the sound quality of the previous stateless LSTM used in the SmartAmpPro. It
 also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarML/SmartAmpPro) and [SmartGuitarAmp](https://github.com/GuitarML/SmartGuitarAmp).
 
+Check out sound demos on YouTube: [Heavy Demo](https://youtu.be/1oYiklGes6A)  [Funky Demo](https://youtu.be/kXecJX9kWpQ)
+Check out the tech article on [Towards Data Science](https://towardsdatascience.com/neural-networks-for-real-time-audio-stateful-lstm-b534babeae5d)
+
 ## Installing the plugin
 
 1. Download the appropriate plugin installer (Windows, Mac)
