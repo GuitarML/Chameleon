@@ -11,7 +11,7 @@ Chameleon's core sound comes from a neural net inference engine which allows the
 tube amplifier. The engine uses a stateful LSTM model, which improves the sound quality of the previous stateless LSTM used in the SmartAmpPro. It
 also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarML/SmartAmpPro) and [SmartGuitarAmp](https://github.com/GuitarML/SmartGuitarAmp).
 
-Check out sound demos on YouTube: [Heavy Demo](https://youtu.be/1oYiklGes6A)  [Funky Demo](https://youtu.be/kXecJX9kWpQ)
+Check out sound demos on YouTube: [Heavy Demo](https://youtu.be/1oYiklGes6A),  [Funky Demo](https://youtu.be/kXecJX9kWpQ)<br>
 Check out the tech article on [Towards Data Science](https://towardsdatascience.com/neural-networks-for-real-time-audio-stateful-lstm-b534babeae5d)
 
 ## Installing the plugin
@@ -36,7 +36,7 @@ The locations of the json tone files are:
 Windows 10: C:/Users/<username>/Documents/GuitarML/Chameleon/tones
 Mac:  /Users/<username>/Documents/GuitarML/Chameleon/tones
 ```
-Note: [NeuralPi](https://github.com/GuitarML/NeuralPi) json files are compatible with Chameleon.
+Note: [NeuralPi](https://github.com/GuitarML/NeuralPi) json files are compatible with Chameleon. The LSTM layer of user-trained models must have a size of 20.
 
 ## Build Instructions
 
