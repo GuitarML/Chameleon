@@ -23,7 +23,8 @@ Check out the tech article on [Towards Data Science](https://towardsdatascience.
 Re-creation of the LSTM inference model from [Real-Time Guitar Amplifier Emulation with Deep
 Learning](https://www.mdpi.com/2076-3417/10/3/766/htm)
 
-The [Automated-GuitarAmpModelling](https://github.com/Alec-Wright/Automated-GuitarAmpModelling) project was used to train the .json models. 
+The [Automated-GuitarAmpModelling](https://github.com/Alec-Wright/Automated-GuitarAmpModelling) project was used to train the .json models.<br>
+GuitarML maintains a [fork](https://github.com/GuitarML/Automated-GuitarAmpModelling) with a few extra helpful features, including a Colab training script.
 
 The plugin uses [RTNeural](https://github.com/jatinchowdhury18/RTNeural), which is a highly optimized neural net inference engine intended for audio applications. 
 
