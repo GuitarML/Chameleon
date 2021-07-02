@@ -14,6 +14,8 @@ also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarM
 Check out sound demos on YouTube: [Heavy Demo](https://youtu.be/1oYiklGes6A),  [Funky Demo](https://youtu.be/kXecJX9kWpQ)<br>
 Check out the tech article on [Towards Data Science](https://towardsdatascience.com/neural-networks-for-real-time-audio-stateful-lstm-b534babeae5d)
 
+Chameleon is part of the [2021 KVR Audio Developer Challenge](https://www.kvraudio.com/product/chameleon-by-guitarml)
+
 ## Installing the plugin
 
 1. Download the appropriate plugin installer (Windows, Mac)
