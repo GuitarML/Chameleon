@@ -11,8 +11,10 @@ Chameleon's core sound comes from a neural net inference engine which allows the
 tube amplifier. The engine uses a stateful LSTM model, which improves the sound quality of the previous stateless LSTM used in the SmartAmpPro. It
 also improves CPU usage compared to the [SmartAmpPro](https://github.com/GuitarML/SmartAmpPro) and [SmartGuitarAmp](https://github.com/GuitarML/SmartGuitarAmp).
 
-Check out sound demos on YouTube: [Heavy Demo](https://youtu.be/1oYiklGes6A)  [Funky Demo](https://youtu.be/kXecJX9kWpQ)
+Check out sound demos on YouTube: [Heavy Demo](https://youtu.be/1oYiklGes6A),  [Funky Demo](https://youtu.be/kXecJX9kWpQ)<br>
 Check out the tech article on [Towards Data Science](https://towardsdatascience.com/neural-networks-for-real-time-audio-stateful-lstm-b534babeae5d)
+
+Chameleon is part of the [2021 KVR Audio Developer Challenge](https://www.kvraudio.com/product/chameleon-by-guitarml)
 
 ## Installing the plugin
 
@@ -23,7 +25,8 @@ Check out the tech article on [Towards Data Science](https://towardsdatascience.
 Re-creation of the LSTM inference model from [Real-Time Guitar Amplifier Emulation with Deep
 Learning](https://www.mdpi.com/2076-3417/10/3/766/htm)
 
-The [Automated-GuitarAmpModelling](https://github.com/Alec-Wright/Automated-GuitarAmpModelling) project was used to train the .json models. 
+The [Automated-GuitarAmpModelling](https://github.com/Alec-Wright/Automated-GuitarAmpModelling) project was used to train the .json models.<br>
+GuitarML maintains a [fork](https://github.com/GuitarML/Automated-GuitarAmpModelling) with a few extra helpful features, including a Colab training script.
 
 The plugin uses [RTNeural](https://github.com/jatinchowdhury18/RTNeural), which is a highly optimized neural net inference engine intended for audio applications. 
 
@@ -33,10 +36,10 @@ Even though Chameleon is intended to have three set models, it is easy to swap t
 
 The locations of the json tone files are:
 ```
-Windows 10: C:/Users/<username>/AppData/Roaming/GuitarML/Chameleon/tones
+Windows 10: C:/Users/<username>/Documents/GuitarML/Chameleon/tones
 Mac:  /Users/<username>/Documents/GuitarML/Chameleon/tones
 ```
-Note: [NeuralPi](https://github.com/GuitarML/NeuralPi) json files are compatible with Chameleon.
+Note: [NeuralPi](https://github.com/GuitarML/NeuralPi) json files are compatible with Chameleon. The LSTM layer of user-trained models must have a size of 20.
 
 ## Build Instructions
 
