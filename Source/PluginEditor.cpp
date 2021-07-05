@@ -25,12 +25,12 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     // Set Widget Graphics
     ampSilverKnobLAF.setLookAndFeel(ImageCache::getFromMemory(BinaryData::knob_70_black_png, BinaryData::knob_70_black_pngSize));
 
+    addAndMakeVisible(colorSelectButton);
     colorSelectButton.setImages(true, true, true,
         ImageCache::getFromMemory(BinaryData::power_switch_up_png, BinaryData::power_switch_up_pngSize), 1.0, Colours::transparentWhite,
         Image(), 1.0, Colours::transparentWhite,
         ImageCache::getFromMemory(BinaryData::power_switch_up_png, BinaryData::power_switch_up_pngSize), 1.0, Colours::transparentWhite,
         0.0);
-    addAndMakeVisible(colorSelectButton);
     colorSelectButton.addListener(this);
     
 
@@ -151,8 +151,8 @@ void ChameleonAudioProcessorEditor::resized()
     ampMasterKnob.setBounds(455, 40, 50, 70);
     ampPresenceKnob.setBounds(380, 40, 50, 70);
 
-    colorSelectButton.setBounds(58, 41, 15, 25);
-    ampLED.setBounds(694, 89, 20, 20);
+    colorSelectButton.setBounds(58, 41, 70, 70);
+    ampLED.setBounds(694, 89, 34, 34);
 }
 
 

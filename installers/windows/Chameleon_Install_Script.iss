@@ -34,9 +34,9 @@ Source: "../../resources/guitarml.ico"; Components: STANDALONE_64; DestDir: "{pf
 Source: "../../resources/guitarml.ico"; Components: STANDALONE_32; DestDir: "{pf32}\GuitarML"
 
 [Icons]
-Name: "{userdesktop}\Chameleon"; Filename: "{pf64}\GuitarML\Chameleon.exe"; \
+Name: "{userdesktop}\Chameleon"; Filename: "{pf64}\GuitarML\Chameleon.exe"; Components: VST3_64; \
     IconFilename: "{pf64}\GuitarML\guitarml.ico"; Tasks: desktopicon;
-Name: "{userdesktop}\Chameleon32"; Filename: "{pf32}\GuitarML\Chameleon.exe"; \
+Name: "{userdesktop}\Chameleon32"; Filename: "{pf32}\GuitarML\Chameleon.exe"; Components: VST3_32; \
     IconFilename: "{pf32}\GuitarML\guitarml.ico"; Tasks: desktopicon;
 
 [Code]
