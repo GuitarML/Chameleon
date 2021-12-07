@@ -4,9 +4,6 @@ project(Chameleon VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with this backend" FORCE)
-add_subdirectory(modules/RTNeural)
-
 add_subdirectory(modules)
 include_directories(modules)
 
