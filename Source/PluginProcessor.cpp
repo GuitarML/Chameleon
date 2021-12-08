@@ -195,7 +195,7 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         }
         else {
             buffer.applyGainRamp(0, (int) block44k.getNumSamples(), previousAmpMaster, ampMaster);
-            previousMasterValue = ampMaster;
+            previousAmpMaster = ampMaster;
         }
 
         // Custom Level for quieter models
