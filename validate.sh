@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # install functions
 install_pluginval_linux()
 {
@@ -24,11 +22,15 @@ install_pluginval_win()
 
 # install
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    pluginval=$(install_pluginval_linux)
-    plugin="build/Chameleon_artefacts/Release/VST3/Chameleon.vst3"
+    exit 0
+    # pluginval=$(install_pluginval_linux)
+    # declare -a plugins=()
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     pluginval=$(install_pluginval_mac)
-    plugin="build/Chameleon_artefacts/VST3/Chameleon.vst3"
+    declare -a plugins=("build/Chameleon_artefacts/VST3/Chameleon.vst3")
+else
+    pluginval=$(install_pluginval_win)
+    declare -a plugins=("build/Chameleon_artefacts/Release/VST3/Chameleon.vst3")
 fi
 
 echo "Pluginval installed at ${pluginval}"
