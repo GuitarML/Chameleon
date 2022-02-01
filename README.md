@@ -1,5 +1,9 @@
 # Chameleon
 
+[![CI](https://github.com/GuitarML/Chameleon/actions/workflows/cmake.yml/badge.svg)](https://github.com/GuitarML/Chameleon/actions/workflows/cmake.yml)
+
+[![License](https://img.shields.io/badge/License-GPL3-blue.svg)](https://opensource.org/licenses/GPL3-Clause)
+
 ![app](https://github.com/GuitarML/Chameleon/blob/main/resources/Chameleon.jpg)
 
 Chameleon is a guitar plugin using neural networks to create three distinct sounds from a vintage style amp head. EQ and gain were added to 
