@@ -1,6 +1,6 @@
 # Chameleon
 
-[![CI](https://github.com/GuitarML/Chameleon/actions/workflows/cmake.yml/badge.svg)](https://github.com/GuitarML/Chameleon/actions/workflows/cmake.yml) [![License](https://img.shields.io/badge/License-GPL3-blue.svg)](https://opensource.org/licenses/GPL3-Clause)
+[![CI](https://github.com/GuitarML/Chameleon/actions/workflows/cmake.yml/badge.svg)](https://github.com/GuitarML/Chameleon/actions/workflows/cmake.yml) [![License](https://img.shields.io/badge/License-GPL3-blue.svg)](https://opensource.org/licenses/GPL3-Clause) [![Downloads](https://img.shields.io/github/downloads/GuitarML/Chameleon/total)](https://somsubhra.github.io/github-release-stats/?username=GuitarML&repository=Chameleon&page=1&per_page=30)
 
 ![app](https://github.com/GuitarML/Chameleon/blob/main/resources/Chameleon.jpg)
 
