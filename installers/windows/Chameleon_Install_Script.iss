@@ -30,7 +30,7 @@ Source: "../../bin/Win64/Chameleon.vst3"; DestDir: "{code:GetDir|VST3_64}"; Comp
 Source: "../../bin/Win32/Chameleon.vst3"; DestDir: "{code:GetDir|VST3_32}"; Components: VST3_32; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../bin/Win64/Chameleon.exe"; DestDir: "{code:GetDir|STANDALONE_64}"; Components: STANDALONE_64; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../bin/Win32/Chameleon.exe"; DestDir: "{code:GetDir|STANDALONE_32}"; Components: STANDALONE_32; Flags: ignoreversion recursesubdirs createallsubdirs
-Source: "../../build-aax/NeuralPi_artefacts/Release/AAX/NeuralPi.aaxplugin"; DestDir: "{code:GetDir|AAX}"; Components: AAX; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "../../build-aax/Chameleon_artefacts/Release/AAX/Chameleon.aaxplugin"; DestDir: "{code:GetDir|AAX}"; Components: AAX; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: "../../resources/guitarml.ico"; Components: STANDALONE_64; DestDir: "{pf64}\GuitarML"
 Source: "../../resources/guitarml.ico"; Components: STANDALONE_32; DestDir: "{pf32}\GuitarML"
 
