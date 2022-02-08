@@ -7,14 +7,22 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(modules)
 include_directories(modules)
 
+set(JUCE_FORMATS AU VST3 Standalone)
+
+# Build LV2 only on Linux
+if(UNIX AND NOT APPLE)
+    message(STATUS "Building LV2 plugin format")
+    list(APPEND JUCE_FORMATS LV2)
+endif()
 
 juce_add_plugin(Chameleon
     COMPANY_NAME GuitarML
     PLUGIN_MANUFACTURER_CODE GtML
     PLUGIN_CODE Chm3 
-    FORMATS AU VST3 Standalone LV2
+    FORMATS ${JUCE_FORMATS}
     ProductName "Chameleon"
     LV2_URI https://github.com/GuitarML/Chameleon
+    LV2_SHARED_LIBRARY_NAME Chameleon
     ICON_BIG resources/logo.png
     MICROPHONE_PERMISSION_ENABLED TRUE
 )
