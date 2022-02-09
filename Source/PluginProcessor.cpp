@@ -162,9 +162,6 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
     const int numInputChannels = getTotalNumInputChannels();
     const int sampleRate = getSampleRate();
 
-    // resample to target sample rate
-    auto block = dsp::AudioBlock<float> (buffer.getArrayOfWritePointers(), 1, numSamples);
-    auto block44k = resampler.processIn (block);
 
     // Amp =============================================================================
     if (amp_state == 1) {
@@ -178,14 +175,19 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
             buffer.applyGain(ampDrive);
         }
         else {
-            buffer.applyGainRamp(0, (int) block44k.getNumSamples(), previousAmpDrive, ampDrive);
+            buffer.applyGainRamp(0, (int) buffer.getNumSamples(), previousAmpDrive, ampDrive);
             previousAmpDrive = ampDrive;
         }
 
+        // resample to target sample rate
+        auto block = dsp::AudioBlock<float> (buffer.getArrayOfWritePointers(), 1, numSamples);
+        auto block44k = resampler.processIn (block);
 
 	// Apply LSTM model
         LSTM.process(block44k.getChannelPointer(0), block44k.getChannelPointer(0), (int) block44k.getNumSamples());
 
+        // resample back to original sample rate
+        resampler.processOut (block44k, block);
 
         // Master Volume 
         // Apply ramped changes for gain smoothing
@@ -194,7 +196,7 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
             buffer.applyGain(ampMaster);
         }
         else {
-            buffer.applyGainRamp(0, (int) block44k.getNumSamples(), previousAmpMaster, ampMaster);
+            buffer.applyGainRamp(0, (int) buffer.getNumSamples(), previousAmpMaster, ampMaster);
             previousAmpMaster = ampMaster;
         }
 
@@ -204,8 +206,6 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         }
     }
     
-    // resample back to original sample rate
-    resampler.processOut (block44k, block);
 
     // process DC blocker
     auto monoBlock = dsp::AudioBlock<float> (buffer).getSingleChannelBlock (0);
@@ -280,14 +280,7 @@ void ChameleonAudioProcessor::loadConfig(File configFile)
     String path = configFile.getFullPathName();
     char_filename = path.toUTF8();
 
-#if USE_RTNEURAL
     LSTM.load_json(char_filename);
-#else
-    //loader.load_json(char_filename);
-    //LSTM.setParams(loader.hidden_size,  loader.lstm_weights_ih_nc,
-    //    loader.lstm_weights_hh_nc, loader.lstm_bias_nc,
-    //    loader.dense_bias_nc, loader.dense_weights_nc);
-#endif
 
     this->suspendProcessing(false);
 }
