@@ -30,7 +30,6 @@
 #define MASTER_ID "master"
 #define MASTER_NAME "Master"
 
-#define USE_RTNEURAL 1
 
 //==============================================================================
 /**
@@ -111,14 +110,10 @@ public:
     float ampTrebleKnobState = 0.0;
     float ampGainKnobState = 0.0;
     float ampMasterKnobState = -18.0;
-	float ampPresenceKnobState = 0.0;
+    float ampPresenceKnobState = 0.0;
 
-#if USE_RTNEURAL
+  
     RT_LSTM LSTM;
-#else
-    //ModelLoader loader;
-    //lstm LSTM;
-#endif
 
     AudioProcessorValueTreeState treeState;
 
@@ -128,8 +123,12 @@ private:
     // Amp
     float ampDrive = 1.0;
     float ampMaster = 1.0;
+    float previousAmpDrive = 1.0;
+    float previousAmpMaster = 1.0;
 
     var dummyVar;
+
+    chowdsp::ResampledProcess<chowdsp::ResamplingTypes::SRCResampler<>> resampler;
 
     dsp::IIR::Filter<float> dcBlocker;
 
