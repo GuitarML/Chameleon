@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(modules)
 include_directories(modules)
 
-juce_set_aax_sdk_path(C:/SDKs/AAX_SDK/)
+# Commented out for CI; change path as appropriate
+#juce_set_aax_sdk_path(C:/SDKs/AAX_SDK/)
 
 set(JUCE_FORMATS AU VST3 Standalone)
 
