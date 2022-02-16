@@ -4,9 +4,6 @@ project(Chameleon VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(RTNEURAL_XSIMD ON CACHE BOOL "Use RTNeural with this backend" FORCE)
-add_subdirectory(modules/RTNeural)
-
 add_subdirectory(modules)
 include_directories(modules)
 
@@ -33,6 +30,7 @@ juce_add_plugin(Chameleon
     FORMATS ${JUCE_FORMATS}
     ProductName "Chameleon"
     LV2_URI https://github.com/GuitarML/Chameleon
+    LV2_SHARED_LIBRARY_NAME Chameleon
     ICON_BIG resources/logo.png
     MICROPHONE_PERMISSION_ENABLED TRUE
 )
