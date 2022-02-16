@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.15)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.12" CACHE STRING "Minimum OS X deployment target")
-project(Chameleon VERSION 1.0.0)
+project(Chameleon VERSION 1.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(modules)
 include_directories(modules)
+
+# Commented out for CI; change path as appropriate
+#juce_set_aax_sdk_path(C:/SDKs/AAX_SDK/)
 
 set(JUCE_FORMATS AU VST3 Standalone)
 
@@ -14,6 +17,12 @@ if(UNIX AND NOT APPLE)
     message(STATUS "Building LV2 plugin format")
     list(APPEND JUCE_FORMATS LV2)
 endif()
+
+# Build AAX if SDK target exists
+#if(TARGET juce_aax_sdk)
+#    message(STATUS "Building AAX plugin format")
+#    list(APPEND JUCE_FORMATS AAX)
+#endif()
 
 juce_add_plugin(Chameleon
     COMPANY_NAME GuitarML
