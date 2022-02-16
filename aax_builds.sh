@@ -96,7 +96,7 @@ else # Windows
         --account keyth72 \
         --password "$ilok_pass" \
         --wcguid $wcguid \
-        --keyfile /c/Users/keithbloemer/Downloads/keith_aax_cert.p12 \
+        --keyfile /c/SDKs/keith_aax_cert.p12 \
         --keypassword "$ilok_pass" \
         --in $aax_location \
         --out $aax_location
