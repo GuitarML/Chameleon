@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 set(CMAKE_OSX_DEPLOYMENT_TARGET "10.12" CACHE STRING "Minimum OS X deployment target")
-project(Chameleon VERSION 1.0.0)
+project(Chameleon VERSION 1.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -18,10 +18,10 @@ if(UNIX AND NOT APPLE)
 endif()
 
 # Build AAX if SDK target exists
-if(TARGET juce_aax_sdk)
-    message(STATUS "Building AAX plugin format")
-    list(APPEND JUCE_FORMATS AAX)
-endif()
+#if(TARGET juce_aax_sdk)
+#    message(STATUS "Building AAX plugin format")
+#    list(APPEND JUCE_FORMATS AAX)
+#endif()
 
 juce_add_plugin(Chameleon
     COMPANY_NAME GuitarML
