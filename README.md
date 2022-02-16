@@ -68,13 +68,6 @@ The binaries will be located in `Chameleon/build/Chameleon_artefacts/`
 3. Initialize and set up submodules
 ```git submodule update --init --recursive```
 4. Open the Chameleon.jucer file and in the appropriate Exporter Header Search Path field, enter the appropriate include paths from the modules folder.
-   For example:
-
-```
-  	<full-path-to>/Chameleon/modules/json/include
-	<full-path-to>/Chameleon/modules/RTNeural
-	<full-path-to>/Chameleon/modules/RTNeural/modules/xsimd/include
-```
 5. Build Chameleon from the Juce Projucer application. 
 
 Note: Make sure to build in Release mode unless actually debugging. Debug mode will not keep up with real time playing.
