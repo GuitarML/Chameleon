@@ -3,10 +3,6 @@
 target_sources(Chameleon PRIVATE
 	Eq4Band.cpp
 	Eq4Band.h
-	myLookAndFeel.cpp
-	myLookAndFeel.h
-	PluginEditor.cpp
-	PluginEditor.h
 	PluginProcessor.cpp
 	PluginProcessor.h
 	RTNeuralLSTM.cpp
