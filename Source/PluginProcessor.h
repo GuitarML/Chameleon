@@ -52,8 +52,6 @@ public:
     void processBlock (AudioBuffer<float>&, MidiBuffer&) override;
 
     //==============================================================================
-    AudioProcessorEditor* createEditor() override;
-    bool hasEditor() const override;
 
     //==============================================================================
     const String getName() const override;
