@@ -4,25 +4,13 @@ project(Chameleon VERSION 1.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
+find_package(JUCE REQUIRED)
+
 add_subdirectory(modules)
 include_directories(modules)
 
-# Commented out for CI; change path as appropriate
-#juce_set_aax_sdk_path(C:/SDKs/AAX_SDK/)
 
-set(JUCE_FORMATS AU VST3 Standalone)
-
-# Build LV2 only on Linux
-if(UNIX AND NOT APPLE)
-    message(STATUS "Building LV2 plugin format")
-    list(APPEND JUCE_FORMATS LV2)
-endif()
-
-# Build AAX if SDK target exists
-#if(TARGET juce_aax_sdk)
-#    message(STATUS "Building AAX plugin format")
-#    list(APPEND JUCE_FORMATS AAX)
-#endif()
+set(JUCE_FORMATS LV2)
 
 juce_add_plugin(Chameleon
     COMPANY_NAME GuitarML
