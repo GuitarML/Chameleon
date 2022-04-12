@@ -126,8 +126,6 @@ private:
 
     var dummyVar;
 
-    chowdsp::ResampledProcess<chowdsp::ResamplingTypes::SRCResampler<>> resampler;
-
     dsp::IIR::Filter<float> dcBlocker;
 
     //==============================================================================
