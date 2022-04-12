@@ -9,7 +9,6 @@
 */
 
 #include "PluginProcessor.h"
-#include "PluginEditor.h"
 #include <iostream>
 #include <fstream>
 
@@ -216,16 +215,7 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         buffer.copyFrom(ch, 0, buffer, 0, 0, buffer.getNumSamples());
 }
 
-//==============================================================================
-bool ChameleonAudioProcessor::hasEditor() const
-{
-    return true; // (change this to false if you choose to not supply an editor)
-}
 
-AudioProcessorEditor* ChameleonAudioProcessor::createEditor()
-{
-    return new ChameleonAudioProcessorEditor (*this);  // Note: error on this line caused by unused inherited classes in Editor
-}
 
 //==============================================================================
 void ChameleonAudioProcessor::getStateInformation (MemoryBlock& destData)
@@ -267,8 +257,6 @@ void ChameleonAudioProcessor::setStateInformation (const void* data, int sizeInB
                 break;
             }
 
-            if (auto* editor = dynamic_cast<ChameleonAudioProcessorEditor*> (getActiveEditor()))
-                editor->resetImages();
         }
     }
 }
