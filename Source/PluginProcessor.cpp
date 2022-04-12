@@ -111,10 +111,6 @@ void ChameleonAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
     // initialisation that you need..
     LSTM.reset();
 
-    // prepare resampler for target sample rate: 44.1 kHz
-    constexpr double targetSampleRate = 44100.0;
-    resampler.prepareWithTargetSampleRate ({ sampleRate, (uint32) samplesPerBlock, 1 }, targetSampleRate);
-
     // set up DC blocker
     dcBlocker.coefficients = dsp::IIR::Coefficients<float>::makeHighPass (sampleRate, 35.0f);
     dsp::ProcessSpec spec { sampleRate, static_cast<uint32> (samplesPerBlock), 2 };
@@ -178,15 +174,11 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
             previousAmpDrive = ampDrive;
         }
 
-        // resample to target sample rate
         auto block = dsp::AudioBlock<float> (buffer.getArrayOfWritePointers(), 1, numSamples);
-        auto block44k = resampler.processIn (block);
 
 	// Apply LSTM model
-        LSTM.process(block44k.getChannelPointer(0), block44k.getChannelPointer(0), (int) block44k.getNumSamples());
+        LSTM.process(block.getChannelPointer(0), block.getChannelPointer(0), (int) block.getNumSamples());
 
-        // resample back to original sample rate
-        resampler.processOut (block44k, block);
 
         // Master Volume 
         // Apply ramped changes for gain smoothing
