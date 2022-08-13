@@ -111,10 +111,11 @@ void ChameleonAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBl
     // Use this method as the place to do any pre-playback
     // initialisation that you need..
     LSTM.reset();
+    LSTM2.reset();
 
     // prepare resampler for target sample rate: 44.1 kHz
     constexpr double targetSampleRate = 44100.0;
-    resampler.prepareWithTargetSampleRate ({ sampleRate, (uint32) samplesPerBlock, 1 }, targetSampleRate);
+    resampler.prepareWithTargetSampleRate ({ sampleRate, (uint32) samplesPerBlock, 2 }, targetSampleRate);
 
     // set up DC blocker
     dcBlocker.coefficients = dsp::IIR::Coefficients<float>::makeHighPass (sampleRate, 35.0f);
@@ -162,12 +163,9 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
     const int numInputChannels = getTotalNumInputChannels();
     const int sampleRate = getSampleRate();
 
-
+    dsp::AudioBlock<float> block(buffer);
     // Amp =============================================================================
     if (amp_state == 1) {
-        //    EQ (Presence, Bass, Mid, Treble)
-        eq4band.process(buffer.getReadPointer(0), buffer.getWritePointer(0), midiMessages, numSamples, numInputChannels, sampleRate);
-
 
         // Apply ramped changes for gain smoothing
         if (ampDrive == previousAmpDrive)
@@ -180,14 +178,37 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         }
 
         // resample to target sample rate
-        auto block = dsp::AudioBlock<float> (buffer.getArrayOfWritePointers(), 1, numSamples);
+
+        //auto block = dsp::AudioBlock<float> (buffer.getArrayOfWritePointers(), 1, numSamples);
         auto block44k = resampler.processIn (block);
 
-	// Apply LSTM model
-        LSTM.process(block44k.getChannelPointer(0), block44k.getChannelPointer(0), (int) block44k.getNumSamples());
+        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        {
+            // Apply LSTM model
+            if (ch == 0) {
+                LSTM.process(block44k.getChannelPointer(0), block44k.getChannelPointer(0), (int) block44k.getNumSamples());
+            
+            }
+            else if (ch == 1) {
+                LSTM2.process(block44k.getChannelPointer(1), block44k.getChannelPointer(1), (int) block44k.getNumSamples());
+            }
+        }
 
+	
         // resample back to original sample rate
         resampler.processOut (block44k, block);
+
+        for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
+        {
+            // Apply EQ
+            if (ch == 0) {
+                eq4band.process(buffer.getReadPointer(0), buffer.getWritePointer(0), midiMessages, numSamples, numInputChannels, sampleRate);
+            
+            }
+            else if (ch == 1) {
+                eq4band.process(buffer.getReadPointer(1), buffer.getWritePointer(1), midiMessages, numSamples, numInputChannels, sampleRate);
+            }
+        }
 
         // Master Volume 
         // Apply ramped changes for gain smoothing
@@ -206,14 +227,9 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         }
     }
     
-
     // process DC blocker
-    auto monoBlock = dsp::AudioBlock<float> (buffer).getSingleChannelBlock (0);
-    dcBlocker.process (dsp::ProcessContextReplacing<float> (monoBlock));
-
-    // Handle stereo input by copying channel 1 to channel 2
-    for (int ch = 1; ch < buffer.getNumChannels(); ++ch)
-        buffer.copyFrom(ch, 0, buffer, 0, 0, buffer.getNumSamples());
+    dsp::ProcessContextReplacing<float> context(block);
+    dcBlocker.process(context);
 }
 
 //==============================================================================
@@ -281,6 +297,7 @@ void ChameleonAudioProcessor::loadConfig(File configFile)
     char_filename = path.toUTF8();
 
     LSTM.load_json(char_filename);
+    LSTM2.load_json(char_filename);
 
     this->suspendProcessing(false);
 }

@@ -111,9 +111,9 @@ public:
     float ampGainKnobState = 0.0;
     float ampMasterKnobState = -18.0;
     float ampPresenceKnobState = 0.0;
-
   
     RT_LSTM LSTM;
+    RT_LSTM LSTM2;
 
     AudioProcessorValueTreeState treeState;
 
