@@ -24,19 +24,27 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
         .withOutput("Output", AudioChannelSet::stereo(), true)
 #endif
     ),
-    //treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(-10.0f, 10.0f, 0.01f), 0.0f),
-    treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(-10.0f, 10.0f, 0.01f), 0.0f),
+    //treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
+    treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
                         std::make_unique<AudioParameterFloat>(BASS_ID, BASS_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
                         std::make_unique<AudioParameterFloat>(MID_ID, MID_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
                         std::make_unique<AudioParameterFloat>(TREBLE_ID, TREBLE_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
                         std::make_unique<AudioParameterFloat>(PRESENCE_ID, PRESENCE_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
-                        std::make_unique<AudioParameterFloat>(MASTER_ID, MASTER_NAME, NormalisableRange<float>(-36.0f, 0.0f, 0.01f), 0.0f) })
+                        std::make_unique<AudioParameterFloat>(MASTER_ID, MASTER_NAME, NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f) })
 
 #endif
 {
-    setupDataDirectories();
-    installTones();
-    loadConfig(red_tone);
+    //setupDataDirectories();
+    //installTones();
+    //loadConfig(red_tone);
+    setMode();
+
+    gainParam = treeState.getRawParameterValue (GAIN_ID);
+    bassParam = treeState.getRawParameterValue (BASS_ID);
+    midParam = treeState.getRawParameterValue (MID_ID);
+    trebleParam = treeState.getRawParameterValue (TREBLE_ID);
+    presenceParam = treeState.getRawParameterValue (PRESENCE_ID);
+    masterParam = treeState.getRawParameterValue (MASTER_ID);
 }
 
 ChameleonAudioProcessor::~ChameleonAudioProcessor()
@@ -163,6 +171,13 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
     const int numInputChannels = getTotalNumInputChannels();
     const int sampleRate = getSampleRate();
 
+    auto ampDrive = static_cast<float> (gainParam->load());
+    auto bassValue = static_cast<float> (bassParam->load());
+    auto midValue = static_cast<float> (midParam->load());
+    auto trebleValue = static_cast<float> (trebleParam->load());
+    auto presenceValue = static_cast<float> (presenceParam->load());
+    auto ampMaster = static_cast<float> (masterParam->load());
+
     dsp::AudioBlock<float> block(buffer);
     // Amp =============================================================================
     if (amp_state == 1) {
@@ -170,10 +185,10 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         // Apply ramped changes for gain smoothing
         if (ampDrive == previousAmpDrive)
         {
-            buffer.applyGain(ampDrive);
+            buffer.applyGain(ampDrive*2.0);
         }
         else {
-            buffer.applyGainRamp(0, (int) buffer.getNumSamples(), previousAmpDrive, ampDrive);
+            buffer.applyGainRamp(0, (int) buffer.getNumSamples(), previousAmpDrive*2.0, ampDrive*2.0);
             previousAmpDrive = ampDrive;
         }
 
@@ -198,6 +213,8 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         // resample back to original sample rate
         resampler.processOut (block44k, block);
 
+        //eq4band.setParameters(bassValue, midValue, trebleValue, presenceValue);
+
         for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
         {
             // Apply EQ
@@ -214,10 +231,10 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         // Apply ramped changes for gain smoothing
         if (ampMaster == previousAmpMaster)
         {
-            buffer.applyGain(ampMaster);
+            buffer.applyGain(ampMaster *2.0);
         }
         else {
-            buffer.applyGainRamp(0, (int) buffer.getNumSamples(), previousAmpMaster, ampMaster);
+            buffer.applyGainRamp(0, (int) buffer.getNumSamples(), previousAmpMaster *2.0, ampMaster * 2.0);
             previousAmpMaster = ampMaster;
         }
 
@@ -269,19 +286,7 @@ void ChameleonAudioProcessor::setStateInformation (const void* data, int sizeInB
         {
             treeState.replaceState (juce::ValueTree::fromXml (*xmlState));
             current_model_index = xmlState->getIntAttribute ("current_tone");
-
-            switch (current_model_index)
-            {
-            case 0:
-                loadConfig (red_tone);
-                break;
-            case 1:
-                loadConfig (gold_tone);
-                break;
-            case 2:
-                loadConfig (green_tone);
-                break;
-            }
+            setMode();
 
             if (auto* editor = dynamic_cast<ChameleonAudioProcessorEditor*> (getActiveEditor()))
                 editor->resetImages();
@@ -289,114 +294,38 @@ void ChameleonAudioProcessor::setStateInformation (const void* data, int sizeInB
     }
 }
 
-void ChameleonAudioProcessor::loadConfig(File configFile)
+
+
+void ChameleonAudioProcessor::setMode()
 {
-    this->suspendProcessing(true);
-    model_loaded = 1;
-    String path = configFile.getFullPathName();
-    char_filename = path.toUTF8();
+    
+    if (current_model_index ==0) {
+        MemoryInputStream jsonInputStream(BinaryData::red_json, BinaryData::red_jsonSize, false);
+        nlohmann::json weights_json = nlohmann::json::parse(jsonInputStream.readEntireStreamAsString().toStdString());
+        LSTM.reset();
+        LSTM2.reset();
+        LSTM.load_json(weights_json);
+        LSTM2.load_json(weights_json);
 
-    LSTM.load_json(char_filename);
-    LSTM2.load_json(char_filename);
+    } else if (current_model_index == 1) {
+        MemoryInputStream jsonInputStream(BinaryData::gold_json, BinaryData::gold_jsonSize, false);
+        nlohmann::json weights_json = nlohmann::json::parse(jsonInputStream.readEntireStreamAsString().toStdString());
+        LSTM.reset();
+        LSTM2.reset();
+        LSTM.load_json(weights_json);
+        LSTM2.load_json(weights_json);
 
-    this->suspendProcessing(false);
+    } else if (current_model_index == 2) {
+        MemoryInputStream jsonInputStream(BinaryData::green_json, BinaryData::green_jsonSize, false);
+        nlohmann::json weights_json = nlohmann::json::parse(jsonInputStream.readEntireStreamAsString().toStdString());
+        LSTM.reset();
+        LSTM2.reset();
+        LSTM.load_json(weights_json);
+        LSTM2.load_json(weights_json);
+
+    }
+  
 }
-
-
-void ChameleonAudioProcessor::setupDataDirectories()
-{
-    // User app data directory
-    File userAppDataTempFile = userAppDataDirectory.getChildFile("tmp.pdl");
-
-    File userAppDataTempFile_tones = userAppDataDirectory_tones.getChildFile("tmp.pdl");
-
-    // Create (and delete) temp file if necessary, so that user doesn't have
-    // to manually create directories
-    if (!userAppDataDirectory.exists()) {
-        userAppDataTempFile.create();
-    }
-    if (userAppDataTempFile.existsAsFile()) {
-        userAppDataTempFile.deleteFile();
-    }
-
-    if (!userAppDataDirectory_tones.exists()) {
-        userAppDataTempFile_tones.create();
-    }
-    if (userAppDataTempFile_tones.existsAsFile()) {
-        userAppDataTempFile_tones.deleteFile();
-    }
-}
-
-void ChameleonAudioProcessor::installTones()
-//====================================================================
-// Description: Checks that the default tones
-//  are installed to the Chameleon directory, and if not, 
-//  copy them from the binary data in the plugin to that directory.
-//
-//====================================================================
-{
-    if (red_tone.existsAsFile() == false) {
-        std::string string_command = red_tone.getFullPathName().toStdString();
-        const char* char_red = &string_command[0];
-
-        std::ofstream myfile;
-        myfile.open(char_red);
-        myfile << BinaryData::red_json;
-
-        myfile.close();
-    }
-
-    if (gold_tone.existsAsFile() == false) {
-        std::string string_command = gold_tone.getFullPathName().toStdString();
-        const char* char_gold = &string_command[0];
-
-        std::ofstream myfile;
-        myfile.open(char_gold);
-        myfile << BinaryData::gold_json;
-
-        myfile.close();
-    }
-
-    if (green_tone.existsAsFile() == false) {
-        std::string string_command = green_tone.getFullPathName().toStdString();
-        const char* char_green = &string_command[0];
-
-        std::ofstream myfile;
-        myfile.open(char_green);
-        myfile << BinaryData::green_json;
-
-        myfile.close();
-    }
-}
-
-
-void ChameleonAudioProcessor::set_ampDrive(float db_ampDrive)
-{
-    ampDrive = decibelToLinear(db_ampDrive);
-    ampGainKnobState = db_ampDrive;
-}
-
-void ChameleonAudioProcessor::set_ampMaster(float db_ampMaster)
-{
-    ampMasterKnobState = db_ampMaster;
-    if (db_ampMaster == -36.0) {
-        ampMaster = decibelToLinear(-100.0);
-    } else {
-        ampMaster = decibelToLinear(db_ampMaster);
-    }
-}
-
-
-void ChameleonAudioProcessor::set_ampEQ(float bass_slider, float mid_slider, float treble_slider, float presence_slider)
-{
-    eq4band.setParameters(bass_slider, mid_slider, treble_slider, presence_slider);
-}
-
-float ChameleonAudioProcessor::decibelToLinear(float dbValue)
-{
-    return powf(10.0, dbValue/20.0);
-}
-
 //==============================================================================
 // This creates new instances of the plugin..
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()

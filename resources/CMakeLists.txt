@@ -14,11 +14,9 @@ juce_add_binary_data(BinaryData SOURCES
 	power_switch_down.png
 	power_switch_mid.png
 	power_switch_up.png
-
-
-    ../models/red.json
-    ../models/gold.json
-    ../models/green.json
+      ../models/red.json
+      ../models/gold.json
+      ../models/green.json
 )
 
 # Need to build BinaryData with -fPIC flag on Linux
