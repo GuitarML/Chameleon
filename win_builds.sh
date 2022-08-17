@@ -2,8 +2,7 @@
 
 build64(){
     #cmake -Bbuild -G"Visual Studio 15 2017 Win64"
-    cmake -Bbuild -G"Visual Studio 16 2019 Win64"
-    #cmake -Bbuild -G"Visual Studio 16 2019" -A x64
+    cmake -Bbuild -G"Visual Studio 16 2019" -A x64
     cmake --build build --config Release -j4
 }
 

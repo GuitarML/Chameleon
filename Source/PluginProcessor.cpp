@@ -232,10 +232,10 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         // Apply ramped changes for gain smoothing
         if (ampMaster == previousAmpMaster)
         {
-            buffer.applyGain(ampMaster *2.0);
+            buffer.applyGain(ampMaster);
         }
         else {
-            buffer.applyGainRamp(0, (int) buffer.getNumSamples(), previousAmpMaster *2.0, ampMaster * 2.0);
+            buffer.applyGainRamp(0, (int) buffer.getNumSamples(), previousAmpMaster, ampMaster);
             previousAmpMaster = ampMaster;
         }
 

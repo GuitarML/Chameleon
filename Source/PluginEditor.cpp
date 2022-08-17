@@ -90,6 +90,16 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     ampMasterKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20 );
     ampMasterKnob.setDoubleClickReturnValue(true, 0.5);
 
+
+    addAndMakeVisible(versionLabel);
+    versionLabel.setText("v1.2", juce::NotificationType::dontSendNotification);
+    versionLabel.setJustificationType(juce::Justification::left);
+    versionLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    auto font = versionLabel.getFont();
+    float height = font.getHeight();
+    font.setHeight(height); // 0.75
+    versionLabel.setFont(font);
+
     // Size of plugin GUI
     setSize(774, 293);
 
@@ -135,6 +145,7 @@ void ChameleonAudioProcessorEditor::resized()
 
     colorSelectButton.setBounds(58, 41, 70, 70);
     ampLED.setBounds(694, 89, 34, 34);
+    versionLabel.setBounds(730, 279, 60, 10);
 }
 
 
