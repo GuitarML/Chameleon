@@ -15,6 +15,6 @@ public:
 
 private:
     RTNeural::ModelT<float, 1, 1,
-        RTNeural::LSTMLayerT<float, 1, 20>,
-        RTNeural::DenseT<float, 20, 1>> model;
+        RTNeural::LSTMLayerT<float, 1, 32>,
+        RTNeural::DenseT<float, 32, 1>> model;
 };

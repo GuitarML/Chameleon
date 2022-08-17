@@ -24,7 +24,6 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
         .withOutput("Output", AudioChannelSet::stereo(), true)
 #endif
     ),
-    //treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
     treeState(*this, nullptr, "PARAMETER", { std::make_unique<AudioParameterFloat>(GAIN_ID, GAIN_NAME, NormalisableRange<float>(0.0f, 1.0f, 0.01f), 0.5f),
                         std::make_unique<AudioParameterFloat>(BASS_ID, BASS_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
                         std::make_unique<AudioParameterFloat>(MID_ID, MID_NAME, NormalisableRange<float>(-8.0f, 8.0f, 0.01f), 0.0f),
@@ -34,9 +33,6 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
 
 #endif
 {
-    //setupDataDirectories();
-    //installTones();
-    //loadConfig(red_tone);
     setMode();
 
     gainParam = treeState.getRawParameterValue (GAIN_ID);
@@ -45,6 +41,13 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
     trebleParam = treeState.getRawParameterValue (TREBLE_ID);
     presenceParam = treeState.getRawParameterValue (PRESENCE_ID);
     masterParam = treeState.getRawParameterValue (MASTER_ID);
+
+    auto bassValue = static_cast<float> (bassParam->load());
+    auto midValue = static_cast<float> (midParam->load());
+    auto trebleValue = static_cast<float> (trebleParam->load());
+    auto presenceValue = static_cast<float> (presenceParam->load());
+
+    eq4band.setParameters(bassValue, midValue, trebleValue, presenceValue);
 }
 
 ChameleonAudioProcessor::~ChameleonAudioProcessor()
@@ -193,8 +196,6 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
         }
 
         // resample to target sample rate
-
-        //auto block = dsp::AudioBlock<float> (buffer.getArrayOfWritePointers(), 1, numSamples);
         auto block44k = resampler.processIn (block);
 
         for (int ch = 0; ch < buffer.getNumChannels(); ++ch)
@@ -294,7 +295,10 @@ void ChameleonAudioProcessor::setStateInformation (const void* data, int sizeInB
     }
 }
 
-
+void ChameleonAudioProcessor::set_ampEQ(float bass_slider, float mid_slider, float treble_slider, float presence_slider)
+{
+    eq4band.setParameters(bass_slider, mid_slider, treble_slider, presence_slider);
+}
 
 void ChameleonAudioProcessor::setMode()
 {
