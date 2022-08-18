@@ -27,7 +27,6 @@ wait
 mkdir -p bin/Win64
 declare -a plugins=("Chameleon")
 for plugin in "${plugins[@]}"; do
-    cp -R build/${plugin}_artefacts/Release/Standalone/${plugin}.exe bin/Win64/${plugin}.exe
     cp -R build/${plugin}_artefacts/Release/VST3/${plugin}.vst3 bin/Win64/${plugin}.vst3
 done
 

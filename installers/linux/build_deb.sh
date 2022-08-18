@@ -1,5 +1,5 @@
 #!/bin/bash
-# This script builds a .deb package for installing the Standalone, VST3, and LV2 plugins on Linux
+# This script builds a .deb package for installing the VST3, and LV2 plugins on Linux
 
 # Set the app name and version here
 app_name=Chameleon
@@ -18,14 +18,10 @@ Architecture: all\n\
 Essential: no\n\
 Installed-Size: 16480128\n\
 Maintainer: GuitarML\n\
-Description: GuitarML Plugin Debian Package (VST3, LV2, Standalone)\n" > $app_name"/DEBIAN/control"
+Description: GuitarML Plugin Debian Package (VST3, LV2)\n" > $app_name"/DEBIAN/control"
 
 
-# 2. Copy Standalone, VST3, and LV2 plugins to the package directory (assumes project is already built)
-
-mkdir -p $app_name/opt/GuitarML/
-echo "Copying ../../build/"$app_name"_artefacts/Release/Standalone/"$app_name
-cp "../../build/"$app_name"_artefacts/Release/Standalone/"$app_name $app_name"/opt/GuitarML/"
+# 2. Copy VST3, and LV2 plugins to the package directory (assumes project is already built)
 
 mkdir -p $app_name/usr/local/lib/vst3/
 echo "Copying ../../build/"$app_name"_artefacts/Release/VST3/"$app_name".vst3"
