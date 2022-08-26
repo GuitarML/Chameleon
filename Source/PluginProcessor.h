@@ -89,6 +89,7 @@ public:
 
 private:
     Eq4Band eq4band; // Amp EQ
+    Eq4Band eq4band2; // Amp EQ
 
     std::atomic<float>* bassParam = nullptr;
     std::atomic<float>* midParam = nullptr;

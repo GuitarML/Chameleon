@@ -48,6 +48,7 @@ ChameleonAudioProcessor::ChameleonAudioProcessor()
     auto presenceValue = static_cast<float> (presenceParam->load());
 
     eq4band.setParameters(bassValue, midValue, trebleValue, presenceValue);
+    eq4band2.setParameters(bassValue, midValue, trebleValue, presenceValue);
 }
 
 ChameleonAudioProcessor::~ChameleonAudioProcessor()
@@ -224,7 +225,7 @@ void ChameleonAudioProcessor::processBlock (AudioBuffer<float>& buffer, MidiBuff
             
             }
             else if (ch == 1) {
-                eq4band.process(buffer.getReadPointer(1), buffer.getWritePointer(1), midiMessages, numSamples, numInputChannels, sampleRate);
+                eq4band2.process(buffer.getReadPointer(1), buffer.getWritePointer(1), midiMessages, numSamples, numInputChannels, sampleRate);
             }
         }
 
@@ -298,6 +299,7 @@ void ChameleonAudioProcessor::setStateInformation (const void* data, int sizeInB
 void ChameleonAudioProcessor::set_ampEQ(float bass_slider, float mid_slider, float treble_slider, float presence_slider)
 {
     eq4band.setParameters(bass_slider, mid_slider, treble_slider, presence_slider);
+    eq4band2.setParameters(bass_slider, mid_slider, treble_slider, presence_slider);
 }
 
 void ChameleonAudioProcessor::setMode()
