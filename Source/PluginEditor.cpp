@@ -46,67 +46,59 @@ ChameleonAudioProcessorEditor::ChameleonAudioProcessorEditor (ChameleonAudioProc
     addAndMakeVisible(ampBassKnob);
     ampBassKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampBassKnob.addListener(this);
-    ampBassKnob.setRange(-8.0, 8.0);
-    ampBassKnob.setValue(processor.ampBassKnobState);
     ampBassKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     ampBassKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20);
-    ampBassKnob.setNumDecimalPlacesToDisplay(1);
     ampBassKnob.setDoubleClickReturnValue(true, 0.0);
 
     midSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, MID_ID, ampMidKnob);    
     addAndMakeVisible(ampMidKnob);
     ampMidKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampMidKnob.addListener(this);
-    ampMidKnob.setRange(-8.0, 8.0);
-    ampMidKnob.setValue(processor.ampMidKnobState);
     ampMidKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     ampMidKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20);
-    ampMidKnob.setNumDecimalPlacesToDisplay(1);
     ampMidKnob.setDoubleClickReturnValue(true, 0.0);
 
     trebleSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, TREBLE_ID, ampTrebleKnob);
     addAndMakeVisible(ampTrebleKnob);
     ampTrebleKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampTrebleKnob.addListener(this);
-    ampTrebleKnob.setRange(-8.0, 8.0);
-    ampTrebleKnob.setValue(processor.ampTrebleKnobState);
     ampTrebleKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     ampTrebleKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20);
-    ampTrebleKnob.setNumDecimalPlacesToDisplay(1);
     ampTrebleKnob.setDoubleClickReturnValue(true, 0.0);
 
     gainSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, GAIN_ID, ampGainKnob);
     addAndMakeVisible(ampGainKnob);
     ampGainKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampGainKnob.addListener(this);
-    ampGainKnob.setRange(-10.0, 10.0);
-    ampGainKnob.setValue(processor.ampGainKnobState);
     ampGainKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     ampGainKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20);
-    ampGainKnob.setNumDecimalPlacesToDisplay(1);
-    ampGainKnob.setDoubleClickReturnValue(true, 0.0);
+    ampGainKnob.setDoubleClickReturnValue(true, 0.5);
 	
     presenceSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, PRESENCE_ID, ampPresenceKnob);
     addAndMakeVisible(ampPresenceKnob);
     ampPresenceKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampPresenceKnob.addListener(this);
-    ampPresenceKnob.setRange(-8.0, 8.0);
-    ampPresenceKnob.setValue(processor.ampPresenceKnobState);
     ampPresenceKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     ampPresenceKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20 );
-    ampPresenceKnob.setNumDecimalPlacesToDisplay(1);
     ampPresenceKnob.setDoubleClickReturnValue(true, 0.0);
 
     masterSliderAttach = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(processor.treeState, MASTER_ID, ampMasterKnob);
     addAndMakeVisible(ampMasterKnob);
     ampMasterKnob.setLookAndFeel(&ampSilverKnobLAF);
     ampMasterKnob.addListener(this);
-    ampMasterKnob.setRange(-36.0, 0.0);
-    ampMasterKnob.setValue(processor.ampMasterKnobState);
     ampMasterKnob.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     ampMasterKnob.setTextBoxStyle(juce::Slider::TextEntryBoxPosition::NoTextBox, false, 50, 20 );
-    ampMasterKnob.setNumDecimalPlacesToDisplay(1);
-    ampMasterKnob.setDoubleClickReturnValue(true, -18.0);
+    ampMasterKnob.setDoubleClickReturnValue(true, 0.5);
+
+
+    addAndMakeVisible(versionLabel);
+    versionLabel.setText("v1.2", juce::NotificationType::dontSendNotification);
+    versionLabel.setJustificationType(juce::Justification::left);
+    versionLabel.setColour(juce::Label::textColourId, juce::Colours::black);
+    auto font = versionLabel.getFont();
+    float height = font.getHeight();
+    font.setHeight(height); // 0.75
+    versionLabel.setFont(font);
 
     // Size of plugin GUI
     setSize(774, 293);
@@ -153,6 +145,7 @@ void ChameleonAudioProcessorEditor::resized()
 
     colorSelectButton.setBounds(58, 41, 70, 70);
     ampLED.setBounds(694, 89, 34, 34);
+    versionLabel.setBounds(730, 279, 60, 10);
 }
 
 
@@ -168,22 +161,19 @@ void ChameleonAudioProcessorEditor::colorSelectClicked() {
     if (processor.current_model_index == 0) {
         processor.current_model_index = 1;
         processor.fromUpDown = 0;
-        processor.loadConfig(processor.gold_tone);
     }
     else if (processor.current_model_index == 1) {
         if (processor.fromUpDown == 0) {
             processor.current_model_index = 2;
-            processor.loadConfig(processor.green_tone);
         } else {
             processor.current_model_index = 0;
-            processor.loadConfig(processor.red_tone);
         }
     }
     else if (processor.current_model_index == 2) {
         processor.current_model_index = 1;
         processor.fromUpDown = 1;
-        processor.loadConfig(processor.gold_tone);
     }
+    processor.setMode();
     resetImages(); // Resets the Toggle Switch and LED image based on current settings
     repaint();
 }
@@ -192,16 +182,8 @@ void ChameleonAudioProcessorEditor::colorSelectClicked() {
 void ChameleonAudioProcessorEditor::sliderValueChanged(Slider* slider)
 {
     // Amp
-    if (slider == &ampGainKnob)
-        processor.set_ampDrive(slider->getValue());
-    else if (slider == &ampMasterKnob)
-        processor.set_ampMaster(slider->getValue());
-    else if (slider == &ampBassKnob || slider == &ampMidKnob || slider == &ampTrebleKnob) {
+    if (slider == &ampBassKnob || slider == &ampMidKnob || slider == &ampTrebleKnob) {
         processor.set_ampEQ(ampBassKnob.getValue(), ampMidKnob.getValue(), ampTrebleKnob.getValue(), ampPresenceKnob.getValue());
-        // Set knob states for saving positions when closing/reopening GUI
-        processor.ampBassKnobState = ampBassKnob.getValue();
-        processor.ampMidKnobState = ampMidKnob.getValue();
-        processor.ampTrebleKnobState = ampTrebleKnob.getValue();
     }
     else if (slider == &ampPresenceKnob) {
         processor.set_ampEQ(ampBassKnob.getValue(), ampMidKnob.getValue(), ampTrebleKnob.getValue(), ampPresenceKnob.getValue());
