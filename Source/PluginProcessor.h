@@ -74,55 +74,31 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    void loadConfig(File configFile);
-    void setupDataDirectories();
-    void installTones();
-
-    // Amp
-    void set_ampDrive(float db_ampCleanDrive);
-    void set_ampMaster(float db_ampMaster);
     void set_ampEQ(float bass_slider, float mid_slider, float treble_slider, float presence_slider);
-
-    float decibelToLinear(float dbValue);
-
-    std::vector<File> jsonFiles;
-    File currentDirectory = File::getCurrentWorkingDirectory().getFullPathName();
-    File userAppDataDirectory = File::getSpecialLocation(File::userDocumentsDirectory).getChildFile(JucePlugin_Manufacturer).getChildFile(JucePlugin_Name);
-    File userAppDataDirectory_tones = userAppDataDirectory.getFullPathName() + "/tones";
-
-    File red_tone = userAppDataDirectory_tones.getFullPathName() + "/red.json";
-    File gold_tone = userAppDataDirectory_tones.getFullPathName() + "/gold.json";
-    File green_tone = userAppDataDirectory_tones.getFullPathName() + "/green.json";
+    void setMode();
 
     // Pedal/amp states
     int amp_state = 1; // 0 = off, 1 = on
-    int custom_tone = 0; // 0 = custom tone loaded, 1 = default channel tone
-    File loaded_tone;
-    juce::String loaded_tone_name;
-    const char* char_filename = "";
-    int model_loaded = 0;
     int current_model_index = 0; // 0 = red, 1 = gold, 2 = green
     int fromUpDown = 0;
-
-    // Amp knob states
-    float ampBassKnobState = 0.0;
-    float ampMidKnobState = 0.0;
-    float ampTrebleKnobState = 0.0;
-    float ampGainKnobState = 0.0;
-    float ampMasterKnobState = -18.0;
-    float ampPresenceKnobState = 0.0;
-
   
     RT_LSTM LSTM;
+    RT_LSTM LSTM2;
 
     AudioProcessorValueTreeState treeState;
 
 private:
     Eq4Band eq4band; // Amp EQ
+    Eq4Band eq4band2; // Amp EQ
 
-    // Amp
-    float ampDrive = 1.0;
-    float ampMaster = 1.0;
+    std::atomic<float>* bassParam = nullptr;
+    std::atomic<float>* midParam = nullptr;
+    std::atomic<float>* trebleParam = nullptr;
+    std::atomic<float>* driveParam = nullptr;
+    std::atomic<float>* gainParam = nullptr;
+    std::atomic<float>* presenceParam = nullptr;
+    std::atomic<float>* masterParam = nullptr;
+
     float previousAmpDrive = 1.0;
     float previousAmpMaster = 1.0;
 

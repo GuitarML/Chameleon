@@ -46,6 +46,7 @@ private:
     Slider ampGainKnob;
     Slider ampMasterKnob;
     Slider ampPresenceKnob;
+    Label versionLabel;
 
     ImageButton colorSelectButton;
     ImageButton ampLED;

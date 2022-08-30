@@ -79,7 +79,7 @@
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
-															<string>../../bin/Mac/Chameleon.component</string>
+															<string>../../build/Chameleon_artefacts/Release/AU/Chameleon.component</string>
 															<key>PATH_TYPE</key>
 															<integer>1</integer>
 															<key>PERMISSIONS</key>
@@ -631,7 +631,7 @@
 															<key>GID</key>
 															<integer>0</integer>
 															<key>PATH</key>
-															<string>../../bin/Mac/Chameleon.vst3</string>
+															<string>../../build/Chameleon_artefacts/Release/VST3/Chameleon.vst3</string>
 															<key>PATH_TYPE</key>
 															<integer>1</integer>
 															<key>PERMISSIONS</key>
@@ -1101,43 +1101,14 @@
 			<key>PACKAGE_FILES</key>
 			<dict>
 				<key>DEFAULT_INSTALL_LOCATION</key>
-				<string>/</string>
+				<string>/Library/Application Support/Avid/Audio/Plug-Ins</string>
 				<key>HIERARCHY</key>
 				<dict>
 					<key>CHILDREN</key>
 					<array>
 						<dict>
 							<key>CHILDREN</key>
-							<array>
-								<dict>
-									<key>BUNDLE_CAN_DOWNGRADE</key>
-									<false/>
-									<key>BUNDLE_POSTINSTALL_PATH</key>
-									<dict>
-										<key>PATH_TYPE</key>
-										<integer>0</integer>
-									</dict>
-									<key>BUNDLE_PREINSTALL_PATH</key>
-									<dict>
-										<key>PATH_TYPE</key>
-										<integer>0</integer>
-									</dict>
-									<key>CHILDREN</key>
-									<array/>
-									<key>GID</key>
-									<integer>80</integer>
-									<key>PATH</key>
-									<string>../../bin/Mac/Chameleon.app</string>
-									<key>PATH_TYPE</key>
-									<integer>1</integer>
-									<key>PERMISSIONS</key>
-									<integer>493</integer>
-									<key>TYPE</key>
-									<integer>3</integer>
-									<key>UID</key>
-									<integer>0</integer>
-								</dict>
-							</array>
+							<array/>
 							<key>GID</key>
 							<integer>80</integer>
 							<key>PATH</key>
@@ -1156,7 +1127,87 @@
 							<array>
 								<dict>
 									<key>CHILDREN</key>
-									<array/>
+									<array>
+										<dict>
+											<key>CHILDREN</key>
+											<array>
+												<dict>
+													<key>CHILDREN</key>
+													<array>
+														<dict>
+															<key>CHILDREN</key>
+															<array>
+																<dict>
+																	<key>BUNDLE_CAN_DOWNGRADE</key>
+																	<false/>
+																	<key>BUNDLE_POSTINSTALL_PATH</key>
+																	<dict>
+																		<key>PATH_TYPE</key>
+																		<integer>0</integer>
+																	</dict>
+																	<key>BUNDLE_PREINSTALL_PATH</key>
+																	<dict>
+																		<key>PATH_TYPE</key>
+																		<integer>0</integer>
+																	</dict>
+																	<key>CHILDREN</key>
+																	<array/>
+																	<key>GID</key>
+																	<integer>80</integer>
+																	<key>PATH</key>
+																	<string>../../build-aax/Chameleon_artefacts/Release/AAX/Chameleon.aaxplugin</string>
+																	<key>PATH_TYPE</key>
+																	<integer>1</integer>
+																	<key>PERMISSIONS</key>
+																	<integer>493</integer>
+																	<key>TYPE</key>
+																	<integer>3</integer>
+																	<key>UID</key>
+																	<integer>0</integer>
+																</dict>
+															</array>
+															<key>GID</key>
+															<integer>80</integer>
+															<key>PATH</key>
+															<string>Plug-Ins</string>
+															<key>PATH_TYPE</key>
+															<integer>2</integer>
+															<key>PERMISSIONS</key>
+															<integer>509</integer>
+															<key>TYPE</key>
+															<integer>2</integer>
+															<key>UID</key>
+															<integer>0</integer>
+														</dict>
+													</array>
+													<key>GID</key>
+													<integer>80</integer>
+													<key>PATH</key>
+													<string>Audio</string>
+													<key>PATH_TYPE</key>
+													<integer>2</integer>
+													<key>PERMISSIONS</key>
+													<integer>509</integer>
+													<key>TYPE</key>
+													<integer>2</integer>
+													<key>UID</key>
+													<integer>0</integer>
+												</dict>
+											</array>
+											<key>GID</key>
+											<integer>80</integer>
+											<key>PATH</key>
+											<string>Avid</string>
+											<key>PATH_TYPE</key>
+											<integer>2</integer>
+											<key>PERMISSIONS</key>
+											<integer>509</integer>
+											<key>TYPE</key>
+											<integer>2</integer>
+											<key>UID</key>
+											<integer>0</integer>
+										</dict>
+									</array>
 									<key>GID</key>
 									<integer>80</integer>
 									<key>PATH</key>
@@ -1548,6 +1599,21 @@
 				<key>VERSION</key>
 				<integer>5</integer>
 			</dict>
+			<key>PACKAGE_SCRIPTS</key>
+			<dict>
+				<key>POSTINSTALL_PATH</key>
+				<dict>
+					<key>PATH_TYPE</key>
+					<integer>0</integer>
+				</dict>
+				<key>PREINSTALL_PATH</key>
+				<dict>
+					<key>PATH_TYPE</key>
+					<integer>0</integer>
+				</dict>
+				<key>RESOURCES</key>
+				<array/>
+			</dict>
 			<key>PACKAGE_SETTINGS</key>
 			<dict>
 				<key>AUTHENTICATION</key>
@@ -1557,11 +1623,11 @@
 				<key>FOLLOW_SYMBOLIC_LINKS</key>
 				<false/>
 				<key>IDENTIFIER</key>
-				<string>com.GuitarML.Chameleon</string>
+				<string>com.GuitarML.Chameleon.ChameleonAAX</string>
 				<key>LOCATION</key>
 				<integer>0</integer>
 				<key>NAME</key>
-				<string>Standalone</string>
+				<string>AAX</string>
 				<key>OVERWRITE_PERMISSIONS</key>
 				<false/>
 				<key>PAYLOAD_SIZE</key>
@@ -1578,7 +1644,7 @@
 			<key>TYPE</key>
 			<integer>0</integer>
 			<key>UUID</key>
-			<string>54266BE4-CE88-4033-9C8D-248D3D38D1E1</string>
+			<string>67DBD464-3B62-45EF-964B-549829FB1466</string>
 		</dict>
 	</array>
 	<key>PROJECT</key>
@@ -1666,13 +1732,13 @@
 									<integer>1</integer>
 								</dict>
 								<key>PACKAGE_UUID</key>
-								<string>54266BE4-CE88-4033-9C8D-248D3D38D1E1</string>
+								<string>67DBD464-3B62-45EF-964B-549829FB1466</string>
 								<key>TITLE</key>
 								<array/>
 								<key>TYPE</key>
 								<integer>0</integer>
 								<key>UUID</key>
-								<string>7BA12230-EFE4-49DA-B02C-EAB67D03EF2D</string>
+								<string>2BBC047A-58AB-4D9C-AFC1-F8BF00186CE3</string>
 							</dict>
 						</array>
 						<key>REMOVED</key>
