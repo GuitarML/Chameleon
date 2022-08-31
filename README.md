@@ -20,7 +20,7 @@ Chameleon is part of the [2021 KVR Audio Developer Challenge](https://www.kvraud
 
 ## Installing the plugin
 
-1. Download the appropriate plugin installer (Windows, Mac)
+1. Download the appropriate plugin installer (Windows, Mac, Linux)
 2. Run the installer and follow the instructions. May need to reboot to allow your DAW to recognize the new plugin.
 
 ## Info
