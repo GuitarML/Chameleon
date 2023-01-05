@@ -37,7 +37,7 @@ juce_add_plugin(Chameleon
     PLUGIN_CODE Chm3 
     FORMATS ${JUCE_FORMATS}
     ProductName "Chameleon"
-    LV2_URI https://github.com/GuitarML/Chameleon
+    LV2URI https://github.com/GuitarML/Chameleon
     LV2_SHARED_LIBRARY_NAME Chameleon
     ICON_BIG resources/logo.png
 
